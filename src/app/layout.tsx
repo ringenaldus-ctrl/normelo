@@ -50,6 +50,7 @@ function Footer() {
         <p className="mb-6">
           Normelo werkt aan een certificeringsprogramma voor organisaties die willen aantonen dat zij EU AI Act compliant zijn. Meer informatie volgt.
         </p>
+        <p className="mb-4">Vragen of opmerkingen over deze website? <a href="mailto:info@normelo.com" className="text-accent hover:underline">info@normelo.com</a></p>
         <p>&copy; {new Date().getFullYear()} Normelo</p>
       </div>
     </footer>
