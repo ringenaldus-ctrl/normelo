@@ -116,6 +116,23 @@ export default function Home() {
         </p>
       </section>
 
+      {/* Quick Scan CTA */}
+      <section className="py-12 border-b border-border">
+        <div className="border border-accent rounded-lg p-8 bg-surface">
+          <h2 className="text-2xl font-bold mb-3">Valt jouw AI-gebruik onder de wet?</h2>
+          <p className="text-foreground leading-relaxed mb-5 max-w-2xl">
+            Doe de gratis Quick Scan en ontdek in 2 minuten of jouw organisatie te maken
+            heeft met hoog-risico AI volgens de EU AI Act. Geen registratie nodig.
+          </p>
+          <Link
+            href="/quick-scan"
+            className="inline-block px-6 py-3 bg-accent text-white rounded-lg font-medium no-underline hover:opacity-90 transition-opacity"
+          >
+            Start de Quick Scan →
+          </Link>
+        </div>
+      </section>
+
       {/* Sectorpagina's */}
       <section className="py-12 border-b border-border">
         <h2 className="text-2xl font-bold mb-2">EU AI Act per sector</h2>

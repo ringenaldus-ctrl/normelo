@@ -64,6 +64,9 @@ function Header() {
           <Link href="/tijdlijn" className="text-muted hover:text-primary transition-colors no-underline hover:no-underline">
             Tijdlijn
           </Link>
+          <Link href="/quick-scan" className="text-accent font-medium hover:text-primary transition-colors no-underline hover:no-underline">
+            Quick Scan
+          </Link>
           <Link href="/faq" className="text-muted hover:text-primary transition-colors no-underline hover:no-underline">
             FAQ
           </Link>
