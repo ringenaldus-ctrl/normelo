@@ -145,6 +145,14 @@ export default function Home() {
             <h3 className="text-base font-semibold mb-1 group-hover:text-accent">Overheid</h3>
             <p className="text-sm text-muted leading-relaxed">Uitkeringen, handhaving en publieke diensten</p>
           </Link>
+          <Link href="/logistiek" className="block p-5 border border-border rounded-lg hover:border-accent transition-colors no-underline group">
+            <h3 className="text-base font-semibold mb-1 group-hover:text-accent">Logistiek &amp; Transport</h3>
+            <p className="text-sm text-muted leading-relaxed">Workforce monitoring, autonome voertuigen en routing</p>
+          </Link>
+          <Link href="/industrie" className="block p-5 border border-border rounded-lg hover:border-accent transition-colors no-underline group">
+            <h3 className="text-base font-semibold mb-1 group-hover:text-accent">Industrie &amp; Manufacturing</h3>
+            <p className="text-sm text-muted leading-relaxed">Robots, machines, quality control en productveiligheid</p>
+          </Link>
         </div>
       </section>
 
