@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "EU AI Act & de Uitzendbranche",
@@ -7,8 +8,71 @@ export const metadata: Metadata = {
     "Wat betekent de EU AI Act voor uitzendbureaus? Uitleg over ATS-systemen, CV-screening en matchingtools als hoog-risico AI.",
 };
 
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: "EU AI Act & de Uitzendbranche",
+  description:
+    "Wat betekent de EU AI Act voor uitzendbureaus? Uitleg over ATS-systemen, CV-screening en matchingtools als hoog-risico AI.",
+  author: { "@type": "Organization", name: "Normelo", url: "https://normelo.com" },
+  publisher: { "@type": "Organization", name: "Normelo", url: "https://normelo.com" },
+  datePublished: "2026-04-01",
+  dateModified: "2026-04-01",
+  mainEntityOfPage: "https://normelo.com/uitzendbranche",
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Valt mijn ATS-systeem onder de EU AI Act?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Een ATS dat alleen sollicitaties ontvangt en organiseert is geen hoog-risico AI. Maar zodra het systeem kandidaten automatisch rankt, filtert of prioriteert op basis van hun profiel, kwalificeert het als hoog-risico AI-systeem onder de EU AI Act (Bijlage III, categorie 4). De meeste moderne ATS-systemen hebben deze functionaliteit ingebouwd.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Wat moet een uitzendbureau regelen voor de EU AI Act?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Als uitzendbureau ben je een 'deployer' van hoog-risico AI. Je verplichtingen zijn: menselijk toezicht op AI-beslissingen (recruiters moeten kunnen overrulen), transparantie naar kandidaten (zij moeten weten dat AI wordt ingezet), risicobeheer en monitoring van de AI-systemen, data governance (relevante en representatieve data), en medewerking aan registratie in de EU-database.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Wanneer moet een uitzendbureau EU AI Act compliant zijn?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "De volledige verplichtingen voor hoog-risico AI-systemen worden van toepassing in augustus 2026. Uitzendbureaus moeten vanaf dat moment aan alle eisen rond menselijk toezicht, transparantie, risicobeheer en data governance voldoen.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Valt CV-screening software onder de EU AI Act?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Ja, als de software niet alleen data uit cv's extraheert maar ook een waardeoordeel geeft door kandidaten te scoren of te categoriseren. Een parser die namen en werkervaring uit een cv haalt is geen hoog-risico AI. Een parser die bepaalt dat kandidaat A 'beter' is dan kandidaat B, is dat wel.",
+      },
+    },
+  ],
+};
+
 export default function Uitzendbranche() {
   return (
+    <>
+    <Script
+      id="article-schema"
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+    />
+    <Script
+      id="faq-schema"
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+    />
     <div className="max-w-4xl mx-auto px-6">
       {/* Hero */}
       <section className="py-16 border-b border-border">
@@ -247,5 +311,6 @@ export default function Uitzendbranche() {
         </Link>
       </section>
     </div>
+    </>
   );
 }

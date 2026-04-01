@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Normelo — EU AI Act uitleg voor organisaties",
@@ -7,8 +8,55 @@ export const metadata: Metadata = {
     "Wat is de EU AI Act en wat betekent het voor jouw organisatie? Normelo legt het uit in begrijpelijke taal.",
 };
 
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Normelo",
+  url: "https://normelo.com",
+  description:
+    "Normelo is een informatief kennisplatform over de EU AI Act. Duidelijke uitleg voor organisaties over hoog-risico AI-systemen, deadlines en verplichtingen.",
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Normelo",
+  url: "https://normelo.com",
+  description:
+    "EU AI Act uitleg voor organisaties. Begrijpelijk, compleet en gratis.",
+};
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: "De EU AI Act, begrijpelijk uitgelegd",
+  description:
+    "Wat is de EU AI Act en wat betekent het voor jouw organisatie? Uitleg over de wet, de risicocategorieën en wie er aan moet voldoen.",
+  author: { "@type": "Organization", name: "Normelo", url: "https://normelo.com" },
+  publisher: { "@type": "Organization", name: "Normelo", url: "https://normelo.com" },
+  datePublished: "2026-04-01",
+  dateModified: "2026-04-01",
+  mainEntityOfPage: "https://normelo.com",
+};
+
 export default function Home() {
   return (
+    <>
+    <Script
+      id="org-schema"
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+    />
+    <Script
+      id="website-schema"
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+    />
+    <Script
+      id="article-schema"
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+    />
     <div className="max-w-4xl mx-auto px-6">
       {/* Hero */}
       <section className="py-16 border-b border-border">
@@ -123,5 +171,6 @@ export default function Home() {
         </div>
       </section>
     </div>
+    </>
   );
 }
