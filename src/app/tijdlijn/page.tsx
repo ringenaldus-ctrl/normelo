@@ -28,14 +28,14 @@ const events = [
     label: "General-purpose AI-modellen",
     description:
       "Twaalf maanden na inwerkingtreding worden de verplichtingen voor aanbieders van general-purpose AI-modellen (GPAI) van toepassing. Dit raakt bedrijven als OpenAI, Google, Anthropic en Meta. Zij moeten technische documentatie opstellen, informatie publiceren over trainingsdata, en samenwerken met downstream-providers. Modellen met systemisch risico (zoals zeer krachtige frontier-modellen) krijgen extra verplichtingen rond red teaming en cyberveiligheid.",
-    status: "upcoming" as const,
+    status: "passed" as const,
   },
   {
     date: "2 februari 2026",
     label: "Governance-structuur operationeel",
     description:
       "De governance-structuur van de EU AI Act moet volledig operationeel zijn. Dit omvat het AI Office (onderdeel van de Europese Commissie), het AI Board (vertegenwoordigers van lidstaten), het wetenschappelijk panel van onafhankelijke experts, en het adviesforum met vertegenwoordigers van het bedrijfsleven en het maatschappelijk middenveld. Lidstaten moeten ook hun nationale toezichthoudende autoriteiten hebben aangewezen.",
-    status: "upcoming" as const,
+    status: "passed" as const,
   },
   {
     date: "2 augustus 2026",
