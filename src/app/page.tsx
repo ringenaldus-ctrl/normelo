@@ -116,22 +116,42 @@ export default function Home() {
         </p>
       </section>
 
-      {/* Overzicht pagina's */}
+      {/* Sectorpagina's */}
+      <section className="py-12 border-b border-border">
+        <h2 className="text-2xl font-bold mb-2">EU AI Act per sector</h2>
+        <p className="text-muted mb-6">Wat betekent de wet voor jouw branche?</p>
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <Link href="/uitzendbranche" className="block p-5 border border-border rounded-lg hover:border-accent transition-colors no-underline group">
+            <h3 className="text-base font-semibold mb-1 group-hover:text-accent">Uitzendbranche</h3>
+            <p className="text-sm text-muted leading-relaxed">ATS-systemen, CV-screening en matchingtools</p>
+          </Link>
+          <Link href="/zorg" className="block p-5 border border-border rounded-lg hover:border-accent transition-colors no-underline group">
+            <h3 className="text-base font-semibold mb-1 group-hover:text-accent">Zorg</h3>
+            <p className="text-sm text-muted leading-relaxed">Diagnose, triage en medische beeldvorming</p>
+          </Link>
+          <Link href="/financiele-dienstverlening" className="block p-5 border border-border rounded-lg hover:border-accent transition-colors no-underline group">
+            <h3 className="text-base font-semibold mb-1 group-hover:text-accent">Financiële dienstverlening</h3>
+            <p className="text-sm text-muted leading-relaxed">Kredietbeoordeling, fraude-detectie en KYC</p>
+          </Link>
+          <Link href="/verzekeringen" className="block p-5 border border-border rounded-lg hover:border-accent transition-colors no-underline group">
+            <h3 className="text-base font-semibold mb-1 group-hover:text-accent">Verzekeringen</h3>
+            <p className="text-sm text-muted leading-relaxed">Risico-inschatting en premieberekening</p>
+          </Link>
+          <Link href="/onderwijs" className="block p-5 border border-border rounded-lg hover:border-accent transition-colors no-underline group">
+            <h3 className="text-base font-semibold mb-1 group-hover:text-accent">Onderwijs</h3>
+            <p className="text-sm text-muted leading-relaxed">Toelating, examenbeoordeling en proctoring</p>
+          </Link>
+          <Link href="/overheid" className="block p-5 border border-border rounded-lg hover:border-accent transition-colors no-underline group">
+            <h3 className="text-base font-semibold mb-1 group-hover:text-accent">Overheid</h3>
+            <p className="text-sm text-muted leading-relaxed">Uitkeringen, handhaving en publieke diensten</p>
+          </Link>
+        </div>
+      </section>
+
+      {/* Verder lezen */}
       <section className="py-12">
         <h2 className="text-2xl font-bold mb-6">Verder lezen</h2>
-        <div className="grid gap-6 md:grid-cols-2">
-          <Link
-            href="/uitzendbranche"
-            className="block p-6 border border-border rounded-lg hover:border-accent transition-colors no-underline group"
-          >
-            <h3 className="text-lg font-semibold mb-2 group-hover:text-accent">
-              EU AI Act &amp; de Uitzendbranche
-            </h3>
-            <p className="text-sm text-muted leading-relaxed">
-              ATS-systemen, CV-screening en matchingtools — wat de EU AI Act betekent
-              voor uitzendbureaus en hun dagelijkse processen.
-            </p>
-          </Link>
+        <div className="grid gap-6 md:grid-cols-3">
           <Link
             href="/hoog-risico"
             className="block p-6 border border-border rounded-lg hover:border-accent transition-colors no-underline group"
@@ -140,8 +160,7 @@ export default function Home() {
               Hoog-risico AI-systemen
             </h3>
             <p className="text-sm text-muted leading-relaxed">
-              Welke AI-systemen vallen in de hoog-risico categorie? En welke
-              verplichtingen horen daarbij?
+              Alle acht categorieën en de verplichtingen voor providers en deployers.
             </p>
           </Link>
           <Link
@@ -152,8 +171,7 @@ export default function Home() {
               Tijdlijn &amp; deadlines
             </h3>
             <p className="text-sm text-muted leading-relaxed">
-              De EU AI Act wordt stapsgewijs van toepassing. Overzicht van alle
-              belangrijke data en wat er wanneer geldt.
+              Alle belangrijke data van 2024 tot 2027 op een rij.
             </p>
           </Link>
           <Link
@@ -164,8 +182,7 @@ export default function Home() {
               Veelgestelde vragen
             </h3>
             <p className="text-sm text-muted leading-relaxed">
-              Antwoorden op de vragen die HR-managers en bestuurders het vaakst
-              stellen over de EU AI Act.
+              De 12 meest gestelde vragen over de EU AI Act, helder beantwoord.
             </p>
           </Link>
         </div>
