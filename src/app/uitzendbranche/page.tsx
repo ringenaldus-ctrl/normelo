@@ -301,14 +301,19 @@ export default function Uitzendbranche() {
         </p>
       </section>
 
-      {/* Terug naar home */}
+      {/* Bottom navigation */}
       <section className="py-12">
-        <Link
-          href="/"
-          className="text-accent hover:underline"
-        >
-          &larr; Terug naar de homepage
-        </Link>
+        <div className="flex gap-6">
+          <Link href="/overheid" className="text-accent hover:underline">
+            &larr; Overheid
+          </Link>
+          <Link href="/" className="text-accent hover:underline">
+            Homepage
+          </Link>
+          <Link href="/verzekeringen" className="text-accent hover:underline">
+            Verzekeringen &rarr;
+          </Link>
+        </div>
       </section>
     </div>
     </>

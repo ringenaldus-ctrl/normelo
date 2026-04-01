@@ -167,11 +167,14 @@ export default function Verzekeringen() {
 
         <section className="py-12">
           <div className="flex gap-6">
-            <Link href="/" className="text-accent hover:underline">
-              &larr; Homepage
+            <Link href="/uitzendbranche" className="text-accent hover:underline">
+              &larr; Uitzendbranche
             </Link>
-            <Link href="/financiele-dienstverlening" className="text-accent hover:underline">
-              Financiële dienstverlening &rarr;
+            <Link href="/" className="text-accent hover:underline">
+              Homepage
+            </Link>
+            <Link href="/zorg" className="text-accent hover:underline">
+              Zorg &rarr;
             </Link>
           </div>
         </section>

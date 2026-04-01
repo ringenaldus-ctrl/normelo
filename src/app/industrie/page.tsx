@@ -240,11 +240,14 @@ export default function Industrie() {
 
         <section className="py-12">
           <div className="flex gap-6">
+            <Link href="/financiele-dienstverlening" className="text-accent hover:underline">
+              &larr; Financiële dienstverlening
+            </Link>
             <Link href="/" className="text-accent hover:underline">
-              &larr; Homepage
+              Homepage
             </Link>
             <Link href="/logistiek" className="text-accent hover:underline">
-              Logistiek &amp; Transport &rarr;
+              Logistiek &rarr;
             </Link>
           </div>
         </section>

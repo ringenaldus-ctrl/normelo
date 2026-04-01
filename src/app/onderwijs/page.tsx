@@ -168,11 +168,14 @@ export default function Onderwijs() {
 
         <section className="py-12">
           <div className="flex gap-6">
-            <Link href="/" className="text-accent hover:underline">
-              &larr; Homepage
+            <Link href="/logistiek" className="text-accent hover:underline">
+              &larr; Logistiek
             </Link>
-            <Link href="/zorg" className="text-accent hover:underline">
-              Zorgsector &rarr;
+            <Link href="/" className="text-accent hover:underline">
+              Homepage
+            </Link>
+            <Link href="/overheid" className="text-accent hover:underline">
+              Overheid &rarr;
             </Link>
           </div>
         </section>

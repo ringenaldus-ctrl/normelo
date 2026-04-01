@@ -235,11 +235,14 @@ export default function Logistiek() {
 
         <section className="py-12">
           <div className="flex gap-6">
-            <Link href="/" className="text-accent hover:underline">
-              &larr; Homepage
-            </Link>
             <Link href="/industrie" className="text-accent hover:underline">
-              Industrie &amp; Manufacturing &rarr;
+              &larr; Industrie
+            </Link>
+            <Link href="/" className="text-accent hover:underline">
+              Homepage
+            </Link>
+            <Link href="/onderwijs" className="text-accent hover:underline">
+              Onderwijs &rarr;
             </Link>
           </div>
         </section>

@@ -180,11 +180,14 @@ export default function Overheid() {
 
         <section className="py-12">
           <div className="flex gap-6">
-            <Link href="/" className="text-accent hover:underline">
-              &larr; Homepage
-            </Link>
             <Link href="/onderwijs" className="text-accent hover:underline">
-              Onderwijs &rarr;
+              &larr; Onderwijs
+            </Link>
+            <Link href="/" className="text-accent hover:underline">
+              Homepage
+            </Link>
+            <Link href="/uitzendbranche" className="text-accent hover:underline">
+              Uitzendbranche &rarr;
             </Link>
           </div>
         </section>

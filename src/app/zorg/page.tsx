@@ -171,11 +171,14 @@ export default function Zorg() {
 
         <section className="py-12">
           <div className="flex gap-6">
-            <Link href="/" className="text-accent hover:underline">
-              &larr; Homepage
+            <Link href="/verzekeringen" className="text-accent hover:underline">
+              &larr; Verzekeringen
             </Link>
-            <Link href="/uitzendbranche" className="text-accent hover:underline">
-              Uitzendbranche &rarr;
+            <Link href="/" className="text-accent hover:underline">
+              Homepage
+            </Link>
+            <Link href="/financiele-dienstverlening" className="text-accent hover:underline">
+              Financiële dienstverlening &rarr;
             </Link>
           </div>
         </section>
