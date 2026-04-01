@@ -126,7 +126,7 @@ export default function Home() {
           </p>
           <Link
             href="/quick-scan"
-            className="inline-block px-6 py-3 bg-accent text-white rounded-lg font-medium no-underline hover:opacity-90 transition-opacity"
+            className="btn-accent inline-block px-6 py-3 bg-accent rounded-lg font-medium no-underline hover:opacity-90 transition-opacity"
           >
             Start de Quick Scan →
           </Link>

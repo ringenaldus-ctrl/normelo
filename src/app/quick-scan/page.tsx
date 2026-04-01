@@ -14,15 +14,15 @@ interface Answers {
 }
 
 const sectoren = [
+  { id: "anders", label: "Andere sector", link: "/" },
   { id: "finance", label: "Financiële dienstverlening", link: "/financiele-dienstverlening" },
   { id: "hr", label: "HR & Recruitment", link: "/uitzendbranche" },
-  { id: "zorg", label: "Zorg & Medisch", link: "/zorg" },
+  { id: "industrie", label: "Industrie & Manufacturing", link: "/industrie" },
+  { id: "logistiek", label: "Logistiek & Transport", link: "/logistiek" },
+  { id: "onderwijs", label: "Onderwijs", link: "/onderwijs" },
   { id: "overheid", label: "Overheid", link: "/overheid" },
   { id: "verzekeringen", label: "Verzekeringen", link: "/verzekeringen" },
-  { id: "onderwijs", label: "Onderwijs", link: "/onderwijs" },
-  { id: "logistiek", label: "Logistiek & Transport", link: "/logistiek" },
-  { id: "industrie", label: "Industrie & Manufacturing", link: "/industrie" },
-  { id: "anders", label: "Andere sector", link: "/" },
+  { id: "zorg", label: "Zorg & Medisch", link: "/zorg" },
 ];
 
 const systemenOpties = [
@@ -480,7 +480,7 @@ export default function QuickScan() {
               </button>
               <Link
                 href="/faq"
-                className="px-5 py-3 bg-accent text-white rounded-lg hover:bg-primary transition-colors no-underline"
+                className="btn-accent px-5 py-3 bg-accent rounded-lg hover:bg-primary transition-colors no-underline"
               >
                 Veelgestelde vragen
               </Link>

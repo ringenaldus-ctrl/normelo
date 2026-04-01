@@ -42,3 +42,11 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
+a.btn-accent {
+  color: #ffffff !important;
+}
+
+a.btn-accent:hover {
+  text-decoration: none;
+}
