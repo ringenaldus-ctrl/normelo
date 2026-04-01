@@ -14,7 +14,6 @@ interface Answers {
 }
 
 const sectoren = [
-  { id: "anders", label: "Andere sector", link: "/" },
   { id: "finance", label: "Financiële dienstverlening", link: "/financiele-dienstverlening" },
   { id: "hr", label: "HR & Recruitment", link: "/uitzendbranche" },
   { id: "industrie", label: "Industrie & Manufacturing", link: "/industrie" },
@@ -23,6 +22,7 @@ const sectoren = [
   { id: "overheid", label: "Overheid", link: "/overheid" },
   { id: "verzekeringen", label: "Verzekeringen", link: "/verzekeringen" },
   { id: "zorg", label: "Zorg & Medisch", link: "/zorg" },
+  { id: "anders", label: "Andere sector", link: "/" },
 ];
 
 const systemenOpties = [
