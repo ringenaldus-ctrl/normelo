@@ -25,63 +25,76 @@ const sectoren = [
   { id: "anders", label: "Andere sector", link: "/" },
 ];
 
-const systemenOpties = [
-  {
-    id: "cv-screening",
-    label: "Software die automatisch cv's selecteert of kandidaten rankt",
-    risico: true,
-  },
-  {
-    id: "krediet",
-    label: "Software die bepaalt of iemand in aanmerking komt voor een lening, hypotheek of creditcard",
-    risico: true,
-  },
-  {
-    id: "verzekering-risico",
-    label: "Software die verzekeringsrisico's inschat of premies berekent",
-    risico: true,
-  },
-  {
-    id: "monitoring",
-    label: "Software die prestaties of gedrag van medewerkers automatisch bijhoudt",
-    risico: true,
-  },
-  {
-    id: "diagnose",
-    label: "Software die helpt bij medische diagnoses of beeldanalyse",
-    risico: true,
-  },
-  {
-    id: "toelating",
-    label: "Software die bepaalt wie wordt toegelaten tot een opleiding of cursus",
-    risico: true,
-  },
-  {
-    id: "chatbot",
-    label: "Een chatbot die klanten of kandidaten screent en doorstuurt",
-    risico: true,
-  },
-  {
-    id: "planning",
-    label: "Software die taken of diensten toewijst aan medewerkers op basis van hun profiel",
-    risico: true,
-  },
-  {
-    id: "uitkeringen",
-    label: "Software die aanvragen voor uitkeringen of publieke diensten beoordeelt",
-    risico: true,
-  },
-  {
-    id: "veiligheid",
-    label: "AI in machines, robots of voertuigen die de veiligheid van mensen raakt",
-    risico: true,
-  },
-  {
-    id: "geen",
-    label: "Geen van bovenstaande",
-    risico: false,
-  },
-];
+const alleSystemen: Record<string, { id: string; label: string; risico: boolean }[]> = {
+  finance: [
+    { id: "krediet", label: "Software die bepaalt of iemand in aanmerking komt voor een lening, hypotheek of creditcard", risico: true },
+    { id: "fraude", label: "Software die automatisch verdachte transacties opspoort of blokkeert", risico: true },
+    { id: "kyc", label: "Software die klantidentiteit controleert of risicoprofielen opstelt", risico: true },
+    { id: "monitoring", label: "Software die prestaties of gedrag van medewerkers automatisch bijhoudt", risico: true },
+    { id: "chatbot", label: "Een chatbot die klanten screent of financieel advies geeft", risico: true },
+  ],
+  hr: [
+    { id: "cv-screening", label: "Software die automatisch cv's selecteert of kandidaten rankt", risico: true },
+    { id: "matching", label: "Software die kandidaten automatisch koppelt aan vacatures", risico: true },
+    { id: "chatbot-hr", label: "Een chatbot die kandidaten screent of voorselecteert", risico: true },
+    { id: "monitoring", label: "Software die prestaties of gedrag van medewerkers automatisch bijhoudt", risico: true },
+    { id: "planning", label: "Software die diensten of taken toewijst aan medewerkers op basis van hun profiel", risico: true },
+  ],
+  zorg: [
+    { id: "diagnose", label: "Software die helpt bij het stellen van medische diagnoses", risico: true },
+    { id: "beeldvorming", label: "Software die röntgenfoto's, scans of andere medische beelden analyseert", risico: true },
+    { id: "triage", label: "Software die patiënten automatisch indeelt op urgentie", risico: true },
+    { id: "monitoring-zorg", label: "Software die patiëntgegevens bewaakt en automatisch alarmeert", risico: true },
+    { id: "planning-zorg", label: "Software die personeel inroostert op basis van zorgzwaarte of beschikbaarheid", risico: true },
+  ],
+  overheid: [
+    { id: "uitkeringen", label: "Software die aanvragen voor uitkeringen of toeslagen beoordeelt", risico: true },
+    { id: "fraude-overheid", label: "Software die automatisch controleert op fraude bij publieke diensten", risico: true },
+    { id: "handhaving", label: "Software die bepaalt waar of bij wie gecontroleerd of gehandhaafd wordt", risico: true },
+    { id: "chatbot-overheid", label: "Een chatbot die burgers doorverwijst of aanvragen afhandelt", risico: true },
+    { id: "monitoring", label: "Software die prestaties of gedrag van medewerkers automatisch bijhoudt", risico: true },
+  ],
+  verzekeringen: [
+    { id: "verzekering-risico", label: "Software die verzekeringsrisico's inschat of premies berekent", risico: true },
+    { id: "schade", label: "Software die automatisch schadeclaims beoordeelt of afwijst", risico: true },
+    { id: "fraude-verz", label: "Software die automatisch verdachte claims opspoort", risico: true },
+    { id: "monitoring", label: "Software die prestaties of gedrag van medewerkers automatisch bijhoudt", risico: true },
+    { id: "chatbot-verz", label: "Een chatbot die klanten screent of polissen adviseert", risico: true },
+  ],
+  onderwijs: [
+    { id: "toelating", label: "Software die bepaalt wie wordt toegelaten tot een opleiding of cursus", risico: true },
+    { id: "beoordeling", label: "Software die tentamens of opdrachten automatisch beoordeelt", risico: true },
+    { id: "proctoring", label: "Software die studenten monitort tijdens online tentamens", risico: true },
+    { id: "plagiaatdetectie", label: "Software die controleert of werk door AI is geschreven of geplagieerd", risico: true },
+    { id: "monitoring", label: "Software die prestaties of gedrag van medewerkers automatisch bijhoudt", risico: true },
+  ],
+  logistiek: [
+    { id: "monitoring-chauffeurs", label: "Software die rijgedrag of aandacht van chauffeurs monitort", risico: true },
+    { id: "planning-log", label: "Software die taken of routes toewijst aan medewerkers op basis van hun profiel", risico: true },
+    { id: "veiligheid", label: "AI in autonome voertuigen, drones of transportrobots", risico: true },
+    { id: "monitoring", label: "Software die prestaties of gedrag van magazijnmedewerkers automatisch bijhoudt", risico: true },
+    { id: "picking", label: "Software die pick-snelheid meet en medewerkers daarop beoordeelt", risico: true },
+  ],
+  industrie: [
+    { id: "veiligheid-machines", label: "AI in machines, robots of cobots die de veiligheid van mensen raakt", risico: true },
+    { id: "qc-personeel", label: "Software die kwaliteitscontrole koppelt aan beoordeling van medewerkers", risico: true },
+    { id: "monitoring", label: "Software die prestaties of gedrag van medewerkers automatisch bijhoudt", risico: true },
+    { id: "planning-ind", label: "Software die taken of ploegen toewijst aan medewerkers op basis van hun profiel", risico: true },
+    { id: "emotie", label: "Software die emoties of vermoeidheid van medewerkers detecteert", risico: true },
+  ],
+  anders: [
+    { id: "cv-screening", label: "Software die automatisch cv's selecteert of kandidaten rankt", risico: true },
+    { id: "krediet", label: "Software die bepaalt of iemand in aanmerking komt voor een lening of krediet", risico: true },
+    { id: "monitoring", label: "Software die prestaties of gedrag van medewerkers automatisch bijhoudt", risico: true },
+    { id: "chatbot", label: "Een chatbot die klanten of kandidaten screent en doorstuurt", risico: true },
+    { id: "planning", label: "Software die taken toewijst aan medewerkers op basis van hun profiel", risico: true },
+    { id: "diagnose", label: "Software die helpt bij het nemen van beslissingen over individuele personen", risico: true },
+    { id: "veiligheid", label: "AI in machines, robots of voertuigen die de veiligheid van mensen raakt", risico: true },
+  ],
+};
+
+// Flat lookup for result display
+const alleSystemenFlat = Object.values(alleSystemen).flat();
 
 export default function QuickScan() {
   const [step, setStep] = useState<Step>("sector");
@@ -93,8 +106,11 @@ export default function QuickScan() {
     transparantie: "",
   });
 
+  const sectorSystemen = alleSystemen[answers.sector] || alleSystemen["anders"];
+  const geenOptie = { id: "geen", label: "Geen van bovenstaande", risico: false };
+
   const hoogRisicoSystemen = answers.systemen.filter(
-    (s) => systemenOpties.find((o) => o.id === s)?.risico
+    (s) => alleSystemenFlat.find((o) => o.id === s)?.risico
   );
   const aantalHoogRisico = hoogRisicoSystemen.length;
 
@@ -231,7 +247,7 @@ export default function QuickScan() {
             <h2 className="text-2xl font-bold mb-2">Welke van deze software gebruikt uw organisatie?</h2>
             <p className="text-muted mb-6">U kunt meerdere opties selecteren.</p>
             <div className="grid gap-3 mb-6">
-              {systemenOpties.map((optie) => (
+              {sectorSystemen.map((optie) => (
                 <button
                   key={optie.id}
                   onClick={() => toggleSysteem(optie.id)}
@@ -244,6 +260,16 @@ export default function QuickScan() {
                   {optie.label}
                 </button>
               ))}
+              <button
+                onClick={() => toggleSysteem("geen")}
+                className={`text-left p-4 border rounded-lg transition-colors cursor-pointer ${
+                  answers.systemen.includes("geen")
+                    ? "border-accent bg-blue-50 text-accent"
+                    : "border-border hover:border-accent hover:bg-surface"
+                }`}
+              >
+                {geenOptie.label}
+              </button>
             </div>
             <button
               onClick={submitSystemen}
@@ -385,7 +411,7 @@ export default function QuickScan() {
                 <h3 className="text-xl font-semibold mb-3">Uw hoog-risico systemen</h3>
                 <div className="space-y-2">
                   {hoogRisicoSystemen.map((id) => {
-                    const optie = systemenOpties.find((o) => o.id === id);
+                    const optie = alleSystemenFlat.find((o) => o.id === id);
                     return (
                       <div key={id} className="flex items-start gap-3 p-3 bg-red-50 rounded-lg">
                         <span className="text-red-600 mt-0.5">&#9888;</span>
