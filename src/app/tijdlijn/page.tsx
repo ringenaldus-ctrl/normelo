@@ -168,7 +168,7 @@ export default function Tijdlijn() {
           <p className="text-foreground leading-relaxed mb-4">
             Als je AI-systemen gebruikt voor werving en selectie, personeelsbeoordeling,
             kredietbeoordeling of vergelijkbare toepassingen, is augustus 2026 jouw deadline.
-            Dat klinkt als ruim anderhalf jaar, maar de voorbereidingen kosten tijd:
+            Dat is over minder dan vijf maanden. De voorbereidingen kosten tijd:
             inventarisatie van je AI-systemen, gesprekken met leveranciers, het opzetten
             van interne processen voor menselijk toezicht, en het informeren van kandidaten
             en medewerkers.
