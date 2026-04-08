@@ -57,19 +57,21 @@ export default function Home() {
       type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
     />
-    <div className="max-w-4xl mx-auto px-6">
-      {/* Hero */}
-      <section className="py-16 border-b border-border">
-        <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
+    <section className="bg-dark">
+      <div className="max-w-4xl mx-auto px-6 py-20">
+        <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6 text-white">
           De EU AI Act, <br className="hidden md:block" />
           begrijpelijk uitgelegd
         </h1>
-        <p className="text-lg text-muted max-w-2xl leading-relaxed">
+        <p className="text-lg text-gray-300 max-w-2xl leading-relaxed">
           Europa heeft de eerste wet ter wereld aangenomen die kunstmatige intelligentie reguleert.
           De EU AI Act raakt elke organisatie die AI-systemen ontwikkelt, inkoopt of gebruikt.
           Op deze site leggen we uit wat de wet inhoudt en wat dit voor jou betekent.
         </p>
-      </section>
+      </div>
+    </section>
+
+    <div className="max-w-4xl mx-auto px-6">
 
       {/* Wat is de EU AI Act */}
       <section className="py-12 border-b border-border">
@@ -118,7 +120,7 @@ export default function Home() {
 
       {/* Quick Scan CTA */}
       <section className="py-12 border-b border-border">
-        <div className="border border-accent rounded-lg p-8 bg-surface">
+        <div className="rounded-lg p-8 bg-surface">
           <h2 className="text-2xl font-bold mb-3">Valt jouw AI-gebruik onder de wet?</h2>
           <p className="text-foreground leading-relaxed mb-5 max-w-2xl">
             Doe de gratis Quick Scan en ontdek in 2 minuten of jouw organisatie te maken
@@ -126,7 +128,7 @@ export default function Home() {
           </p>
           <Link
             href="/quick-scan"
-            className="btn-accent inline-block px-6 py-3 bg-accent rounded-lg font-medium no-underline hover:opacity-90 transition-opacity"
+            className="btn-accent inline-block px-6 py-3 bg-accent hover:bg-accent-hover rounded-lg font-medium no-underline transition-colors"
           >
             Start de Quick Scan →
           </Link>
@@ -138,35 +140,35 @@ export default function Home() {
         <h2 className="text-2xl font-bold mb-2">EU AI Act per sector</h2>
         <p className="text-muted mb-6">Wat betekent de wet voor jouw branche?</p>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          <Link href="/uitzendbranche" className="block p-5 border border-border rounded-lg hover:border-accent transition-colors no-underline group">
+          <Link href="/uitzendbranche" className="block p-5 border border-border rounded-lg hover:border-accent hover:shadow-sm transition-colors no-underline group">
             <h3 className="text-base font-semibold mb-1 group-hover:text-accent">Uitzendbranche</h3>
             <p className="text-sm text-muted leading-relaxed">ATS-systemen, CV-screening en matchingtools</p>
           </Link>
-          <Link href="/zorg" className="block p-5 border border-border rounded-lg hover:border-accent transition-colors no-underline group">
+          <Link href="/zorg" className="block p-5 border border-border rounded-lg hover:border-accent hover:shadow-sm transition-colors no-underline group">
             <h3 className="text-base font-semibold mb-1 group-hover:text-accent">Zorg</h3>
             <p className="text-sm text-muted leading-relaxed">Diagnose, triage en medische beeldvorming</p>
           </Link>
-          <Link href="/financiele-dienstverlening" className="block p-5 border border-border rounded-lg hover:border-accent transition-colors no-underline group">
+          <Link href="/financiele-dienstverlening" className="block p-5 border border-border rounded-lg hover:border-accent hover:shadow-sm transition-colors no-underline group">
             <h3 className="text-base font-semibold mb-1 group-hover:text-accent">Financiële dienstverlening</h3>
             <p className="text-sm text-muted leading-relaxed">Kredietbeoordeling, fraude-detectie en KYC</p>
           </Link>
-          <Link href="/verzekeringen" className="block p-5 border border-border rounded-lg hover:border-accent transition-colors no-underline group">
+          <Link href="/verzekeringen" className="block p-5 border border-border rounded-lg hover:border-accent hover:shadow-sm transition-colors no-underline group">
             <h3 className="text-base font-semibold mb-1 group-hover:text-accent">Verzekeringen</h3>
             <p className="text-sm text-muted leading-relaxed">Risico-inschatting en premieberekening</p>
           </Link>
-          <Link href="/onderwijs" className="block p-5 border border-border rounded-lg hover:border-accent transition-colors no-underline group">
+          <Link href="/onderwijs" className="block p-5 border border-border rounded-lg hover:border-accent hover:shadow-sm transition-colors no-underline group">
             <h3 className="text-base font-semibold mb-1 group-hover:text-accent">Onderwijs</h3>
             <p className="text-sm text-muted leading-relaxed">Toelating, examenbeoordeling en proctoring</p>
           </Link>
-          <Link href="/overheid" className="block p-5 border border-border rounded-lg hover:border-accent transition-colors no-underline group">
+          <Link href="/overheid" className="block p-5 border border-border rounded-lg hover:border-accent hover:shadow-sm transition-colors no-underline group">
             <h3 className="text-base font-semibold mb-1 group-hover:text-accent">Overheid</h3>
             <p className="text-sm text-muted leading-relaxed">Uitkeringen, handhaving en publieke diensten</p>
           </Link>
-          <Link href="/logistiek" className="block p-5 border border-border rounded-lg hover:border-accent transition-colors no-underline group">
+          <Link href="/logistiek" className="block p-5 border border-border rounded-lg hover:border-accent hover:shadow-sm transition-colors no-underline group">
             <h3 className="text-base font-semibold mb-1 group-hover:text-accent">Logistiek &amp; Transport</h3>
             <p className="text-sm text-muted leading-relaxed">Workforce monitoring, autonome voertuigen en routing</p>
           </Link>
-          <Link href="/industrie" className="block p-5 border border-border rounded-lg hover:border-accent transition-colors no-underline group">
+          <Link href="/industrie" className="block p-5 border border-border rounded-lg hover:border-accent hover:shadow-sm transition-colors no-underline group">
             <h3 className="text-base font-semibold mb-1 group-hover:text-accent">Industrie &amp; Manufacturing</h3>
             <p className="text-sm text-muted leading-relaxed">Robots, machines, quality control en productveiligheid</p>
           </Link>
@@ -179,7 +181,7 @@ export default function Home() {
         <div className="grid gap-6 md:grid-cols-3">
           <Link
             href="/hoog-risico"
-            className="block p-6 border border-border rounded-lg hover:border-accent transition-colors no-underline group"
+            className="block p-6 border border-border rounded-lg hover:border-accent hover:shadow-sm transition-colors no-underline group"
           >
             <h3 className="text-lg font-semibold mb-2 group-hover:text-accent">
               Hoog-risico AI-systemen
@@ -190,7 +192,7 @@ export default function Home() {
           </Link>
           <Link
             href="/tijdlijn"
-            className="block p-6 border border-border rounded-lg hover:border-accent transition-colors no-underline group"
+            className="block p-6 border border-border rounded-lg hover:border-accent hover:shadow-sm transition-colors no-underline group"
           >
             <h3 className="text-lg font-semibold mb-2 group-hover:text-accent">
               Tijdlijn &amp; deadlines
@@ -201,7 +203,7 @@ export default function Home() {
           </Link>
           <Link
             href="/faq"
-            className="block p-6 border border-border rounded-lg hover:border-accent transition-colors no-underline group"
+            className="block p-6 border border-border rounded-lg hover:border-accent hover:shadow-sm transition-colors no-underline group"
           >
             <h3 className="text-lg font-semibold mb-2 group-hover:text-accent">
               Veelgestelde vragen

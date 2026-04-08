@@ -3,11 +3,14 @@
 :root {
   --background: #ffffff;
   --foreground: #1a1a2e;
-  --primary: #16213e;
-  --accent: #0f3460;
+  --primary: #1e2a3a;
+  --accent: #e8612d;
+  --accent-hover: #d4541f;
   --muted: #6b7280;
   --border: #e5e7eb;
-  --surface: #f9fafb;
+  --surface: #f5f0eb;
+  --dark: #1e2a3a;
+  --dark-lighter: #2a3a4e;
 }
 
 @theme inline {
@@ -15,9 +18,12 @@
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
   --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
   --color-muted: var(--muted);
   --color-border: var(--border);
   --color-surface: var(--surface);
+  --color-dark: var(--dark);
+  --color-dark-lighter: var(--dark-lighter);
   --font-sans: system-ui, -apple-system, sans-serif;
   --font-mono: ui-monospace, monospace;
 }

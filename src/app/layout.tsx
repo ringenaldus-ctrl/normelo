@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import "./globals.css";
 
@@ -21,7 +22,8 @@ function Header() {
   return (
     <header className="border-b border-border">
       <div className="max-w-4xl mx-auto px-6 py-5 flex items-center justify-between">
-        <Link href="/" className="text-xl font-bold tracking-tight text-primary no-underline hover:no-underline">
+        <Link href="/" className="flex items-center gap-2 text-xl font-bold tracking-tight text-primary no-underline hover:no-underline">
+          <Image src="/logo-shield.svg" alt="" width={28} height={28} className="flex-shrink-0" />
           Normelo
         </Link>
         <nav className="flex gap-6 text-sm items-center">
@@ -78,13 +80,13 @@ function Header() {
 
 function Footer() {
   return (
-    <footer className="border-t border-border mt-auto">
-      <div className="max-w-4xl mx-auto px-6 py-10 text-sm text-muted">
-        <p className="mb-6">
+    <footer className="bg-dark mt-auto">
+      <div className="max-w-4xl mx-auto px-6 py-10 text-sm">
+        <p className="mb-6 text-gray-300 italic">
           Normelo werkt aan een certificeringsprogramma voor organisaties die willen aantonen dat zij EU AI Act compliant zijn. Meer informatie volgt.
         </p>
-        <p className="mb-4">Vragen of opmerkingen over deze website? <a href="mailto:info@normelo.com" className="text-accent hover:underline">info@normelo.com</a></p>
-        <p>&copy; {new Date().getFullYear()} Normelo</p>
+        <p className="mb-4 text-gray-400">Vragen of opmerkingen over deze website? <a href="mailto:info@normelo.com" className="text-accent hover:underline">info@normelo.com</a></p>
+        <p className="text-gray-500">&copy; {new Date().getFullYear()} Normelo</p>
       </div>
     </footer>
   );
