@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
 
 type Step = "sector" | "systemen" | "beslissingen" | "toezicht" | "transparantie" | "resultaat";
@@ -106,6 +106,10 @@ export default function QuickScan() {
     transparantie: "",
   });
 
+  const [email, setEmail] = useState("");
+  const [emailStatus, setEmailStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const emailInputRef = useRef<HTMLInputElement>(null);
+
   const sectorSystemen = alleSystemen[answers.sector] || alleSystemen["anders"];
   const geenOptie = { id: "geen", label: "Geen van bovenstaande", risico: false };
 
@@ -160,7 +164,39 @@ export default function QuickScan() {
 
   function restart() {
     setAnswers({ sector: "", systemen: [], beslissingen: "", toezicht: "", transparantie: "" });
+    setEmail("");
+    setEmailStatus("idle");
     setStep("sector");
+  }
+
+  async function submitEmail(e: React.FormEvent) {
+    e.preventDefault();
+    if (!email || !email.includes("@")) return;
+    setEmailStatus("sending");
+    try {
+      const res = await fetch("/api/quickscan-lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          sector: answers.sector,
+          risico_niveau: risicoNiveau,
+          hoog_risico_systemen: hoogRisicoSystemen,
+          antwoorden: {
+            beslissingen: answers.beslissingen,
+            toezicht: answers.toezicht,
+            transparantie: answers.transparantie,
+          },
+        }),
+      });
+      if (res.ok) {
+        setEmailStatus("sent");
+      } else {
+        setEmailStatus("error");
+      }
+    } catch {
+      setEmailStatus("error");
+    }
   }
 
   // Calculate risk score
@@ -495,6 +531,49 @@ export default function QuickScan() {
                 </p>
               </div>
             )}
+
+            {/* PDF rapport per e-mail */}
+            <div className="mb-8 p-6 bg-surface rounded-lg border border-border">
+              {emailStatus === "sent" ? (
+                <div>
+                  <p className="font-semibold text-green-700 mb-1">Verstuurd!</p>
+                  <p className="text-sm text-muted">
+                    U ontvangt uw persoonlijke Quick Scan rapport op <strong>{email}</strong>.
+                    We gebruiken uw e-mailadres nergens anders voor.
+                  </p>
+                </div>
+              ) : (
+                <form onSubmit={submitEmail}>
+                  <p className="font-semibold mb-1">Ontvang uw resultaat als PDF rapport</p>
+                  <p className="text-sm text-muted mb-4">
+                    Handig om te delen met collega&apos;s of uw directie. We sturen geen spam.
+                  </p>
+                  <div className="flex gap-3">
+                    <input
+                      ref={emailInputRef}
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="uw@email.nl"
+                      required
+                      className="flex-1 px-4 py-3 border border-border rounded-lg text-sm focus:outline-none focus:border-accent"
+                    />
+                    <button
+                      type="submit"
+                      disabled={emailStatus === "sending"}
+                      className="px-5 py-3 bg-accent text-white rounded-lg font-medium hover:bg-accent-hover transition-colors disabled:opacity-60 cursor-pointer whitespace-nowrap"
+                    >
+                      {emailStatus === "sending" ? "Versturen..." : "Verstuur rapport"}
+                    </button>
+                  </div>
+                  {emailStatus === "error" && (
+                    <p className="text-sm text-red-600 mt-2">
+                      Er ging iets mis. Probeer het opnieuw.
+                    </p>
+                  )}
+                </form>
+              )}
+            </div>
 
             {/* CTA */}
             <div className="flex gap-4 mt-8">
