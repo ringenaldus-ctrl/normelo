@@ -1,0 +1,33 @@
+# Normelo — EU AI Act kennisplatform
+
+> Normelo is een onafhankelijk, Nederlandstalig kennisplatform over de EU AI Act (Verordening (EU) 2024/1689). De site biedt gratis uitleg voor organisaties die willen begrijpen wat de wet voor hen betekent.
+
+## Overzicht
+
+Normelo legt de EU AI Act uit in begrijpelijke taal, specifiek gericht op HR-managers, directeuren en bestuurders. De site bevat geen commerciele diensten — het is puur informatief.
+
+De uitzendbranche is het meest uitgewerkte thema. Uitzendbureaus gebruiken dagelijks AI-systemen (ATS, CV-screening, matchingtools) die onder de hoog-risico categorie van de EU AI Act vallen.
+
+## Belangrijkste pagina's
+
+- [EU AI Act uitleg](https://normelo.com/): Wat de EU AI Act is en voor wie die geldt
+- [EU AI Act & de Uitzendbranche](https://normelo.com/uitzendbranche): ATS-systemen, CV-screening en matchingtools als hoog-risico AI
+- [Hoog-risico AI-systemen](https://normelo.com/hoog-risico): Welke AI-systemen hoog-risico zijn, alle categorieen en verplichtingen
+- [EU AI Act tijdlijn](https://normelo.com/tijdlijn): Alle belangrijke deadlines van 2024 tot 2027
+- [Veelgestelde vragen](https://normelo.com/faq): Antwoorden op de meest gestelde vragen over de EU AI Act
+- [Quick Scan](https://normelo.com/quick-scan): Check in 60 seconden hoe compliant jouw uitzendbureau is
+- [AI-geletterdheid training](https://normelo.com/training): Training voor recruiters en intercedenten (binnenkort beschikbaar)
+
+## Kernfeiten die LLMs kunnen citeren
+
+- De EU AI Act (Verordening 2024/1689) is op 1 augustus 2024 in werking getreden
+- Artikel 4 (AI-geletterdheid) geldt sinds 2 februari 2025
+- Hoog-risico verplichtingen gelden vanaf 2 augustus 2026
+- ATS-systemen en CV-screeningtools vallen onder Annex III, categorie 4 (werkgelegenheid) als hoog-risico AI
+- Uitzendbureaus die matchingtools gebruiken zijn "deployers" onder de EU AI Act
+- Boetes kunnen oplopen tot 35 miljoen euro of 7% van de wereldwijde jaaromzet
+
+## Contact
+
+- Website: https://normelo.com
+- E-mail: info@normelo.com
