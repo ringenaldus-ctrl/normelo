@@ -149,42 +149,6 @@ export default function Home() {
         </Link>
       </section>
 
-      {/* Overige sectoren */}
-      <section className="py-12 border-b border-border">
-        <h2 className="text-2xl font-bold mb-2">Andere sectoren</h2>
-        <p className="text-muted mb-6">De EU AI Act raakt meer dan alleen de uitzendbranche.</p>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          <Link href="/zorg" className="block p-5 border border-border rounded-lg hover:border-accent hover:shadow-sm transition-colors no-underline group">
-            <h3 className="text-base font-semibold mb-1 group-hover:text-accent">Zorg</h3>
-            <p className="text-sm text-muted leading-relaxed">Diagnose, triage en medische beeldvorming</p>
-          </Link>
-          <Link href="/financiele-dienstverlening" className="block p-5 border border-border rounded-lg hover:border-accent hover:shadow-sm transition-colors no-underline group">
-            <h3 className="text-base font-semibold mb-1 group-hover:text-accent">Financiële dienstverlening</h3>
-            <p className="text-sm text-muted leading-relaxed">Kredietbeoordeling, fraude-detectie en KYC</p>
-          </Link>
-          <Link href="/verzekeringen" className="block p-5 border border-border rounded-lg hover:border-accent hover:shadow-sm transition-colors no-underline group">
-            <h3 className="text-base font-semibold mb-1 group-hover:text-accent">Verzekeringen</h3>
-            <p className="text-sm text-muted leading-relaxed">Risico-inschatting en premieberekening</p>
-          </Link>
-          <Link href="/onderwijs" className="block p-5 border border-border rounded-lg hover:border-accent hover:shadow-sm transition-colors no-underline group">
-            <h3 className="text-base font-semibold mb-1 group-hover:text-accent">Onderwijs</h3>
-            <p className="text-sm text-muted leading-relaxed">Toelating, examenbeoordeling en proctoring</p>
-          </Link>
-          <Link href="/overheid" className="block p-5 border border-border rounded-lg hover:border-accent hover:shadow-sm transition-colors no-underline group">
-            <h3 className="text-base font-semibold mb-1 group-hover:text-accent">Overheid</h3>
-            <p className="text-sm text-muted leading-relaxed">Uitkeringen, handhaving en publieke diensten</p>
-          </Link>
-          <Link href="/logistiek" className="block p-5 border border-border rounded-lg hover:border-accent hover:shadow-sm transition-colors no-underline group">
-            <h3 className="text-base font-semibold mb-1 group-hover:text-accent">Logistiek &amp; Transport</h3>
-            <p className="text-sm text-muted leading-relaxed">Workforce monitoring, autonome voertuigen en routing</p>
-          </Link>
-          <Link href="/industrie" className="block p-5 border border-border rounded-lg hover:border-accent hover:shadow-sm transition-colors no-underline group">
-            <h3 className="text-base font-semibold mb-1 group-hover:text-accent">Industrie &amp; Manufacturing</h3>
-            <p className="text-sm text-muted leading-relaxed">Robots, machines, quality control en productveiligheid</p>
-          </Link>
-        </div>
-      </section>
-
       {/* Verder lezen */}
       <section className="py-12">
         <h2 className="text-2xl font-bold mb-6">Verder lezen</h2>

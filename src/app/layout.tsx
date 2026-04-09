@@ -28,39 +28,9 @@ function Header() {
           Normelo
         </Link>
         <nav className="flex gap-6 text-sm items-center">
-          <div className="relative group">
-            <span className="text-muted hover:text-primary transition-colors cursor-pointer">
-              Sectoren
-            </span>
-            <div className="absolute left-0 top-full pt-2 hidden group-hover:block z-50">
-              <div className="bg-white border border-border rounded-lg shadow-lg py-2 min-w-48">
-                <Link href="/financiele-dienstverlening" className="block px-4 py-2 text-muted hover:text-primary hover:bg-surface transition-colors no-underline">
-                  Financiële dienstverlening
-                </Link>
-                <Link href="/industrie" className="block px-4 py-2 text-muted hover:text-primary hover:bg-surface transition-colors no-underline">
-                  Industrie
-                </Link>
-                <Link href="/logistiek" className="block px-4 py-2 text-muted hover:text-primary hover:bg-surface transition-colors no-underline">
-                  Logistiek
-                </Link>
-                <Link href="/onderwijs" className="block px-4 py-2 text-muted hover:text-primary hover:bg-surface transition-colors no-underline">
-                  Onderwijs
-                </Link>
-                <Link href="/overheid" className="block px-4 py-2 text-muted hover:text-primary hover:bg-surface transition-colors no-underline">
-                  Overheid
-                </Link>
-                <Link href="/uitzendbranche" className="block px-4 py-2 text-muted hover:text-primary hover:bg-surface transition-colors no-underline">
-                  Uitzendbranche
-                </Link>
-                <Link href="/verzekeringen" className="block px-4 py-2 text-muted hover:text-primary hover:bg-surface transition-colors no-underline">
-                  Verzekeringen
-                </Link>
-                <Link href="/zorg" className="block px-4 py-2 text-muted hover:text-primary hover:bg-surface transition-colors no-underline">
-                  Zorg
-                </Link>
-              </div>
-            </div>
-          </div>
+          <Link href="/uitzendbranche" className="text-muted hover:text-primary transition-colors no-underline hover:no-underline">
+            Uitzendbranche
+          </Link>
           <Link href="/hoog-risico" className="text-muted hover:text-primary transition-colors no-underline hover:no-underline">
             Hoog-risico AI
           </Link>
