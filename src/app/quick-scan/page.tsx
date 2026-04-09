@@ -503,15 +503,15 @@ export default function QuickScan() {
                 <div>
                   <p className="font-semibold text-green-700 mb-1">Verstuurd!</p>
                   <p className="text-sm text-muted">
-                    Je ontvangt je persoonlijke Quick Scan rapport op <strong>{email}</strong>.
+                    Je ontvangt je Quick Scan resultaat op <strong>{email}</strong>.
                     We gebruiken je e-mailadres nergens anders voor.
                   </p>
                 </div>
               ) : (
                 <form onSubmit={submitEmail}>
-                  <p className="font-semibold mb-1">Ontvang je resultaat als PDF rapport</p>
+                  <p className="font-semibold mb-1">Ontvang je resultaat per e-mail</p>
                   <p className="text-sm text-muted mb-4">
-                    Handig om te delen met collega&apos;s of je directie. We sturen geen spam.
+                    Handig om te bewaren of te delen met collega&apos;s. We sturen geen spam.
                   </p>
                   <div className="flex gap-3">
                     <input
@@ -528,7 +528,7 @@ export default function QuickScan() {
                       disabled={emailStatus === "sending"}
                       className="px-5 py-3 bg-accent text-white rounded-lg font-medium hover:bg-accent-hover transition-colors disabled:opacity-60 cursor-pointer whitespace-nowrap"
                     >
-                      {emailStatus === "sending" ? "Versturen..." : "Verstuur rapport"}
+                      {emailStatus === "sending" ? "Versturen..." : "Verstuur resultaat"}
                     </button>
                   </div>
                   {emailStatus === "error" && (
