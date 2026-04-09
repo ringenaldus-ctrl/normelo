@@ -57,6 +57,14 @@ const faqSchema = {
         text: "Ja, als de software niet alleen data uit cv's extraheert maar ook een waardeoordeel geeft door kandidaten te scoren of te categoriseren. Een parser die namen en werkervaring uit een cv haalt is geen hoog-risico AI. Een parser die bepaalt dat kandidaat A 'beter' is dan kandidaat B, is dat wel.",
       },
     },
+    {
+      "@type": "Question",
+      name: "Wat is shadow AI en waarom is het een risico voor uitzendbureaus?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Shadow AI is het gebruik van AI-tools door medewerkers zonder medeweten of toestemming van de organisatie. Denk aan een recruiter die ChatGPT gebruikt om cv's te vergelijken of kandidaten te ranken. Dit is hoog-risico AI-gebruik onder de EU AI Act, maar dan zonder documentatie, toezicht of transparantie. Uit onderzoek blijkt dat 50% van werknemers ongeautoriseerde AI-tools gebruikt. Alleen je officiële systemen compliant maken is daarom niet genoeg.",
+      },
+    },
   ],
 };
 
@@ -73,19 +81,22 @@ export default function Uitzendbranche() {
       type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
     />
-    <div className="max-w-4xl mx-auto px-6">
-      {/* Hero */}
-      <section className="py-16 border-b border-border">
-        <p className="text-sm text-muted mb-3 uppercase tracking-wide">Sectorpagina</p>
-        <h1 className="text-4xl font-bold leading-tight mb-6">
+    <section className="bg-dark">
+      <div className="max-w-4xl mx-auto px-6 py-20">
+        <p className="text-sm text-accent mb-3 uppercase tracking-wide font-medium">De meest geraakt sector</p>
+        <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6 text-white">
           EU AI Act &amp; de Uitzendbranche
         </h1>
-        <p className="text-lg text-muted max-w-2xl leading-relaxed">
+        <p className="text-lg text-gray-300 max-w-2xl leading-relaxed">
           Uitzendbureaus gebruiken dagelijks AI-systemen voor het vinden, selecteren en matchen
           van kandidaten. Veel van deze systemen vallen onder de hoog-risico categorie van de
-          EU AI Act. Dit is wat je moet weten.
+          EU AI Act. En dan is er nog shadow AI — medewerkers die zelfstandig AI-tools inzetten
+          buiten het zicht van de organisatie.
         </p>
-      </section>
+      </div>
+    </section>
+
+    <div className="max-w-4xl mx-auto px-6">
 
       {/* Waarom de uitzendbranche */}
       <section className="py-12 border-b border-border">
@@ -175,6 +186,42 @@ export default function Uitzendbranche() {
             </p>
           </div>
         </div>
+      </section>
+
+      {/* Shadow AI */}
+      <section className="py-12 border-b border-border">
+        <h2 className="text-2xl font-bold mb-4">Het onzichtbare risico: shadow AI</h2>
+        <p className="text-foreground leading-relaxed mb-4">
+          De bovenstaande systemen zijn de officiële tools die een uitzendbureau inkoopt en beheert.
+          Maar er is een groeiend probleem dat de meeste organisaties over het hoofd zien:
+          medewerkers die zelfstandig AI-tools inzetten, buiten het zicht van IT en compliance. Dit
+          wordt shadow AI genoemd.
+        </p>
+        <p className="text-foreground leading-relaxed mb-4">
+          Uit onderzoek blijkt dat 50% van de werknemers ongeautoriseerde AI-tools gebruikt op het
+          werk. In de uitzendbranche ziet dat er concreet zo uit: een recruiter die ChatGPT of
+          Claude gebruikt om cv&apos;s samen te vatten of te vergelijken. Een vestigingsmanager die
+          kandidaatprofielen door een AI-tool haalt om een shortlist te maken. Een intercedent die
+          een AI-chatbot gebruikt om sollicitatiegesprekken voor te bereiden met suggesties over
+          welke kandidaat het beste past.
+        </p>
+        <p className="text-foreground leading-relaxed mb-4">
+          Het probleem: dit is hoog-risico AI-gebruik onder de EU AI Act — zonder documentatie,
+          zonder menselijk toezicht, zonder transparantie naar de kandidaat, en zonder dat de
+          organisatie ervan weet. De wet maakt geen onderscheid tussen een officieel ATS en een
+          recruiter die zelfstandig een AI-tool gebruikt voor selectiebeslissingen.
+        </p>
+        <p className="text-foreground leading-relaxed mb-4">
+          De financiële impact is aanzienlijk. Organisaties met veel shadow AI betalen gemiddeld
+          $670.000 meer per datalek. En 46% van de medewerkers geeft aan door te gaan met
+          ongeautoriseerde AI-tools, zelfs als het expliciet verboden wordt.
+        </p>
+        <p className="text-foreground leading-relaxed">
+          Alleen je officiële systemen compliant maken is daarom niet genoeg. Echte compliance
+          vereist dat medewerkers begrijpen welk AI-gebruik wel en niet mag, en waarom. Dat
+          begint bij AI-geletterdheid — een verplichting die overigens nu al geldt onder artikel 4
+          van de EU AI Act.
+        </p>
       </section>
 
       {/* Verplichtingen */}
@@ -301,17 +348,43 @@ export default function Uitzendbranche() {
         </p>
       </section>
 
+      {/* Quick Scan CTA */}
+      <section className="py-12 border-b border-border">
+        <div className="rounded-lg p-8 bg-surface">
+          <h2 className="text-2xl font-bold mb-3">Hoe compliant is jouw uitzendbureau?</h2>
+          <p className="text-foreground leading-relaxed mb-5 max-w-2xl">
+            Doe de gratis Quick Scan en ontdek in 2 minuten welke van jouw systemen als
+            hoog-risico kwalificeren onder de EU AI Act. Inclusief shadow AI-risico&apos;s.
+          </p>
+          <Link
+            href="/quick-scan"
+            className="btn-accent inline-block px-6 py-3 bg-accent hover:bg-accent-hover rounded-lg font-medium no-underline transition-colors"
+          >
+            Start de Quick Scan →
+          </Link>
+        </div>
+      </section>
+
+      {/* Certificering hint */}
+      <section className="py-12 border-b border-border">
+        <p className="text-muted leading-relaxed italic">
+          Normelo werkt aan een certificeringsprogramma specifiek voor de uitzendbranche.
+          AI-geletterdheid voor recruiters, intercedenten en hiring managers — zodat niet
+          alleen je systemen, maar ook je mensen compliant zijn. Meer informatie volgt.
+        </p>
+      </section>
+
       {/* Bottom navigation */}
       <section className="py-12">
         <div className="flex gap-6">
-          <Link href="/overheid" className="text-accent hover:underline">
-            &larr; Overheid
+          <Link href="/hoog-risico" className="text-accent hover:underline">
+            &larr; Hoog-risico AI
           </Link>
           <Link href="/" className="text-accent hover:underline">
             Homepage
           </Link>
-          <Link href="/verzekeringen" className="text-accent hover:underline">
-            Verzekeringen &rarr;
+          <Link href="/tijdlijn" className="text-accent hover:underline">
+            Tijdlijn &amp; deadlines &rarr;
           </Link>
         </div>
       </section>

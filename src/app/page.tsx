@@ -135,15 +135,25 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Sectorpagina's */}
+      {/* Uitgelichte sector */}
       <section className="py-12 border-b border-border">
-        <h2 className="text-2xl font-bold mb-2">EU AI Act per sector</h2>
-        <p className="text-muted mb-6">Wat betekent de wet voor jouw branche?</p>
+        <h2 className="text-2xl font-bold mb-2">Uitgelicht: de uitzendbranche</h2>
+        <p className="text-muted mb-6">De meest direct geraakt sector onder de EU AI Act.</p>
+        <Link href="/uitzendbranche" className="block p-6 border-2 border-accent rounded-lg hover:shadow-md transition-all no-underline group bg-surface">
+          <h3 className="text-lg font-bold mb-2 text-accent">EU AI Act &amp; de Uitzendbranche</h3>
+          <p className="text-foreground leading-relaxed mb-2">
+            ATS-systemen, CV-screening, matchingtools en shadow AI — waarom de uitzendbranche
+            als eerste moet handelen. Inclusief concrete verplichtingen en tijdlijn.
+          </p>
+          <span className="text-accent font-medium text-sm">Lees de volledige analyse →</span>
+        </Link>
+      </section>
+
+      {/* Overige sectoren */}
+      <section className="py-12 border-b border-border">
+        <h2 className="text-2xl font-bold mb-2">Andere sectoren</h2>
+        <p className="text-muted mb-6">De EU AI Act raakt meer dan alleen de uitzendbranche.</p>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          <Link href="/uitzendbranche" className="block p-5 border border-border rounded-lg hover:border-accent hover:shadow-sm transition-colors no-underline group">
-            <h3 className="text-base font-semibold mb-1 group-hover:text-accent">Uitzendbranche</h3>
-            <p className="text-sm text-muted leading-relaxed">ATS-systemen, CV-screening en matchingtools</p>
-          </Link>
           <Link href="/zorg" className="block p-5 border border-border rounded-lg hover:border-accent hover:shadow-sm transition-colors no-underline group">
             <h3 className="text-base font-semibold mb-1 group-hover:text-accent">Zorg</h3>
             <p className="text-sm text-muted leading-relaxed">Diagnose, triage en medische beeldvorming</p>
