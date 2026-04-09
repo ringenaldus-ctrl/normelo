@@ -3,104 +3,31 @@
 import { useState, useRef } from "react";
 import Link from "next/link";
 
-type Step = "sector" | "systemen" | "beslissingen" | "toezicht" | "transparantie" | "resultaat";
+type Step = "systemen" | "shadow" | "beslissingen" | "toezicht" | "transparantie" | "resultaat";
 
 interface Answers {
-  sector: string;
   systemen: string[];
+  shadow: string;
   beslissingen: string;
   toezicht: string;
   transparantie: string;
 }
 
-const sectoren = [
-  { id: "finance", label: "Financiële dienstverlening", link: "/financiele-dienstverlening" },
-  { id: "hr", label: "HR & Recruitment", link: "/uitzendbranche" },
-  { id: "industrie", label: "Industrie & Manufacturing", link: "/industrie" },
-  { id: "logistiek", label: "Logistiek & Transport", link: "/logistiek" },
-  { id: "onderwijs", label: "Onderwijs", link: "/onderwijs" },
-  { id: "overheid", label: "Overheid", link: "/overheid" },
-  { id: "verzekeringen", label: "Verzekeringen", link: "/verzekeringen" },
-  { id: "zorg", label: "Zorg & Medisch", link: "/zorg" },
-  { id: "anders", label: "Andere sector", link: "/" },
+const systemen = [
+  { id: "cv-screening", label: "Software die automatisch cv's selecteert of kandidaten rankt (bijv. ATS met AI-ranking)", risico: true },
+  { id: "matching", label: "Software die kandidaten automatisch koppelt aan vacatures (matchingtool)", risico: true },
+  { id: "chatbot-hr", label: "Een chatbot die kandidaten screent of voorselecteert", risico: true },
+  { id: "monitoring", label: "Software die prestaties of gedrag van uitzendkrachten automatisch bijhoudt", risico: true },
+  { id: "planning", label: "Software die diensten of opdrachten toewijst aan uitzendkrachten op basis van hun profiel", risico: true },
 ];
 
-const alleSystemen: Record<string, { id: string; label: string; risico: boolean }[]> = {
-  finance: [
-    { id: "krediet", label: "Software die bepaalt of iemand in aanmerking komt voor een lening, hypotheek of creditcard", risico: true },
-    { id: "fraude", label: "Software die automatisch verdachte transacties opspoort of blokkeert", risico: true },
-    { id: "kyc", label: "Software die klantidentiteit controleert of risicoprofielen opstelt", risico: true },
-    { id: "monitoring", label: "Software die prestaties of gedrag van medewerkers automatisch bijhoudt", risico: true },
-    { id: "chatbot", label: "Een chatbot die klanten screent of financieel advies geeft", risico: true },
-  ],
-  hr: [
-    { id: "cv-screening", label: "Software die automatisch cv's selecteert of kandidaten rankt", risico: true },
-    { id: "matching", label: "Software die kandidaten automatisch koppelt aan vacatures", risico: true },
-    { id: "chatbot-hr", label: "Een chatbot die kandidaten screent of voorselecteert", risico: true },
-    { id: "monitoring", label: "Software die prestaties of gedrag van medewerkers automatisch bijhoudt", risico: true },
-    { id: "planning", label: "Software die diensten of taken toewijst aan medewerkers op basis van hun profiel", risico: true },
-  ],
-  zorg: [
-    { id: "diagnose", label: "Software die helpt bij het stellen van medische diagnoses", risico: true },
-    { id: "beeldvorming", label: "Software die röntgenfoto's, scans of andere medische beelden analyseert", risico: true },
-    { id: "triage", label: "Software die patiënten automatisch indeelt op urgentie", risico: true },
-    { id: "monitoring-zorg", label: "Software die patiëntgegevens bewaakt en automatisch alarmeert", risico: true },
-    { id: "planning-zorg", label: "Software die personeel inroostert op basis van zorgzwaarte of beschikbaarheid", risico: true },
-  ],
-  overheid: [
-    { id: "uitkeringen", label: "Software die aanvragen voor uitkeringen of toeslagen beoordeelt", risico: true },
-    { id: "fraude-overheid", label: "Software die automatisch controleert op fraude bij publieke diensten", risico: true },
-    { id: "handhaving", label: "Software die bepaalt waar of bij wie gecontroleerd of gehandhaafd wordt", risico: true },
-    { id: "chatbot-overheid", label: "Een chatbot die burgers doorverwijst of aanvragen afhandelt", risico: true },
-    { id: "monitoring", label: "Software die prestaties of gedrag van medewerkers automatisch bijhoudt", risico: true },
-  ],
-  verzekeringen: [
-    { id: "verzekering-risico", label: "Software die verzekeringsrisico's inschat of premies berekent", risico: true },
-    { id: "schade", label: "Software die automatisch schadeclaims beoordeelt of afwijst", risico: true },
-    { id: "fraude-verz", label: "Software die automatisch verdachte claims opspoort", risico: true },
-    { id: "monitoring", label: "Software die prestaties of gedrag van medewerkers automatisch bijhoudt", risico: true },
-    { id: "chatbot-verz", label: "Een chatbot die klanten screent of polissen adviseert", risico: true },
-  ],
-  onderwijs: [
-    { id: "toelating", label: "Software die bepaalt wie wordt toegelaten tot een opleiding of cursus", risico: true },
-    { id: "beoordeling", label: "Software die tentamens of opdrachten automatisch beoordeelt", risico: true },
-    { id: "proctoring", label: "Software die studenten monitort tijdens online tentamens", risico: true },
-    { id: "plagiaatdetectie", label: "Software die controleert of werk door AI is geschreven of geplagieerd", risico: true },
-    { id: "monitoring", label: "Software die prestaties of gedrag van medewerkers automatisch bijhoudt", risico: true },
-  ],
-  logistiek: [
-    { id: "monitoring-chauffeurs", label: "Software die rijgedrag of aandacht van chauffeurs monitort", risico: true },
-    { id: "planning-log", label: "Software die taken of routes toewijst aan medewerkers op basis van hun profiel", risico: true },
-    { id: "veiligheid", label: "AI in autonome voertuigen, drones of transportrobots", risico: true },
-    { id: "monitoring", label: "Software die prestaties of gedrag van magazijnmedewerkers automatisch bijhoudt", risico: true },
-    { id: "picking", label: "Software die pick-snelheid meet en medewerkers daarop beoordeelt", risico: true },
-  ],
-  industrie: [
-    { id: "veiligheid-machines", label: "AI in machines, robots of cobots die de veiligheid van mensen raakt", risico: true },
-    { id: "qc-personeel", label: "Software die kwaliteitscontrole koppelt aan beoordeling van medewerkers", risico: true },
-    { id: "monitoring", label: "Software die prestaties of gedrag van medewerkers automatisch bijhoudt", risico: true },
-    { id: "planning-ind", label: "Software die taken of ploegen toewijst aan medewerkers op basis van hun profiel", risico: true },
-    { id: "emotie", label: "Software die emoties of vermoeidheid van medewerkers detecteert", risico: true },
-  ],
-  anders: [
-    { id: "cv-screening", label: "Software die automatisch cv's selecteert of kandidaten rankt", risico: true },
-    { id: "krediet", label: "Software die bepaalt of iemand in aanmerking komt voor een lening of krediet", risico: true },
-    { id: "monitoring", label: "Software die prestaties of gedrag van medewerkers automatisch bijhoudt", risico: true },
-    { id: "chatbot", label: "Een chatbot die klanten of kandidaten screent en doorstuurt", risico: true },
-    { id: "planning", label: "Software die taken toewijst aan medewerkers op basis van hun profiel", risico: true },
-    { id: "diagnose", label: "Software die helpt bij het nemen van beslissingen over individuele personen", risico: true },
-    { id: "veiligheid", label: "AI in machines, robots of voertuigen die de veiligheid van mensen raakt", risico: true },
-  ],
-};
-
-// Flat lookup for result display
-const alleSystemenFlat = Object.values(alleSystemen).flat();
+const geenOptie = { id: "geen", label: "Geen van bovenstaande", risico: false };
 
 export default function QuickScan() {
-  const [step, setStep] = useState<Step>("sector");
+  const [step, setStep] = useState<Step>("systemen");
   const [answers, setAnswers] = useState<Answers>({
-    sector: "",
     systemen: [],
+    shadow: "",
     beslissingen: "",
     toezicht: "",
     transparantie: "",
@@ -110,20 +37,10 @@ export default function QuickScan() {
   const [emailStatus, setEmailStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const emailInputRef = useRef<HTMLInputElement>(null);
 
-  const sectorSystemen = alleSystemen[answers.sector] || alleSystemen["anders"];
-  const geenOptie = { id: "geen", label: "Geen van bovenstaande", risico: false };
-
   const hoogRisicoSystemen = answers.systemen.filter(
-    (s) => alleSystemenFlat.find((o) => o.id === s)?.risico
+    (s) => systemen.find((o) => o.id === s)?.risico
   );
   const aantalHoogRisico = hoogRisicoSystemen.length;
-
-  const sectorInfo = sectoren.find((s) => s.id === answers.sector);
-
-  function selectSector(id: string) {
-    setAnswers({ ...answers, sector: id });
-    setStep("systemen");
-  }
 
   function toggleSysteem(id: string) {
     if (id === "geen") {
@@ -141,6 +58,15 @@ export default function QuickScan() {
   function submitSystemen() {
     if (answers.systemen.includes("geen") || answers.systemen.length === 0) {
       setAnswers({ ...answers, systemen: answers.systemen.length === 0 ? ["geen"] : answers.systemen });
+      setStep("shadow");
+    } else {
+      setStep("shadow");
+    }
+  }
+
+  function selectShadow(value: string) {
+    setAnswers({ ...answers, shadow: value });
+    if (answers.systemen.includes("geen")) {
       setStep("resultaat");
     } else {
       setStep("beslissingen");
@@ -163,10 +89,10 @@ export default function QuickScan() {
   }
 
   function restart() {
-    setAnswers({ sector: "", systemen: [], beslissingen: "", toezicht: "", transparantie: "" });
+    setAnswers({ systemen: [], shadow: "", beslissingen: "", toezicht: "", transparantie: "" });
     setEmail("");
     setEmailStatus("idle");
-    setStep("sector");
+    setStep("systemen");
   }
 
   async function submitEmail(e: React.FormEvent) {
@@ -179,10 +105,11 @@ export default function QuickScan() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email,
-          sector: answers.sector,
+          sector: "uitzendbranche",
           risico_niveau: risicoNiveau,
           hoog_risico_systemen: hoogRisicoSystemen,
           antwoorden: {
+            shadow: answers.shadow,
             beslissingen: answers.beslissingen,
             toezicht: answers.toezicht,
             transparantie: answers.transparantie,
@@ -201,13 +128,17 @@ export default function QuickScan() {
 
   // Calculate risk score
   function getRisicoNiveau(): "hoog" | "middel" | "laag" {
-    if (aantalHoogRisico === 0) return "laag";
+    if (aantalHoogRisico === 0 && answers.shadow !== "ja") return "laag";
+    if (aantalHoogRisico === 0 && answers.shadow === "ja") return "middel";
+
     const problemen = [
       answers.beslissingen === "zelfstandig" || answers.beslissingen === "weet-niet",
       answers.toezicht === "nee" || answers.toezicht === "weet-niet",
       answers.transparantie === "nee" || answers.transparantie === "weet-niet",
     ].filter(Boolean).length;
+
     if (aantalHoogRisico >= 2 || problemen >= 2) return "hoog";
+    if (answers.shadow === "ja") return "hoog";
     if (aantalHoogRisico >= 1) return "middel";
     return "laag";
   }
@@ -226,19 +157,23 @@ export default function QuickScan() {
     laag: "Laag risico",
   };
 
-  const stepNumber = { sector: 1, systemen: 2, beslissingen: 3, toezicht: 4, transparantie: 5, resultaat: 6 };
-  const totalSteps = answers.systemen.includes("geen") ? 2 : 5;
-  const currentStep = stepNumber[step];
+  const stepOrder: Step[] = answers.systemen.includes("geen")
+    ? ["systemen", "shadow", "resultaat"]
+    : ["systemen", "shadow", "beslissingen", "toezicht", "transparantie", "resultaat"];
+
+  const totalSteps = stepOrder.length - 1; // don't count "resultaat" as a step
+  const currentStep = stepOrder.indexOf(step) + 1;
 
   return (
     <div className="max-w-2xl mx-auto px-6">
       <section className="py-16 border-b border-border">
+        <p className="text-sm font-medium text-accent mb-2 tracking-wide uppercase">Uitzendbranche</p>
         <h1 className="text-4xl font-bold leading-tight mb-4">
           EU AI Act Quick Scan
         </h1>
         <p className="text-lg text-muted leading-relaxed">
-          Ontdek in 60 seconden of uw organisatie te maken heeft met hoog-risico AI
-          volgens de EU AI Act.
+          Ontdek in 60 seconden of jouw uitzendbureau te maken heeft met hoog-risico AI
+          volgens de EU AI Act. Van ATS-systemen tot matchingtools — weet waar je staat.
         </p>
       </section>
 
@@ -258,32 +193,13 @@ export default function QuickScan() {
           </div>
         )}
 
-        {/* Stap 1: Sector */}
-        {step === "sector" && (
-          <div>
-            <h2 className="text-2xl font-bold mb-2">In welke sector werkt uw organisatie?</h2>
-            <p className="text-muted mb-6">Kies de sector die het beste past.</p>
-            <div className="grid gap-3">
-              {sectoren.map((sector) => (
-                <button
-                  key={sector.id}
-                  onClick={() => selectSector(sector.id)}
-                  className="text-left p-4 border border-border rounded-lg hover:border-accent hover:bg-surface transition-colors cursor-pointer"
-                >
-                  {sector.label}
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Stap 2: Systemen */}
+        {/* Stap 1: Systemen */}
         {step === "systemen" && (
           <div>
-            <h2 className="text-2xl font-bold mb-2">Welke van deze software gebruikt uw organisatie?</h2>
-            <p className="text-muted mb-6">U kunt meerdere opties selecteren.</p>
+            <h2 className="text-2xl font-bold mb-2">Welke van deze software gebruikt jouw uitzendbureau?</h2>
+            <p className="text-muted mb-6">Selecteer alles wat van toepassing is.</p>
             <div className="grid gap-3 mb-6">
-              {sectorSystemen.map((optie) => (
+              {systemen.map((optie) => (
                 <button
                   key={optie.id}
                   onClick={() => toggleSysteem(optie.id)}
@@ -317,25 +233,59 @@ export default function QuickScan() {
           </div>
         )}
 
+        {/* Stap 2: Shadow AI */}
+        {step === "shadow" && (
+          <div>
+            <h2 className="text-2xl font-bold mb-2">Gebruiken recruiters of intercedenten eigen AI-tools?</h2>
+            <p className="text-muted mb-6">
+              Denk aan ChatGPT, Copilot of andere AI-tools die medewerkers zelf inzetten om cv&apos;s te
+              beoordelen, vacatureteksten te schrijven of kandidaten te screenen — ook als dit niet officieel is afgesproken.
+            </p>
+            <div className="grid gap-3">
+              <button
+                onClick={() => selectShadow("ja")}
+                className="text-left p-4 border border-border rounded-lg hover:border-accent hover:bg-surface transition-colors cursor-pointer"
+              >
+                <span className="font-semibold">Ja, dat gebeurt</span>
+                <p className="text-sm text-muted mt-1">Medewerkers gebruiken eigen AI-tools voor hun werk</p>
+              </button>
+              <button
+                onClick={() => selectShadow("nee")}
+                className="text-left p-4 border border-border rounded-lg hover:border-accent hover:bg-surface transition-colors cursor-pointer"
+              >
+                <span className="font-semibold">Nee</span>
+                <p className="text-sm text-muted mt-1">Er worden alleen goedgekeurde tools gebruikt</p>
+              </button>
+              <button
+                onClick={() => selectShadow("weet-niet")}
+                className="text-left p-4 border border-border rounded-lg hover:border-accent hover:bg-surface transition-colors cursor-pointer"
+              >
+                <span className="font-semibold">Weet ik niet</span>
+                <p className="text-sm text-muted mt-1">We hebben hier geen zicht op</p>
+              </button>
+            </div>
+          </div>
+        )}
+
         {/* Stap 3: Beslissingen */}
         {step === "beslissingen" && (
           <div>
             <h2 className="text-2xl font-bold mb-2">Nemen deze systemen zelfstandig beslissingen?</h2>
-            <p className="text-muted mb-6">Of adviseren ze een medewerker die de eindbeslissing neemt?</p>
+            <p className="text-muted mb-6">Of adviseren ze een recruiter of intercedent die de eindbeslissing neemt?</p>
             <div className="grid gap-3">
               <button
                 onClick={() => selectBeslissingen("zelfstandig")}
                 className="text-left p-4 border border-border rounded-lg hover:border-accent hover:bg-surface transition-colors cursor-pointer"
               >
                 <span className="font-semibold">Zelfstandig</span>
-                <p className="text-sm text-muted mt-1">Het systeem neemt de beslissing zonder dat iemand meekijkt</p>
+                <p className="text-sm text-muted mt-1">Het systeem wijst kandidaten af of rankt ze zonder dat iemand meekijkt</p>
               </button>
               <button
                 onClick={() => selectBeslissingen("adviserend")}
                 className="text-left p-4 border border-border rounded-lg hover:border-accent hover:bg-surface transition-colors cursor-pointer"
               >
                 <span className="font-semibold">Adviserend</span>
-                <p className="text-sm text-muted mt-1">Het systeem geeft een aanbeveling, een medewerker beslist</p>
+                <p className="text-sm text-muted mt-1">Het systeem geeft een aanbeveling, een recruiter beslist</p>
               </button>
               <button
                 onClick={() => selectBeslissingen("weet-niet")}
@@ -352,7 +302,7 @@ export default function QuickScan() {
         {step === "toezicht" && (
           <div>
             <h2 className="text-2xl font-bold mb-2">Is er iemand aangewezen die AI-beslissingen kan overrulen?</h2>
-            <p className="text-muted mb-6">Iemand met de bevoegdheid én de kennis om in te grijpen.</p>
+            <p className="text-muted mb-6">Iemand met de bevoegdheid én de kennis om in te grijpen wanneer het systeem een kandidaat onterecht afwijst.</p>
             <div className="grid gap-3">
               <button
                 onClick={() => selectToezicht("ja")}
@@ -382,15 +332,15 @@ export default function QuickScan() {
         {/* Stap 5: Transparantie */}
         {step === "transparantie" && (
           <div>
-            <h2 className="text-2xl font-bold mb-2">Worden betrokkenen geïnformeerd dat AI wordt gebruikt?</h2>
-            <p className="text-muted mb-6">Denk aan kandidaten, klanten, medewerkers of burgers die door het systeem geraakt worden.</p>
+            <h2 className="text-2xl font-bold mb-2">Worden kandidaten geïnformeerd dat AI wordt gebruikt?</h2>
+            <p className="text-muted mb-6">Weten kandidaten en uitzendkrachten dat hun cv door AI wordt beoordeeld of dat een matchingtool meebesluit?</p>
             <div className="grid gap-3">
               <button
                 onClick={() => selectTransparantie("ja")}
                 className="text-left p-4 border border-border rounded-lg hover:border-accent hover:bg-surface transition-colors cursor-pointer"
               >
                 <span className="font-semibold">Ja</span>
-                <p className="text-sm text-muted mt-1">Betrokkenen weten dat AI een rol speelt</p>
+                <p className="text-sm text-muted mt-1">Kandidaten weten dat AI een rol speelt in het proces</p>
               </button>
               <button
                 onClick={() => selectTransparantie("nee")}
@@ -404,7 +354,7 @@ export default function QuickScan() {
                 className="text-left p-4 border border-border rounded-lg hover:border-accent hover:bg-surface transition-colors cursor-pointer"
               >
                 <span className="font-semibold">Weet ik niet</span>
-                <p className="text-sm text-muted mt-1">Ik weet niet of betrokkenen hierover geïnformeerd worden</p>
+                <p className="text-sm text-muted mt-1">Ik weet niet of kandidaten hierover geïnformeerd worden</p>
               </button>
             </div>
           </div>
@@ -413,29 +363,36 @@ export default function QuickScan() {
         {/* Resultaat */}
         {step === "resultaat" && (
           <div>
-            <h2 className="text-2xl font-bold mb-6">Uw resultaat</h2>
+            <h2 className="text-2xl font-bold mb-6">Jouw resultaat</h2>
 
             {/* Risico badge */}
             <div className={`p-6 rounded-lg border-2 mb-8 ${risicoKleuren[risicoNiveau]}`}>
               <p className="text-2xl font-bold mb-2">{risicoLabels[risicoNiveau]}</p>
               {risicoNiveau === "hoog" && (
                 <p className="leading-relaxed">
-                  Uw organisatie gebruikt waarschijnlijk <strong>{aantalHoogRisico} systeem{aantalHoogRisico !== 1 ? "en" : ""}</strong> dat
-                  als hoog-risico kwalificeert onder de EU AI Act. Er zijn directe aandachtspunten
-                  op het gebied van compliance. De deadline is <strong>augustus 2026</strong>.
+                  Jouw uitzendbureau gebruikt waarschijnlijk <strong>{aantalHoogRisico} systeem{aantalHoogRisico !== 1 ? "en" : ""}</strong> dat
+                  als hoog-risico kwalificeert onder de EU AI Act.
+                  {answers.shadow === "ja" && " Daarnaast is er sprake van ongecontroleerd AI-gebruik (shadow AI)."}
+                  {" "}Er zijn directe aandachtspunten op het gebied van compliance. De deadline is <strong>augustus 2026</strong>.
                 </p>
               )}
               {risicoNiveau === "middel" && (
                 <p className="leading-relaxed">
-                  Uw organisatie gebruikt waarschijnlijk <strong>{aantalHoogRisico} systeem{aantalHoogRisico !== 1 ? "en" : ""}</strong> dat
-                  als hoog-risico kwalificeert onder de EU AI Act. Er zijn aandachtspunten,
-                  maar u bent deels op de goede weg. De deadline is <strong>augustus 2026</strong>.
+                  {aantalHoogRisico > 0 ? (
+                    <>Jouw uitzendbureau gebruikt waarschijnlijk <strong>{aantalHoogRisico} systeem{aantalHoogRisico !== 1 ? "en" : ""}</strong> dat
+                    als hoog-risico kwalificeert onder de EU AI Act. Er zijn aandachtspunten,
+                    maar je bent deels op de goede weg.</>
+                  ) : (
+                    <>Je gebruikt geen officiële hoog-risico systemen, maar er is wel sprake van
+                    ongecontroleerd AI-gebruik door medewerkers (shadow AI). Dit vormt een risico onder de EU AI Act.</>
+                  )}
+                  {" "}De deadline is <strong>augustus 2026</strong>.
                 </p>
               )}
               {risicoNiveau === "laag" && (
                 <p className="leading-relaxed">
-                  Op basis van uw antwoorden lijkt uw organisatie geen hoog-risico AI-systemen
-                  te gebruiken. Dat kan veranderen als u nieuwe software introduceert. Houd
+                  Op basis van je antwoorden lijkt jouw uitzendbureau geen hoog-risico AI-systemen
+                  te gebruiken. Dat kan veranderen als je nieuwe software introduceert. Houd
                   de ontwikkelingen in de gaten.
                 </p>
               )}
@@ -444,10 +401,10 @@ export default function QuickScan() {
             {/* Hoog-risico systemen */}
             {aantalHoogRisico > 0 && (
               <div className="mb-8">
-                <h3 className="text-xl font-semibold mb-3">Uw hoog-risico systemen</h3>
+                <h3 className="text-xl font-semibold mb-3">Jouw hoog-risico systemen</h3>
                 <div className="space-y-2">
                   {hoogRisicoSystemen.map((id) => {
-                    const optie = alleSystemenFlat.find((o) => o.id === id);
+                    const optie = systemen.find((o) => o.id === id);
                     return (
                       <div key={id} className="flex items-start gap-3 p-3 bg-red-50 rounded-lg">
                         <span className="text-red-600 mt-0.5">&#9888;</span>
@@ -460,45 +417,55 @@ export default function QuickScan() {
             )}
 
             {/* Aandachtspunten */}
-            {aantalHoogRisico > 0 && (
+            {(aantalHoogRisico > 0 || answers.shadow === "ja" || answers.shadow === "weet-niet") && (
               <div className="mb-8">
-                <h3 className="text-xl font-semibold mb-3">Uw aandachtspunten</h3>
+                <h3 className="text-xl font-semibold mb-3">Jouw aandachtspunten</h3>
                 <div className="space-y-3">
-                  {(answers.beslissingen === "zelfstandig" || answers.beslissingen === "weet-niet") && (
+                  {(answers.shadow === "ja" || answers.shadow === "weet-niet") && (
+                    <div className="p-4 border-l-2 border-red-400 bg-red-50/50">
+                      <p className="font-semibold text-sm mb-1">Shadow AI</p>
+                      <p className="text-sm text-muted">
+                        {answers.shadow === "ja"
+                          ? "Medewerkers gebruiken eigen AI-tools voor recruitmenttaken. Dit valt ook onder de EU AI Act — en brengt extra risico's mee op het gebied van privacy, bias en compliance. Artikel 4 verplicht AI-geletterdheid voor iedereen die AI inzet."
+                          : "Je hebt geen zicht op of medewerkers eigen AI-tools gebruiken. Onderzoek toont dat meer dan de helft van werknemers dit doet. Breng dit in kaart."}
+                      </p>
+                    </div>
+                  )}
+                  {aantalHoogRisico > 0 && (answers.beslissingen === "zelfstandig" || answers.beslissingen === "weet-niet") && (
                     <div className="p-4 border-l-2 border-red-400 bg-red-50/50">
                       <p className="font-semibold text-sm mb-1">Autonome besluitvorming</p>
                       <p className="text-sm text-muted">
                         {answers.beslissingen === "zelfstandig"
-                          ? "Uw systemen nemen zelfstandig beslissingen. De EU AI Act vereist menselijk toezicht bij hoog-risico AI."
-                          : "U weet niet of uw systemen zelfstandig beslissingen nemen. Dit is een risico — breng dit in kaart."}
+                          ? "Je systemen nemen zelfstandig beslissingen over kandidaten. De EU AI Act vereist menselijk toezicht bij hoog-risico AI."
+                          : "Je weet niet of je systemen zelfstandig beslissingen nemen over kandidaten. Dit is een risico — breng dit in kaart."}
                       </p>
                     </div>
                   )}
-                  {(answers.toezicht === "nee" || answers.toezicht === "weet-niet") && (
+                  {aantalHoogRisico > 0 && (answers.toezicht === "nee" || answers.toezicht === "weet-niet") && (
                     <div className="p-4 border-l-2 border-red-400 bg-red-50/50">
                       <p className="font-semibold text-sm mb-1">Menselijk toezicht</p>
                       <p className="text-sm text-muted">
                         {answers.toezicht === "nee"
-                          ? "Er is niemand aangewezen die AI-beslissingen kan overrulen. Dit is een kernvereiste van de EU AI Act."
-                          : "U weet niet of er menselijk toezicht is. Stel dit vast — het is een van de belangrijkste verplichtingen."}
+                          ? "Er is niemand aangewezen die AI-beslissingen over kandidaten kan overrulen. Dit is een kernvereiste van de EU AI Act."
+                          : "Je weet niet of er menselijk toezicht is op AI-beslissingen. Stel dit vast — het is een van de belangrijkste verplichtingen."}
                       </p>
                     </div>
                   )}
-                  {(answers.transparantie === "nee" || answers.transparantie === "weet-niet") && (
+                  {aantalHoogRisico > 0 && (answers.transparantie === "nee" || answers.transparantie === "weet-niet") && (
                     <div className="p-4 border-l-2 border-amber-400 bg-amber-50/50">
                       <p className="font-semibold text-sm mb-1">Transparantie</p>
                       <p className="text-sm text-muted">
                         {answers.transparantie === "nee"
-                          ? "Betrokkenen worden niet geïnformeerd over het gebruik van AI. De EU AI Act verplicht dit bij hoog-risico systemen."
-                          : "U weet niet of betrokkenen geïnformeerd worden. Controleer dit — transparantie is verplicht."}
+                          ? "Kandidaten worden niet geïnformeerd over het gebruik van AI. De EU AI Act verplicht dit bij hoog-risico systemen."
+                          : "Je weet niet of kandidaten geïnformeerd worden. Controleer dit — transparantie is verplicht."}
                       </p>
                     </div>
                   )}
-                  {answers.beslissingen === "adviserend" && answers.toezicht === "ja" && answers.transparantie === "ja" && (
+                  {aantalHoogRisico > 0 && answers.beslissingen === "adviserend" && answers.toezicht === "ja" && answers.transparantie === "ja" && (
                     <div className="p-4 border-l-2 border-green-400 bg-green-50/50">
                       <p className="font-semibold text-sm mb-1">Goede basis</p>
                       <p className="text-sm text-muted">
-                        U heeft menselijk toezicht en informeert betrokkenen. Dat is een sterke basis.
+                        Je hebt menselijk toezicht en informeert kandidaten. Dat is een sterke basis.
                         Zorg ervoor dat dit ook aantoonbaar en gedocumenteerd is.
                       </p>
                     </div>
@@ -508,23 +475,21 @@ export default function QuickScan() {
             )}
 
             {/* Sector link */}
-            {sectorInfo && sectorInfo.id !== "anders" && (
-              <div className="mb-8 p-4 bg-surface rounded-lg border border-border">
-                <p className="text-sm mb-2">
-                  Lees meer over de EU AI Act in uw sector:
-                </p>
-                <Link href={sectorInfo.link} className="text-accent font-semibold hover:underline">
-                  EU AI Act &amp; {sectorInfo.label} &rarr;
-                </Link>
-              </div>
-            )}
+            <div className="mb-8 p-4 bg-surface rounded-lg border border-border">
+              <p className="text-sm mb-2">
+                Lees meer over de EU AI Act in de uitzendbranche:
+              </p>
+              <Link href="/uitzendbranche" className="text-accent font-semibold hover:underline">
+                EU AI Act &amp; de Uitzendbranche &rarr;
+              </Link>
+            </div>
 
             {/* Deadline */}
-            {aantalHoogRisico > 0 && (
+            {(aantalHoogRisico > 0 || answers.shadow === "ja") && (
               <div className="mb-8 p-4 bg-surface rounded-lg border border-border">
                 <p className="text-sm">
-                  <strong>Uw deadline:</strong> de verplichtingen voor hoog-risico AI-systemen worden
-                  van toepassing in <strong>augustus 2026</strong>.{" "}
+                  <strong>De deadline:</strong> de verplichtingen voor hoog-risico AI-systemen worden
+                  van toepassing in <strong>augustus 2026</strong>. AI-geletterdheid (Art. 4) is al verplicht sinds <strong>februari 2025</strong>.{" "}
                   <Link href="/tijdlijn" className="text-accent hover:underline">
                     Bekijk de volledige tijdlijn &rarr;
                   </Link>
@@ -538,15 +503,15 @@ export default function QuickScan() {
                 <div>
                   <p className="font-semibold text-green-700 mb-1">Verstuurd!</p>
                   <p className="text-sm text-muted">
-                    U ontvangt uw persoonlijke Quick Scan rapport op <strong>{email}</strong>.
-                    We gebruiken uw e-mailadres nergens anders voor.
+                    Je ontvangt je persoonlijke Quick Scan rapport op <strong>{email}</strong>.
+                    We gebruiken je e-mailadres nergens anders voor.
                   </p>
                 </div>
               ) : (
                 <form onSubmit={submitEmail}>
-                  <p className="font-semibold mb-1">Ontvang uw resultaat als PDF rapport</p>
+                  <p className="font-semibold mb-1">Ontvang je resultaat als PDF rapport</p>
                   <p className="text-sm text-muted mb-4">
-                    Handig om te delen met collega&apos;s of uw directie. We sturen geen spam.
+                    Handig om te delen met collega&apos;s of je directie. We sturen geen spam.
                   </p>
                   <div className="flex gap-3">
                     <input
@@ -554,7 +519,7 @@ export default function QuickScan() {
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="uw@email.nl"
+                      placeholder="jouw@email.nl"
                       required
                       className="flex-1 px-4 py-3 border border-border rounded-lg text-sm focus:outline-none focus:border-accent"
                     />
@@ -584,10 +549,10 @@ export default function QuickScan() {
                 Opnieuw doen
               </button>
               <Link
-                href="/faq"
+                href="/uitzendbranche"
                 className="btn-accent px-5 py-3 bg-accent rounded-lg hover:bg-primary transition-colors no-underline"
               >
-                Veelgestelde vragen
+                Lees de volledige analyse
               </Link>
             </div>
           </div>
