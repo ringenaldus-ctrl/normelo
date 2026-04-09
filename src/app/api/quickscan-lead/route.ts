@@ -221,9 +221,12 @@ export async function POST(request: Request) {
     </div>
   </div>
 
-  <div style="border-top:2px solid #f0f0f0;padding:24px 0;text-align:center;">
-    <p style="font-size:14px;color:#4a5568;margin:0 0 16px;">Meer achtergrondinformatie over de EU AI Act en de uitzendbranche:</p>
-    <a href="https://normelo.com/uitzendbranche" style="display:inline-block;background:#e8612d;color:white;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:600;font-size:14px;">Lees meer op normelo.com →</a>
+  <div style="border-top:2px solid #f0f0f0;padding:24px 0;">
+    <div style="background:#1e2a3a;border-radius:8px;padding:24px;text-align:center;">
+      <p style="font-size:16px;font-weight:bold;color:white;margin:0 0 8px;">AI-geletterdheid training voor de uitzendbranche</p>
+      <p style="font-size:13px;color:#94a3b8;margin:0 0 16px;">Normelo ontwikkelt een training specifiek voor recruiters, intercedenten en hiring managers. Schrijf je in voor de wachtlijst en hoor als eerste wanneer het zover is.</p>
+      <a href="https://normelo.com/training" style="display:inline-block;background:#e8612d;color:white;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:600;font-size:14px;">Schrijf je in voor de wachtlijst →</a>
+    </div>
   </div>
 
   <div style="padding:20px 0;border-top:1px solid #f0f0f0;text-align:center;">
