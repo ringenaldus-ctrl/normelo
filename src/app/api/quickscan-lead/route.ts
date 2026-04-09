@@ -223,9 +223,9 @@ export async function POST(request: Request) {
 
   <div style="border-top:2px solid #f0f0f0;padding:24px 0;">
     <div style="background:#1e2a3a;border-radius:8px;padding:24px;text-align:center;">
-      <p style="font-size:16px;font-weight:bold;color:white;margin:0 0 8px;">AI-geletterdheid training voor de uitzendbranche</p>
-      <p style="font-size:13px;color:#94a3b8;margin:0 0 16px;">Normelo ontwikkelt een training specifiek voor recruiters, intercedenten en hiring managers. Schrijf je in voor de wachtlijst en hoor als eerste wanneer het zover is.</p>
-      <a href="https://normelo.com/training" style="display:inline-block;background:#e8612d;color:white;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:600;font-size:14px;">Schrijf je in voor de wachtlijst →</a>
+      <p style="font-size:16px;font-weight:bold;color:white;margin:0 0 8px;">Artikel 4 verplicht AI-geletterdheid — sinds februari 2025</p>
+      <p style="font-size:13px;color:#94a3b8;margin:0 0 16px;">Normelo biedt een compleet compliance-traject voor uitzendbureaus: online training, toets, certificering en documentatie. Specifiek voor recruiters, intercedenten en hiring managers.</p>
+      <a href="https://normelo.com/training" style="display:inline-block;background:#e8612d;color:white;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:600;font-size:14px;">Bekijk het traject →</a>
     </div>
   </div>
 

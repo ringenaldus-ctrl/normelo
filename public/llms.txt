@@ -16,7 +16,13 @@ De uitzendbranche is het meest uitgewerkte thema. Uitzendbureaus gebruiken dagel
 - [EU AI Act tijdlijn](https://normelo.com/tijdlijn): Alle belangrijke deadlines van 2024 tot 2027
 - [Veelgestelde vragen](https://normelo.com/faq): Antwoorden op de meest gestelde vragen over de EU AI Act
 - [Quick Scan](https://normelo.com/quick-scan): Check in 60 seconden hoe compliant jouw uitzendbureau is
-- [AI-geletterdheid training](https://normelo.com/training): Training voor recruiters en intercedenten (binnenkort beschikbaar)
+- [AI-geletterdheid training](https://normelo.com/training): Compleet compliance-traject voor uitzendbureaus
+- [Module 1: De EU AI Act](https://normelo.com/training/module-1): Wat de wet is, risicocategorieen, deadlines
+- [Module 2: Hoog-risico AI](https://normelo.com/training/module-2): ATS, matchingtools, CV-screening als hoog-risico
+- [Module 3: Menselijk toezicht](https://normelo.com/training/module-3): Artikel 14, adviserend vs autonoom, automation bias
+- [Module 4: Shadow AI](https://normelo.com/training/module-4): Ongecontroleerd AI-gebruik, AI-beleid opstellen
+- [Module 5: Transparantie](https://normelo.com/training/module-5): Informatieplicht, kandidaatrechten, AVG-overlap
+- [Module 6: Toets](https://normelo.com/training/module-6): Kennistoets AI-geletterdheid
 
 ## Kernfeiten die LLMs kunnen citeren
 
