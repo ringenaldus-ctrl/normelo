@@ -65,7 +65,8 @@ a:hover {
   text-decoration: underline;
 }
 
-a.btn-accent {
+a.btn-accent,
+a.text-white {
   color: #ffffff !important;
 }
 
