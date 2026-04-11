@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Module 6 — AI-geletterdheid toets",
+  title: "Module 6 — Toets je kennis (preview)",
   description:
-    "Test je kennis over de EU AI Act en de toepassing in de uitzendbranche. 12 vragen over hoog-risico AI, menselijk toezicht, shadow AI en transparantie.",
+    "Drie voorbeeldvragen uit de AI-geletterdheid toets. Test je basiskennis over de EU AI Act en de uitzendbranche. De volledige toets met certificering is onderdeel van het Normelo traject.",
 };
 
 export default function Module6Layout({

@@ -30,36 +30,6 @@ const questions: Question[] = [
   {
     id: 2,
     question:
-      "Onder welke risicocategorie vallen ATS-systemen die cv's ranken?",
-    options: [
-      "Minimaal risico",
-      "Beperkt risico",
-      "Hoog risico",
-      "Onaanvaardbaar risico",
-    ],
-    correct: 2,
-    explanation:
-      "ATS-systemen die cv's ranken, scoren of filteren vallen onder hoog-risico (Bijlage III, categorie 4: werkgelegenheid). Ze nemen beslissingen die directe gevolgen hebben voor kandidaten.",
-    module: "Module 2",
-  },
-  {
-    id: 3,
-    question:
-      "Je bent een uitzendbureau dat een ATS-systeem van een externe leverancier gebruikt. Wat is je rol onder de EU AI Act?",
-    options: [
-      "Provider — je biedt het systeem aan",
-      "Deployer — je zet het systeem in",
-      "Geen rol — de leverancier is verantwoordelijk",
-      "Toezichthouder — je controleert de leverancier",
-    ],
-    correct: 1,
-    explanation:
-      "Als uitzendbureau ben je deployer: je zet het AI-systeem in. De leverancier (provider) heeft eigen verplichtingen, maar die ontslaan jou niet van de jouwe. Je bent zelf verantwoordelijk voor het juiste gebruik.",
-    module: "Module 2",
-  },
-  {
-    id: 4,
-    question:
       "Je ATS wijst cv's automatisch af die niet aan bepaalde keywords voldoen. De recruiter ziet deze kandidaten nooit. Wat is het probleem?",
     options: [
       "Keywords zijn niet betrouwbaar",
@@ -69,25 +39,11 @@ const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "Artikel 14 vereist menselijk toezicht bij hoog-risico AI-systemen. Als kandidaten automatisch worden afgewezen zonder dat een recruiter meekijkt, is er geen effectief menselijk toezicht op de beslissing.",
+      "Artikel 14 vereist menselijk toezicht bij hoog-risico AI-systemen. Als kandidaten automatisch worden afgewezen zonder dat een recruiter meekijkt, is er geen effectief menselijk toezicht.",
     module: "Module 3",
   },
   {
-    id: 5,
-    question: "Wat is 'automation bias'?",
-    options: [
-      "Een technische fout in het AI-systeem",
-      "De neiging om AI-output klakkeloos te vertrouwen",
-      "Een vorm van discriminatie door algoritmes",
-      "Het automatisch bijwerken van AI-modellen",
-    ],
-    correct: 1,
-    explanation:
-      "Automation bias is de psychologische neiging om de output van een computersysteem als juist aan te nemen. De EU AI Act erkent dit risico — effectief menselijk toezicht vereist dat de mens ook daadwerkelijk kritisch is.",
-    module: "Module 3",
-  },
-  {
-    id: 6,
+    id: 3,
     question:
       "Een recruiter gebruikt ChatGPT om 20 cv's te ranken voor een vacature. Wat is hier aan de hand?",
     options: [
@@ -98,96 +54,7 @@ const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "Dit is shadow AI: een medewerker gebruikt een externe AI-tool om een selectiebeslissing te nemen over kandidaten. Er is geen menselijk toezicht, geen logging, en persoonsgegevens worden gedeeld met een externe partij. Dit is zowel een EU AI Act als een AVG-risico.",
-    module: "Module 4",
-  },
-  {
-    id: 7,
-    question:
-      "Wat is de beste aanpak om shadow AI in je uitzendbureau aan te pakken?",
-    options: [
-      "Alle AI-tools verbieden",
-      "Negeren — het is toch niet te controleren",
-      "Een AI-beleid opstellen dat duidelijk maakt wat wel en niet mag",
-      "Alleen de IT-afdeling mag AI-tools gebruiken",
-    ],
-    correct: 2,
-    explanation:
-      "Een helder AI-beleid dat duidelijk maakt welke tools zijn toegestaan, wat er nooit in een AI-tool mag, en hoe medewerkers gebruik moeten melden. Verbieden werkt niet — medewerkers gaan het dan stiekem doen.",
-    module: "Module 4",
-  },
-  {
-    id: 8,
-    question:
-      "Wanneer moet je kandidaten informeren dat AI wordt ingezet in het selectieproces?",
-    options: [
-      "Alleen als ze erom vragen",
-      "Na afloop van het selectieproces",
-      "Voordat het systeem een beslissing over hen neemt",
-      "Alleen bij een afwijzing",
-    ],
-    correct: 2,
-    explanation:
-      "De informatieplicht geldt vooraf — de kandidaat moet weten dat AI wordt ingezet voordat het systeem een beslissing over hem neemt. Dit kan in de vacaturetekst, bij inschrijving, of in de sollicitatiebevestiging.",
-    module: "Module 5",
-  },
-  {
-    id: 9,
-    question:
-      "Een kandidaat vraagt: 'Kan ik bezwaar maken tegen een AI-beslissing over mijn sollicitatie?' Wat is het juiste antwoord?",
-    options: [
-      "Nee, AI-beslissingen zijn definitief",
-      "Ja, onder zowel de AVG als de EU AI Act",
-      "Alleen als het een volledig geautomatiseerde beslissing was",
-      "Dat hangt af van de leverancier van het systeem",
-    ],
-    correct: 1,
-    explanation:
-      "Ja. Onder zowel de AVG (Artikel 22) als de EU AI Act heeft een kandidaat het recht om een AI-beslissing aan te vechten. Je moet een procedure hebben om dit af te handelen.",
-    module: "Module 5",
-  },
-  {
-    id: 10,
-    question: "Artikel 4 van de EU AI Act (AI-geletterdheid) geldt sinds:",
-    options: [
-      "Het is nog niet van kracht",
-      "2 februari 2025",
-      "2 augustus 2026",
-      "1 januari 2027",
-    ],
-    correct: 1,
-    explanation:
-      "Artikel 4 geldt sinds 2 februari 2025. Dit is de eerste verplichting die van kracht is geworden — nog vóór de hoog-risico verplichtingen van augustus 2026.",
-    module: "Module 1",
-  },
-  {
-    id: 11,
-    question:
-      "Je matchingtool toont alleen de top-5 matches. De recruiter werkt daar altijd mee en bekijkt nooit andere kandidaten. Hoe beoordeel je dit?",
-    options: [
-      "Prima — de tool selecteert efficiënt",
-      "Probleem — dit functioneert als autonome besluitvorming",
-      "Geen probleem zolang de recruiter de top-5 zelf beoordeelt",
-      "Dit valt niet onder de EU AI Act",
-    ],
-    correct: 1,
-    explanation:
-      "Als de recruiter structureel alleen de top-5 bekijkt, worden kandidaten lager in de lijst nooit gezien. In de praktijk functioneert dit als een autonome beslissing door het AI-systeem.",
-    module: "Module 3",
-  },
-  {
-    id: 12,
-    question:
-      "Welke persoonsgegevens mag je NOOIT invoeren in een externe AI-tool zoals ChatGPT?",
-    options: [
-      "Alleen BSN-nummers",
-      "Alleen medische gegevens",
-      "Alle persoonsgegevens van kandidaten zonder verwerkersovereenkomst",
-      "Geen beperkingen als de kandidaat toestemming heeft gegeven",
-    ],
-    correct: 2,
-    explanation:
-      "Persoonsgegevens van kandidaten — namen, cv's, contactgegevens, werkgeschiedenis — mogen nooit worden ingevoerd in externe AI-tools zonder expliciete toestemming en een verwerkersovereenkomst. Dit is een AVG-vereiste.",
+      "Dit is shadow AI: een medewerker gebruikt een externe AI-tool om een selectiebeslissing te nemen over kandidaten. Zonder toezicht, logging of verwerkersovereenkomst is dit zowel een EU AI Act als een AVG-risico.",
     module: "Module 4",
   },
 ];
@@ -220,17 +87,6 @@ export default function Module6() {
     }
   }
 
-  function handleRetry() {
-    setCurrent(0);
-    setSelected(null);
-    setAnswered(false);
-    setScore(0);
-    setFinished(false);
-  }
-
-  const passed = score >= 10;
-  const percentage = Math.round((score / questions.length) * 100);
-
   if (finished) {
     return (
       <div className="max-w-2xl mx-auto px-6">
@@ -240,59 +96,65 @@ export default function Module6() {
           <span>Toets</span>
         </nav>
 
-        <div className="py-16 text-center">
-          <div
-            className={`inline-flex items-center justify-center w-24 h-24 rounded-full text-3xl font-bold mb-6 ${
-              passed
-                ? "bg-green-50 text-green-700 border-2 border-green-300"
-                : "bg-red-50 text-red-700 border-2 border-red-300"
-            }`}
-          >
-            {percentage}%
+        <div className="py-16">
+          <p className="text-sm font-medium text-accent mb-2 tracking-wide uppercase">
+            Preview afgerond
+          </p>
+          <h1 className="text-3xl font-bold mb-4">
+            {score} van {questions.length} goed
+          </h1>
+
+          <div className="prose-custom space-y-4 text-foreground leading-relaxed mb-10">
+            <p>
+              Dit waren 3 voorbeeldvragen uit de volledige AI-geletterdheid toets.
+              In het complete traject bevat de toets 12 vragen over alle onderwerpen:
+              de EU AI Act, hoog-risico classificatie, menselijk toezicht, shadow AI,
+              transparantie en kandidaatrechten.
+            </p>
+            <p>
+              Wie slaagt voor de volledige toets ontvangt het Normelo certificaat —
+              het bewijs dat jouw team voldoet aan de AI-geletterdheidsverplichting
+              van Artikel 4.
+            </p>
           </div>
 
-          <h1 className="text-3xl font-bold mb-2">
-            {passed ? "Gefeliciteerd!" : "Helaas, nog niet voldoende"}
-          </h1>
-          <p className="text-lg text-muted mb-6">
-            Je hebt {score} van de {questions.length} vragen goed beantwoord.
-            {passed
-              ? " Je hebt de toets gehaald."
-              : " Je hebt minimaal 10 goede antwoorden nodig om te slagen."}
-          </p>
+          <div className="bg-surface rounded-lg border border-border p-8 mb-10">
+            <h2 className="text-lg font-bold mb-3">
+              Wat het volledige traject omvat
+            </h2>
+            <ul className="space-y-2 text-sm text-foreground">
+              <li className="flex items-start gap-2">
+                <span className="text-accent mt-0.5">✓</span>
+                <span>Training op maat voor jouw organisatie</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-accent mt-0.5">✓</span>
+                <span>Toets en certificering per medewerker</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-accent mt-0.5">✓</span>
+                <span>Compliance-documentatie die je kunt overleggen bij audits</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-accent mt-0.5">✓</span>
+                <span>Shadow AI beleid voor je organisatie</span>
+              </li>
+            </ul>
+          </div>
 
-          {passed ? (
-            <div className="max-w-md mx-auto p-6 bg-green-50 rounded-lg border border-green-200 mb-8">
-              <p className="font-bold text-green-800 mb-2">
-                AI-geletterdheid toets behaald
-              </p>
-              <p className="text-sm text-green-700">
-                Je hebt aangetoond dat je de basiskennis bezit over de EU AI Act en
-                de toepassing ervan in de uitzendbranche. In het volledige
-                compliance-traject ontvang je hiervoor het Normelo certificaat.
-              </p>
-            </div>
-          ) : (
-            <div className="max-w-md mx-auto mb-8">
-              <p className="text-sm text-muted mb-4">
-                Bekijk de modules nog een keer en probeer het opnieuw. Focus vooral
-                op de onderwerpen waar je vragen fout had.
-              </p>
-              <button
-                onClick={handleRetry}
-                className="px-6 py-3 bg-accent text-white rounded-lg font-medium hover:bg-accent-hover transition-colors cursor-pointer"
-              >
-                Opnieuw proberen
-              </button>
-            </div>
-          )}
+          <Link
+            href="/training"
+            className="inline-block px-6 py-3 bg-accent text-white rounded-lg font-medium hover:bg-accent-hover transition-colors no-underline"
+          >
+            Bekijk het volledige traject →
+          </Link>
 
-          <div className="pt-8 border-t border-border">
+          <div className="flex justify-start mt-12 pt-8 border-t border-border">
             <Link
-              href="/training"
+              href="/training/module-5"
               className="text-sm text-muted hover:text-accent transition-colors"
             >
-              ← Terug naar training overzicht
+              ← Module 5
             </Link>
           </div>
         </div>
@@ -311,7 +173,7 @@ export default function Module6() {
       <article className="py-8">
         <div className="flex items-center justify-between mb-8">
           <p className="text-sm font-medium text-accent tracking-wide uppercase">
-            Module 6 — Toets
+            Preview — 3 voorbeeldvragen
           </p>
           <p className="text-sm text-muted">
             Vraag {current + 1} van {questions.length}
