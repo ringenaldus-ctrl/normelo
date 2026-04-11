@@ -157,8 +157,8 @@ export default function Training() {
 
           <Link href="/training/module-6" className="block p-4 bg-surface rounded-lg hover:border-accent border border-transparent transition-colors no-underline group">
             <p className="text-sm text-accent font-medium mb-1">Module 6</p>
-            <p className="font-semibold mb-1 group-hover:text-accent">Toets</p>
-            <p className="text-sm text-muted">Kennistoets met 12 vragen over alle modules. Bij minimaal 10 goede antwoorden heb je de toets gehaald.</p>
+            <p className="font-semibold mb-1 group-hover:text-accent">Toets (preview)</p>
+            <p className="text-sm text-muted">Test je kennis met 3 voorbeeldvragen. De volledige toets met certificering is onderdeel van het traject.</p>
           </Link>
         </div>
       </section>
