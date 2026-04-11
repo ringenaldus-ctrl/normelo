@@ -552,7 +552,7 @@ export default function QuickScan() {
                 href="/uitzendbranche"
                 className="btn-accent px-5 py-3 bg-accent rounded-lg hover:bg-primary transition-colors no-underline"
               >
-                Lees de volledige analyse
+                EU AI Act &amp; de Uitzendbranche
               </Link>
             </div>
           </div>
