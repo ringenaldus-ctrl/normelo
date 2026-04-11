@@ -37,7 +37,7 @@ function Header() {
           <Link href="/tijdlijn" className="text-muted hover:text-primary transition-colors no-underline hover:no-underline">
             Tijdlijn
           </Link>
-          <Link href="/training" className="text-accent font-medium hover:text-primary transition-colors no-underline hover:no-underline">
+          <Link href="/training" className="text-muted hover:text-primary transition-colors no-underline hover:no-underline">
             Training
           </Link>
           <Link href="/quick-scan" className="text-muted hover:text-primary transition-colors no-underline hover:no-underline">
