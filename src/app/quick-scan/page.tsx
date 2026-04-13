@@ -221,30 +221,56 @@ export default function QuickScan() {
                 <button
                   key={optie.id}
                   onClick={() => toggleSysteem(optie.id)}
-                  className={`text-left p-4 border rounded-lg transition-colors cursor-pointer ${
+                  className={`group text-left p-5 rounded-xl transition-all duration-200 cursor-pointer ${
                     answers.systemen.includes(optie.id)
-                      ? "border-accent bg-blue-50 text-accent"
-                      : "border-border hover:border-accent hover:bg-surface"
+                      ? "border-2 border-accent bg-blue-50 shadow-sm"
+                      : "border border-border hover:border-accent/50 hover:shadow-md hover:-translate-y-px"
                   }`}
                 >
-                  {optie.label}
+                  <div className="flex items-center gap-3">
+                    <div className={`flex-shrink-0 w-5 h-5 rounded border-2 flex items-center justify-center transition-colors ${
+                      answers.systemen.includes(optie.id)
+                        ? "border-accent bg-accent"
+                        : "border-gray-300 group-hover:border-accent/50"
+                    }`}>
+                      {answers.systemen.includes(optie.id) && (
+                        <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                      )}
+                    </div>
+                    <span className={`text-sm leading-snug ${answers.systemen.includes(optie.id) ? "text-accent font-medium" : ""}`}>{optie.label}</span>
+                  </div>
                 </button>
               ))}
               <button
                 onClick={() => toggleSysteem("geen")}
-                className={`text-left p-4 border rounded-lg transition-colors cursor-pointer ${
+                className={`group text-left p-5 rounded-xl transition-all duration-200 cursor-pointer ${
                   answers.systemen.includes("geen")
-                    ? "border-accent bg-blue-50 text-accent"
-                    : "border-border hover:border-accent hover:bg-surface"
+                    ? "border-2 border-accent bg-blue-50 shadow-sm"
+                    : "border border-border hover:border-accent/50 hover:shadow-md hover:-translate-y-px"
                 }`}
               >
-                {geenOptie.label}
+                <div className="flex items-center gap-3">
+                  <div className={`flex-shrink-0 w-5 h-5 rounded border-2 flex items-center justify-center transition-colors ${
+                    answers.systemen.includes("geen")
+                      ? "border-accent bg-accent"
+                      : "border-gray-300 group-hover:border-accent/50"
+                  }`}>
+                    {answers.systemen.includes("geen") && (
+                      <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                    )}
+                  </div>
+                  <span className={`text-sm leading-snug ${answers.systemen.includes("geen") ? "text-accent font-medium" : ""}`}>{geenOptie.label}</span>
+                </div>
               </button>
             </div>
             <button
               onClick={submitSystemen}
               disabled={answers.systemen.length === 0}
-              className="px-6 py-3 bg-accent text-white rounded-lg hover:bg-primary transition-colors disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+              className="px-6 py-3 bg-accent text-white rounded-lg font-medium hover:bg-primary transition-all duration-200 hover:shadow-md disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
             >
               Volgende
             </button>
@@ -258,17 +284,26 @@ export default function QuickScan() {
             <p className="text-muted mb-6">
               Dit helpt ons het resultaat specifieker te maken. We gebruiken dit alleen voor je scan.
             </p>
-            <div className="grid gap-3">
-              {atsOpties.map((optie) => (
+            <div className="grid grid-cols-2 gap-3 mb-4">
+              {atsOpties.filter(o => o.ai).map((optie) => (
                 <button
                   key={optie.id}
                   onClick={() => selectAts(optie.id)}
-                  className="text-left p-4 border border-border rounded-lg hover:border-accent hover:bg-surface transition-colors cursor-pointer"
+                  className="group text-left p-5 rounded-xl border border-border hover:border-accent hover:shadow-md hover:-translate-y-px transition-all duration-200 cursor-pointer"
                 >
-                  <span className="font-semibold">{optie.label}</span>
-                  {optie.ai && (
-                    <p className="text-sm text-muted mt-1">Bevat o.a. {optie.ai}</p>
-                  )}
+                  <span className="font-semibold text-foreground group-hover:text-accent transition-colors">{optie.label}</span>
+                  <p className="text-xs text-muted mt-1.5 leading-relaxed">Bevat o.a. {optie.ai}</p>
+                </button>
+              ))}
+            </div>
+            <div className="flex gap-3">
+              {atsOpties.filter(o => !o.ai).map((optie) => (
+                <button
+                  key={optie.id}
+                  onClick={() => selectAts(optie.id)}
+                  className="flex-1 text-center py-3 px-4 rounded-lg border border-border text-sm text-muted hover:border-accent/50 hover:text-foreground transition-all duration-200 cursor-pointer"
+                >
+                  {optie.label}
                 </button>
               ))}
             </div>
@@ -286,30 +321,30 @@ export default function QuickScan() {
             <div className="grid gap-3">
               <button
                 onClick={() => selectShadow("ja")}
-                className="text-left p-4 border border-border rounded-lg hover:border-accent hover:bg-surface transition-colors cursor-pointer"
+                className="group text-left p-5 rounded-xl border border-border hover:border-accent hover:shadow-md hover:-translate-y-px transition-all duration-200 cursor-pointer"
               >
-                <span className="font-semibold">Ja, dat gebeurt</span>
-                <p className="text-sm text-muted mt-1">Medewerkers gebruiken eigen AI-tools voor hun werk</p>
+                <span className="font-semibold group-hover:text-accent transition-colors">Ja, dat gebeurt</span>
+                <p className="text-sm text-muted mt-1.5 leading-relaxed">Medewerkers gebruiken eigen AI-tools voor hun werk</p>
               </button>
               <button
                 onClick={() => selectShadow("nee")}
-                className="text-left p-4 border border-border rounded-lg hover:border-accent hover:bg-surface transition-colors cursor-pointer"
+                className="group text-left p-5 rounded-xl border border-border hover:border-accent hover:shadow-md hover:-translate-y-px transition-all duration-200 cursor-pointer"
               >
-                <span className="font-semibold">Nee</span>
-                <p className="text-sm text-muted mt-1">Er worden alleen goedgekeurde tools gebruikt</p>
+                <span className="font-semibold group-hover:text-accent transition-colors">Nee</span>
+                <p className="text-sm text-muted mt-1.5 leading-relaxed">Er worden alleen goedgekeurde tools gebruikt</p>
               </button>
               <button
                 onClick={() => selectShadow("weet-niet")}
-                className="text-left p-4 border border-border rounded-lg hover:border-accent hover:bg-surface transition-colors cursor-pointer"
+                className="group text-left p-5 rounded-xl border border-border hover:border-accent hover:shadow-md hover:-translate-y-px transition-all duration-200 cursor-pointer"
               >
-                <span className="font-semibold">Weet ik niet</span>
-                <p className="text-sm text-muted mt-1">We hebben hier geen zicht op</p>
+                <span className="font-semibold group-hover:text-accent transition-colors">Weet ik niet</span>
+                <p className="text-sm text-muted mt-1.5 leading-relaxed">We hebben hier geen zicht op</p>
               </button>
             </div>
           </div>
         )}
 
-        {/* Stap 3: Beslissingen */}
+        {/* Stap 4: Beslissingen */}
         {step === "beslissingen" && (
           <div>
             <h2 className="text-2xl font-bold mb-2">Nemen deze systemen zelfstandig beslissingen?</h2>
@@ -317,30 +352,30 @@ export default function QuickScan() {
             <div className="grid gap-3">
               <button
                 onClick={() => selectBeslissingen("zelfstandig")}
-                className="text-left p-4 border border-border rounded-lg hover:border-accent hover:bg-surface transition-colors cursor-pointer"
+                className="group text-left p-5 rounded-xl border border-border hover:border-accent hover:shadow-md hover:-translate-y-px transition-all duration-200 cursor-pointer"
               >
-                <span className="font-semibold">Zelfstandig</span>
-                <p className="text-sm text-muted mt-1">Het systeem wijst kandidaten af of rankt ze zonder dat iemand meekijkt</p>
+                <span className="font-semibold group-hover:text-accent transition-colors">Zelfstandig</span>
+                <p className="text-sm text-muted mt-1.5 leading-relaxed">Het systeem wijst kandidaten af of rankt ze zonder dat iemand meekijkt</p>
               </button>
               <button
                 onClick={() => selectBeslissingen("adviserend")}
-                className="text-left p-4 border border-border rounded-lg hover:border-accent hover:bg-surface transition-colors cursor-pointer"
+                className="group text-left p-5 rounded-xl border border-border hover:border-accent hover:shadow-md hover:-translate-y-px transition-all duration-200 cursor-pointer"
               >
-                <span className="font-semibold">Adviserend</span>
-                <p className="text-sm text-muted mt-1">Het systeem geeft een aanbeveling, een recruiter beslist</p>
+                <span className="font-semibold group-hover:text-accent transition-colors">Adviserend</span>
+                <p className="text-sm text-muted mt-1.5 leading-relaxed">Het systeem geeft een aanbeveling, een recruiter beslist</p>
               </button>
               <button
                 onClick={() => selectBeslissingen("weet-niet")}
-                className="text-left p-4 border border-border rounded-lg hover:border-accent hover:bg-surface transition-colors cursor-pointer"
+                className="group text-left p-5 rounded-xl border border-border hover:border-accent hover:shadow-md hover:-translate-y-px transition-all duration-200 cursor-pointer"
               >
-                <span className="font-semibold">Weet ik niet</span>
-                <p className="text-sm text-muted mt-1">Ik weet niet precies hoe het systeem werkt</p>
+                <span className="font-semibold group-hover:text-accent transition-colors">Weet ik niet</span>
+                <p className="text-sm text-muted mt-1.5 leading-relaxed">Ik weet niet precies hoe het systeem werkt</p>
               </button>
             </div>
           </div>
         )}
 
-        {/* Stap 4: Toezicht */}
+        {/* Stap 5: Toezicht */}
         {step === "toezicht" && (
           <div>
             <h2 className="text-2xl font-bold mb-2">Is er iemand aangewezen die AI-beslissingen kan overrulen?</h2>
@@ -348,30 +383,30 @@ export default function QuickScan() {
             <div className="grid gap-3">
               <button
                 onClick={() => selectToezicht("ja")}
-                className="text-left p-4 border border-border rounded-lg hover:border-accent hover:bg-surface transition-colors cursor-pointer"
+                className="group text-left p-5 rounded-xl border border-border hover:border-accent hover:shadow-md hover:-translate-y-px transition-all duration-200 cursor-pointer"
               >
-                <span className="font-semibold">Ja</span>
-                <p className="text-sm text-muted mt-1">Er is iemand die de output van het systeem beoordeelt en kan aanpassen</p>
+                <span className="font-semibold group-hover:text-accent transition-colors">Ja</span>
+                <p className="text-sm text-muted mt-1.5 leading-relaxed">Er is iemand die de output van het systeem beoordeelt en kan aanpassen</p>
               </button>
               <button
                 onClick={() => selectToezicht("nee")}
-                className="text-left p-4 border border-border rounded-lg hover:border-accent hover:bg-surface transition-colors cursor-pointer"
+                className="group text-left p-5 rounded-xl border border-border hover:border-accent hover:shadow-md hover:-translate-y-px transition-all duration-200 cursor-pointer"
               >
-                <span className="font-semibold">Nee</span>
-                <p className="text-sm text-muted mt-1">De output van het systeem wordt zonder controle overgenomen</p>
+                <span className="font-semibold group-hover:text-accent transition-colors">Nee</span>
+                <p className="text-sm text-muted mt-1.5 leading-relaxed">De output van het systeem wordt zonder controle overgenomen</p>
               </button>
               <button
                 onClick={() => selectToezicht("weet-niet")}
-                className="text-left p-4 border border-border rounded-lg hover:border-accent hover:bg-surface transition-colors cursor-pointer"
+                className="group text-left p-5 rounded-xl border border-border hover:border-accent hover:shadow-md hover:-translate-y-px transition-all duration-200 cursor-pointer"
               >
-                <span className="font-semibold">Weet ik niet</span>
-                <p className="text-sm text-muted mt-1">Het is me niet duidelijk of er toezicht is</p>
+                <span className="font-semibold group-hover:text-accent transition-colors">Weet ik niet</span>
+                <p className="text-sm text-muted mt-1.5 leading-relaxed">Het is me niet duidelijk of er toezicht is</p>
               </button>
             </div>
           </div>
         )}
 
-        {/* Stap 5: Transparantie */}
+        {/* Stap 6: Transparantie */}
         {step === "transparantie" && (
           <div>
             <h2 className="text-2xl font-bold mb-2">Worden kandidaten geïnformeerd dat AI wordt gebruikt?</h2>
@@ -379,24 +414,24 @@ export default function QuickScan() {
             <div className="grid gap-3">
               <button
                 onClick={() => selectTransparantie("ja")}
-                className="text-left p-4 border border-border rounded-lg hover:border-accent hover:bg-surface transition-colors cursor-pointer"
+                className="group text-left p-5 rounded-xl border border-border hover:border-accent hover:shadow-md hover:-translate-y-px transition-all duration-200 cursor-pointer"
               >
-                <span className="font-semibold">Ja</span>
-                <p className="text-sm text-muted mt-1">Kandidaten weten dat AI een rol speelt in het proces</p>
+                <span className="font-semibold group-hover:text-accent transition-colors">Ja</span>
+                <p className="text-sm text-muted mt-1.5 leading-relaxed">Kandidaten weten dat AI een rol speelt in het proces</p>
               </button>
               <button
                 onClick={() => selectTransparantie("nee")}
-                className="text-left p-4 border border-border rounded-lg hover:border-accent hover:bg-surface transition-colors cursor-pointer"
+                className="group text-left p-5 rounded-xl border border-border hover:border-accent hover:shadow-md hover:-translate-y-px transition-all duration-200 cursor-pointer"
               >
-                <span className="font-semibold">Nee</span>
-                <p className="text-sm text-muted mt-1">Er wordt niet actief gecommuniceerd dat AI wordt ingezet</p>
+                <span className="font-semibold group-hover:text-accent transition-colors">Nee</span>
+                <p className="text-sm text-muted mt-1.5 leading-relaxed">Er wordt niet actief gecommuniceerd dat AI wordt ingezet</p>
               </button>
               <button
                 onClick={() => selectTransparantie("weet-niet")}
-                className="text-left p-4 border border-border rounded-lg hover:border-accent hover:bg-surface transition-colors cursor-pointer"
+                className="group text-left p-5 rounded-xl border border-border hover:border-accent hover:shadow-md hover:-translate-y-px transition-all duration-200 cursor-pointer"
               >
-                <span className="font-semibold">Weet ik niet</span>
-                <p className="text-sm text-muted mt-1">Ik weet niet of kandidaten hierover geïnformeerd worden</p>
+                <span className="font-semibold group-hover:text-accent transition-colors">Weet ik niet</span>
+                <p className="text-sm text-muted mt-1.5 leading-relaxed">Ik weet niet of kandidaten hierover geïnformeerd worden</p>
               </button>
             </div>
           </div>
