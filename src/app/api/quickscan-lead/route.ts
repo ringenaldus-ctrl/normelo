@@ -18,7 +18,7 @@ export async function POST(request: Request) {
 
     const body = await request.json();
 
-    const { email, sector, risico_niveau, hoog_risico_systemen, antwoorden } =
+    const { email, sector, risico_niveau, hoog_risico_systemen, ats_systeem, antwoorden } =
       body;
 
     if (!email || typeof email !== "string" || !email.includes("@")) {
@@ -34,6 +34,7 @@ export async function POST(request: Request) {
       sector: sector || null,
       risico_niveau: risico_niveau || null,
       hoog_risico_systemen: hoog_risico_systemen || [],
+      ats_systeem: ats_systeem || null,
       antwoorden: antwoorden || {},
     });
 

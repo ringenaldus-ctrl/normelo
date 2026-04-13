@@ -3,15 +3,26 @@
 import { useState, useRef } from "react";
 import Link from "next/link";
 
-type Step = "systemen" | "shadow" | "beslissingen" | "toezicht" | "transparantie" | "resultaat";
+type Step = "systemen" | "ats" | "shadow" | "beslissingen" | "toezicht" | "transparantie" | "resultaat";
 
 interface Answers {
   systemen: string[];
+  ats: string;
   shadow: string;
   beslissingen: string;
   toezicht: string;
   transparantie: string;
 }
+
+const atsOpties = [
+  { id: "carerix", label: "Carerix", ai: "AI-matching en CV-screening" },
+  { id: "mysolution", label: "Mysolution", ai: "AI-matching en kandidaatranking" },
+  { id: "bullhorn", label: "Bullhorn / Connexys", ai: "AI-matching en automatische sourcing" },
+  { id: "byner", label: "Byner", ai: "AI-matching en talent engagement" },
+  { id: "anders", label: "Een ander systeem", ai: "" },
+  { id: "weet-niet", label: "Weet ik niet", ai: "" },
+  { id: "geen-ats", label: "Wij gebruiken geen ATS", ai: "" },
+];
 
 const systemen = [
   { id: "cv-screening", label: "Software die automatisch cv's selecteert of kandidaten rankt (bijv. ATS met AI-ranking)", risico: true },
@@ -27,6 +38,7 @@ export default function QuickScan() {
   const [step, setStep] = useState<Step>("systemen");
   const [answers, setAnswers] = useState<Answers>({
     systemen: [],
+    ats: "",
     shadow: "",
     beslissingen: "",
     toezicht: "",
@@ -60,8 +72,13 @@ export default function QuickScan() {
       setAnswers({ ...answers, systemen: answers.systemen.length === 0 ? ["geen"] : answers.systemen });
       setStep("shadow");
     } else {
-      setStep("shadow");
+      setStep("ats");
     }
+  }
+
+  function selectAts(value: string) {
+    setAnswers({ ...answers, ats: value });
+    setStep("shadow");
   }
 
   function selectShadow(value: string) {
@@ -89,7 +106,7 @@ export default function QuickScan() {
   }
 
   function restart() {
-    setAnswers({ systemen: [], shadow: "", beslissingen: "", toezicht: "", transparantie: "" });
+    setAnswers({ systemen: [], ats: "", shadow: "", beslissingen: "", toezicht: "", transparantie: "" });
     setEmail("");
     setEmailStatus("idle");
     setStep("systemen");
@@ -108,6 +125,7 @@ export default function QuickScan() {
           sector: "uitzendbranche",
           risico_niveau: risicoNiveau,
           hoog_risico_systemen: hoogRisicoSystemen,
+          ats_systeem: answers.ats,
           antwoorden: {
             shadow: answers.shadow,
             beslissingen: answers.beslissingen,
@@ -159,7 +177,7 @@ export default function QuickScan() {
 
   const stepOrder: Step[] = answers.systemen.includes("geen")
     ? ["systemen", "shadow", "resultaat"]
-    : ["systemen", "shadow", "beslissingen", "toezicht", "transparantie", "resultaat"];
+    : ["systemen", "ats", "shadow", "beslissingen", "toezicht", "transparantie", "resultaat"];
 
   const totalSteps = stepOrder.length - 1; // don't count "resultaat" as a step
   const currentStep = stepOrder.indexOf(step) + 1;
@@ -233,7 +251,31 @@ export default function QuickScan() {
           </div>
         )}
 
-        {/* Stap 2: Shadow AI */}
+        {/* Stap 2: ATS systeem */}
+        {step === "ats" && (
+          <div>
+            <h2 className="text-2xl font-bold mb-2">Welk ATS-systeem gebruikt jouw organisatie?</h2>
+            <p className="text-muted mb-6">
+              Dit helpt ons het resultaat specifieker te maken. We gebruiken dit alleen voor je scan.
+            </p>
+            <div className="grid gap-3">
+              {atsOpties.map((optie) => (
+                <button
+                  key={optie.id}
+                  onClick={() => selectAts(optie.id)}
+                  className="text-left p-4 border border-border rounded-lg hover:border-accent hover:bg-surface transition-colors cursor-pointer"
+                >
+                  <span className="font-semibold">{optie.label}</span>
+                  {optie.ai && (
+                    <p className="text-sm text-muted mt-1">Bevat o.a. {optie.ai}</p>
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Stap 3: Shadow AI */}
         {step === "shadow" && (
           <div>
             <h2 className="text-2xl font-bold mb-2">Gebruiken recruiters of intercedenten eigen AI-tools?</h2>
@@ -397,6 +439,52 @@ export default function QuickScan() {
                 </p>
               )}
             </div>
+
+            {/* ATS-specifieke toelichting */}
+            {answers.ats && answers.ats !== "geen-ats" && answers.ats !== "weet-niet" && aantalHoogRisico > 0 && (
+              <div className="mb-8 p-5 bg-surface rounded-lg border border-border">
+                <h3 className="text-lg font-semibold mb-2">
+                  {answers.ats === "anders" ? "Jouw ATS-systeem" : atsOpties.find(o => o.id === answers.ats)?.label}
+                </h3>
+                {answers.ats === "carerix" && (
+                  <p className="text-sm text-foreground leading-relaxed">
+                    Carerix heeft AI-matching en CV-screening geïntegreerd. Als jouw organisatie die functionaliteiten
+                    gebruikt voor selectiebeslissingen over kandidaten, kwalificeren die als hoog-risico onder Bijlage III
+                    van de EU AI Act (categorie 4: werkgelegenheid). Jullie zijn als gebruiker (deployer) zelf
+                    verantwoordelijk voor het juiste gebruik — ongeacht wat Carerix als leverancier doet.
+                  </p>
+                )}
+                {answers.ats === "mysolution" && (
+                  <p className="text-sm text-foreground leading-relaxed">
+                    Mysolution bevat AI-matching en kandidaatranking. Als jouw organisatie die functionaliteiten gebruikt
+                    om kandidaten te selecteren, ranken of filteren, valt dat onder hoog-risico (Bijlage III, categorie 4).
+                    Als deployer ben je zelf verantwoordelijk voor compliance — Mysolution als provider heeft eigen
+                    verplichtingen, maar die ontslaan jou niet van de jouwe.
+                  </p>
+                )}
+                {answers.ats === "bullhorn" && (
+                  <p className="text-sm text-foreground leading-relaxed">
+                    Bullhorn (voorheen Connexys) bevat AI-matching en automatische sourcing. Wanneer deze functies worden
+                    ingezet voor selectiebeslissingen over kandidaten, vallen ze onder hoog-risico (Bijlage III, categorie 4).
+                    Als deployer ben je zelf verantwoordelijk voor het juiste gebruik en menselijk toezicht.
+                  </p>
+                )}
+                {answers.ats === "byner" && (
+                  <p className="text-sm text-foreground leading-relaxed">
+                    Byner bevat AI-matching en talent engagement functionaliteiten. Als die worden ingezet voor
+                    selectiebeslissingen, kwalificeren ze als hoog-risico onder de EU AI Act. Als deployer op het
+                    Byner-platform ben je zelf verantwoordelijk voor compliance.
+                  </p>
+                )}
+                {answers.ats === "anders" && (
+                  <p className="text-sm text-foreground leading-relaxed">
+                    Als jouw ATS-systeem AI-functionaliteiten bevat die worden ingezet voor selectiebeslissingen over
+                    kandidaten (matching, ranking, screening), valt dat gebruik onder hoog-risico in de EU AI Act
+                    (Bijlage III, categorie 4). Als gebruiker (deployer) ben je zelf verantwoordelijk voor compliance.
+                  </p>
+                )}
+              </div>
+            )}
 
             {/* Hoog-risico systemen */}
             {aantalHoogRisico > 0 && (
