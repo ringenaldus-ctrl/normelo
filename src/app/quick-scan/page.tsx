@@ -597,15 +597,45 @@ export default function QuickScan() {
               </div>
             )}
 
-            {/* Sector link */}
-            <div className="mb-8 p-4 bg-surface rounded-lg border border-border">
-              <p className="text-sm mb-2">
-                Lees meer over de EU AI Act in de uitzendbranche:
-              </p>
-              <Link href="/uitzendbranche" className="text-accent font-semibold hover:underline">
-                EU AI Act &amp; de Uitzendbranche &rarr;
-              </Link>
-            </div>
+            {/* Oplossing CTA */}
+            {(aantalHoogRisico > 0 || answers.shadow === "ja") && (
+              <div className="mb-8 p-6 rounded-xl bg-gradient-to-br from-gray-900 to-gray-800 text-white">
+                <p className="text-sm font-medium text-orange-300 mb-2 tracking-wide uppercase">Dit oplossen?</p>
+                <h3 className="text-xl font-bold mb-3">
+                  Normelo AI-geletterdheid traject
+                </h3>
+                <p className="text-sm text-gray-300 leading-relaxed mb-5">
+                  Een compleet compliance-traject voor de uitzendbranche. Specifiek voor de systemen die jij gebruikt
+                  — van {answers.ats && answers.ats !== "geen-ats" && answers.ats !== "weet-niet" && answers.ats !== "anders"
+                    ? `${atsOpties.find(o => o.id === answers.ats)?.label} tot`
+                    : "ATS tot"} shadow AI.
+                </p>
+                <div className="grid grid-cols-2 gap-3 mb-6 text-sm">
+                  <div className="flex items-start gap-2">
+                    <span className="text-orange-300 mt-0.5">&#10003;</span>
+                    <span className="text-gray-200">Training op maat</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="text-orange-300 mt-0.5">&#10003;</span>
+                    <span className="text-gray-200">Toets en certificering</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="text-orange-300 mt-0.5">&#10003;</span>
+                    <span className="text-gray-200">Compliance-documentatie</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="text-orange-300 mt-0.5">&#10003;</span>
+                    <span className="text-gray-200">Shadow AI beleid</span>
+                  </div>
+                </div>
+                <Link
+                  href="/training"
+                  className="inline-block px-6 py-3 bg-accent text-white rounded-lg font-medium hover:bg-orange-600 transition-colors no-underline"
+                >
+                  Bekijk het traject &rarr;
+                </Link>
+              </div>
+            )}
 
             {/* Deadline */}
             {(aantalHoogRisico > 0 || answers.shadow === "ja") && (
@@ -620,7 +650,7 @@ export default function QuickScan() {
               </div>
             )}
 
-            {/* PDF rapport per e-mail */}
+            {/* Resultaat per e-mail */}
             <div className="mb-8 p-6 bg-surface rounded-lg border border-border">
               {emailStatus === "sent" ? (
                 <div>
@@ -673,9 +703,9 @@ export default function QuickScan() {
               </button>
               <Link
                 href="/uitzendbranche"
-                className="btn-accent px-5 py-3 bg-accent rounded-lg hover:bg-primary transition-colors no-underline"
+                className="px-5 py-3 border border-border rounded-lg hover:bg-surface transition-colors no-underline text-sm"
               >
-                EU AI Act &amp; de Uitzendbranche
+                Meer over de EU AI Act
               </Link>
             </div>
           </div>
