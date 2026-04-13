@@ -488,6 +488,41 @@ export default function QuickScan() {
               </div>
             )}
 
+            {/* Gevolg / pijnpunt */}
+            {(aantalHoogRisico > 0 || answers.shadow === "ja" || answers.shadow === "weet-niet") && (
+              <div className="mb-6 p-5 bg-surface rounded-lg border border-border">
+                <h3 className="text-lg font-semibold mb-3">Wat betekent dit?</h3>
+                <div className="space-y-2 text-sm text-muted leading-relaxed">
+                  {risicoNiveau === "hoog" && (
+                    <>
+                      <p>
+                        Vanaf augustus 2026 moet jouw organisatie kunnen aantonen dat hoog-risico AI-systemen voldoen aan de EU AI Act.
+                        Dat betekent documentatie, menselijk toezicht en transparantie naar kandidaten.
+                      </p>
+                      <p>
+                        Zonder actie riskeer je boetes tot 3% van de jaaromzet — én reputatieschade als kandidaten of opdrachtgevers vragen stellen die je niet kunt beantwoorden.
+                      </p>
+                    </>
+                  )}
+                  {risicoNiveau === "middel" && (
+                    <>
+                      <p>
+                        Je organisatie valt niet direct in de zwaarste categorie, maar er zijn risico's die aandacht vragen vóór augustus 2026.
+                      </p>
+                      <p>
+                        Opdrachtgevers en kandidaten verwachten steeds vaker dat je kunt uitleggen hoe AI in jouw processen wordt ingezet. Wie dat niet kan, verliest vertrouwen.
+                      </p>
+                    </>
+                  )}
+                  {risicoNiveau === "laag" && answers.shadow === "ja" && (
+                    <p>
+                      Hoewel je geen hoog-risico systemen gebruikt, vormt shadow AI een onzichtbaar risico. Medewerkers die zelfstandig AI inzetten voor kandidaatbeoordeling vallen mogelijk alsnog onder de wet.
+                    </p>
+                  )}
+                </div>
+              </div>
+            )}
+
             {/* Oplossing CTA */}
             {(aantalHoogRisico > 0 || answers.shadow === "ja") && (
               <div className="mb-6 p-6 rounded-xl bg-gradient-to-br from-gray-900 to-gray-800 text-white">
