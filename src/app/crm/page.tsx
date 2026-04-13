@@ -2,6 +2,18 @@
 
 import { useState, useEffect, useCallback } from "react";
 
+interface Contact {
+  id: string;
+  prospect_id: string;
+  naam: string;
+  functie: string | null;
+  linkedin_url: string | null;
+  email: string | null;
+  telefoon: string | null;
+  notities: string | null;
+  created_at: string;
+}
+
 interface Prospect {
   id: string;
   bedrijf: string;
@@ -16,6 +28,7 @@ interface Prospect {
   bron: string | null;
   created_at: string;
   updated_at: string;
+  prospect_contacten: Contact[];
 }
 
 const STATUSSEN = [
@@ -35,14 +48,8 @@ const ATS_LABELS: Record<string, string> = {
   byner: "Byner",
 };
 
-function StatusBadge({ status }: { status: string }) {
-  const s = STATUSSEN.find((x) => x.id === status);
-  return (
-    <span className={`inline-block px-2 py-0.5 rounded text-xs font-medium ${s?.kleur || "bg-gray-100 text-gray-600"}`}>
-      {s?.label || status}
-    </span>
-  );
-}
+type SortField = "bedrijf" | "updated_at" | "status";
+type SortDir = "asc" | "desc";
 
 export default function CRM() {
   const [password, setPassword] = useState("");
@@ -54,15 +61,25 @@ export default function CRM() {
   const [showAdd, setShowAdd] = useState(false);
   const [filter, setFilter] = useState<string>("alle");
   const [search, setSearch] = useState("");
+  const [sortField, setSortField] = useState<SortField>("bedrijf");
+  const [sortDir, setSortDir] = useState<SortDir>("asc");
 
-  const [form, setForm] = useState({
-    bedrijf: "",
-    contactpersoon: "",
+  // Contact management
+  const [showContactModal, setShowContactModal] = useState(false);
+  const [editingContactId, setEditingContactId] = useState<string | null>(null);
+  const [contactProspectId, setContactProspectId] = useState<string | null>(null);
+  const [contactForm, setContactForm] = useState({
+    naam: "",
     functie: "",
-    ats_systeem: "",
     linkedin_url: "",
     email: "",
     telefoon: "",
+    notities: "",
+  });
+
+  const [form, setForm] = useState({
+    bedrijf: "",
+    ats_systeem: "",
     status: "nieuw",
     notities: "",
     bron: "",
@@ -126,7 +143,7 @@ export default function CRM() {
   }
 
   async function deleteProspect(id: string) {
-    if (!confirm("Weet je zeker dat je deze prospect wilt verwijderen?")) return;
+    if (!confirm("Weet je zeker dat je dit bedrijf en alle contacten wilt verwijderen?")) return;
     await fetch(`/api/crm?id=${id}`, { method: "DELETE", headers: headers() });
     loadProspects();
   }
@@ -134,12 +151,7 @@ export default function CRM() {
   function startEdit(p: Prospect) {
     setForm({
       bedrijf: p.bedrijf,
-      contactpersoon: p.contactpersoon || "",
-      functie: p.functie || "",
       ats_systeem: p.ats_systeem || "",
-      linkedin_url: p.linkedin_url || "",
-      email: p.email || "",
-      telefoon: p.telefoon || "",
       status: p.status,
       notities: p.notities || "",
       bron: p.bron || "",
@@ -149,23 +161,112 @@ export default function CRM() {
   }
 
   function resetForm() {
-    setForm({ bedrijf: "", contactpersoon: "", functie: "", ats_systeem: "", linkedin_url: "", email: "", telefoon: "", status: "nieuw", notities: "", bron: "" });
+    setForm({ bedrijf: "", ats_systeem: "", status: "nieuw", notities: "", bron: "" });
     setEditingId(null);
     setShowAdd(false);
   }
 
-  const filtered = prospects.filter((p) => {
-    if (filter !== "alle" && p.ats_systeem !== filter) return false;
-    if (search) {
-      const q = search.toLowerCase();
-      return (
-        p.bedrijf.toLowerCase().includes(q) ||
-        (p.contactpersoon || "").toLowerCase().includes(q) ||
-        (p.notities || "").toLowerCase().includes(q)
-      );
+  // Contact functions
+  async function saveContact(e: React.FormEvent) {
+    e.preventDefault();
+    if (!contactForm.naam.trim()) return;
+
+    if (editingContactId) {
+      await fetch("/api/crm/contacten", {
+        method: "PUT",
+        headers: headers(),
+        body: JSON.stringify({ id: editingContactId, ...contactForm }),
+      });
+    } else {
+      await fetch("/api/crm/contacten", {
+        method: "POST",
+        headers: headers(),
+        body: JSON.stringify({ prospect_id: contactProspectId, ...contactForm }),
+      });
     }
-    return true;
-  });
+    resetContactForm();
+    loadProspects();
+  }
+
+  async function deleteContact(id: string) {
+    if (!confirm("Contact verwijderen?")) return;
+    await fetch(`/api/crm/contacten?id=${id}`, { method: "DELETE", headers: headers() });
+    loadProspects();
+  }
+
+  function startAddContact(prospectId: string) {
+    setContactProspectId(prospectId);
+    setEditingContactId(null);
+    setContactForm({ naam: "", functie: "", linkedin_url: "", email: "", telefoon: "", notities: "" });
+    setShowContactModal(true);
+  }
+
+  function startEditContact(c: Contact) {
+    setContactProspectId(c.prospect_id);
+    setEditingContactId(c.id);
+    setContactForm({
+      naam: c.naam,
+      functie: c.functie || "",
+      linkedin_url: c.linkedin_url || "",
+      email: c.email || "",
+      telefoon: c.telefoon || "",
+      notities: c.notities || "",
+    });
+    setShowContactModal(true);
+  }
+
+  function resetContactForm() {
+    setContactForm({ naam: "", functie: "", linkedin_url: "", email: "", telefoon: "", notities: "" });
+    setEditingContactId(null);
+    setContactProspectId(null);
+    setShowContactModal(false);
+  }
+
+  // Sorting
+  function toggleSort(field: SortField) {
+    if (sortField === field) {
+      setSortDir(sortDir === "asc" ? "desc" : "asc");
+    } else {
+      setSortField(field);
+      setSortDir("asc");
+    }
+  }
+
+  function sortIndicator(field: SortField) {
+    if (sortField !== field) return "";
+    return sortDir === "asc" ? " ↑" : " ↓";
+  }
+
+  // Filter + sort
+  const filtered = prospects
+    .filter((p) => {
+      if (filter !== "alle" && p.ats_systeem !== filter) return false;
+      if (search) {
+        const q = search.toLowerCase();
+        const contactMatch = (p.prospect_contacten || []).some(
+          (c) => c.naam.toLowerCase().includes(q) || (c.email || "").toLowerCase().includes(q)
+        );
+        return (
+          p.bedrijf.toLowerCase().includes(q) ||
+          (p.notities || "").toLowerCase().includes(q) ||
+          contactMatch
+        );
+      }
+      return true;
+    })
+    .sort((a, b) => {
+      let cmp = 0;
+      if (sortField === "bedrijf") {
+        cmp = a.bedrijf.localeCompare(b.bedrijf, "nl");
+      } else if (sortField === "updated_at") {
+        cmp = new Date(a.updated_at).getTime() - new Date(b.updated_at).getTime();
+      } else if (sortField === "status") {
+        const ai = STATUSSEN.findIndex((s) => s.id === a.status);
+        const bi = STATUSSEN.findIndex((s) => s.id === b.status);
+        cmp = ai - bi;
+      }
+      return sortDir === "asc" ? cmp : -cmp;
+    });
 
   // Login screen
   if (!authenticated) {
@@ -201,7 +302,7 @@ export default function CRM() {
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <h1 className="text-lg font-bold text-gray-900">Normelo CRM</h1>
-            <span className="text-sm text-gray-400">{prospects.length} prospects</span>
+            <span className="text-sm text-gray-400">{prospects.length} bedrijven</span>
           </div>
           <div className="flex items-center gap-3">
             <div className="flex bg-gray-100 rounded-lg p-0.5">
@@ -222,7 +323,7 @@ export default function CRM() {
               onClick={() => { resetForm(); setShowAdd(true); }}
               className="px-4 py-2 bg-gray-900 text-white text-sm rounded-lg font-medium hover:bg-gray-800 transition-colors cursor-pointer"
             >
-              + Prospect
+              + Bedrijf
             </button>
           </div>
         </div>
@@ -247,44 +348,38 @@ export default function CRM() {
             <option value="bullhorn">Bullhorn</option>
             <option value="byner">Byner</option>
           </select>
+          <div className="flex items-center gap-1 ml-auto text-xs text-gray-400">
+            <span>Sorteer:</span>
+            <button onClick={() => toggleSort("bedrijf")} className={`px-2 py-1 rounded cursor-pointer ${sortField === "bedrijf" ? "bg-gray-200 text-gray-700 font-medium" : "hover:bg-gray-100"}`}>
+              Bedrijf{sortIndicator("bedrijf")}
+            </button>
+            <button onClick={() => toggleSort("status")} className={`px-2 py-1 rounded cursor-pointer ${sortField === "status" ? "bg-gray-200 text-gray-700 font-medium" : "hover:bg-gray-100"}`}>
+              Status{sortIndicator("status")}
+            </button>
+            <button onClick={() => toggleSort("updated_at")} className={`px-2 py-1 rounded cursor-pointer ${sortField === "updated_at" ? "bg-gray-200 text-gray-700 font-medium" : "hover:bg-gray-100"}`}>
+              Datum{sortIndicator("updated_at")}
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Add/Edit Modal */}
+      {/* Add/Edit Prospect Modal */}
       {showAdd && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
           <form onSubmit={saveProspect} className="bg-white rounded-xl shadow-xl max-w-lg w-full max-h-[90vh] overflow-y-auto p-6">
             <h2 className="text-lg font-bold mb-4">
-              {editingId ? "Prospect bewerken" : "Nieuwe prospect"}
+              {editingId ? "Bedrijf bewerken" : "Nieuw bedrijf"}
             </h2>
 
             <div className="grid grid-cols-2 gap-3 mb-3">
               <div className="col-span-2">
-                <label className="text-xs font-medium text-gray-500 mb-1 block">Bedrijf *</label>
+                <label className="text-xs font-medium text-gray-500 mb-1 block">Bedrijfsnaam *</label>
                 <input
                   type="text"
                   value={form.bedrijf}
                   onChange={(e) => setForm({ ...form, bedrijf: e.target.value })}
                   className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-orange-400"
                   required
-                />
-              </div>
-              <div>
-                <label className="text-xs font-medium text-gray-500 mb-1 block">Contactpersoon</label>
-                <input
-                  type="text"
-                  value={form.contactpersoon}
-                  onChange={(e) => setForm({ ...form, contactpersoon: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-orange-400"
-                />
-              </div>
-              <div>
-                <label className="text-xs font-medium text-gray-500 mb-1 block">Functie</label>
-                <input
-                  type="text"
-                  value={form.functie}
-                  onChange={(e) => setForm({ ...form, functie: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-orange-400"
                 />
               </div>
               <div>
@@ -315,34 +410,6 @@ export default function CRM() {
                 </select>
               </div>
               <div>
-                <label className="text-xs font-medium text-gray-500 mb-1 block">LinkedIn URL</label>
-                <input
-                  type="url"
-                  value={form.linkedin_url}
-                  onChange={(e) => setForm({ ...form, linkedin_url: e.target.value })}
-                  placeholder="https://linkedin.com/in/..."
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-orange-400"
-                />
-              </div>
-              <div>
-                <label className="text-xs font-medium text-gray-500 mb-1 block">E-mail</label>
-                <input
-                  type="email"
-                  value={form.email}
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-orange-400"
-                />
-              </div>
-              <div>
-                <label className="text-xs font-medium text-gray-500 mb-1 block">Telefoon</label>
-                <input
-                  type="tel"
-                  value={form.telefoon}
-                  onChange={(e) => setForm({ ...form, telefoon: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-orange-400"
-                />
-              </div>
-              <div>
                 <label className="text-xs font-medium text-gray-500 mb-1 block">Bron</label>
                 <input
                   type="text"
@@ -363,6 +430,51 @@ export default function CRM() {
               </div>
             </div>
 
+            {/* Contacten sectie bij bewerken */}
+            {editingId && (
+              <div className="mt-4 pt-4 border-t border-gray-200">
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-sm font-semibold text-gray-700">Contactpersonen</h3>
+                  <button
+                    type="button"
+                    onClick={() => startAddContact(editingId)}
+                    className="text-xs px-3 py-1.5 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors cursor-pointer font-medium"
+                  >
+                    + Contact
+                  </button>
+                </div>
+                {(() => {
+                  const p = prospects.find((x) => x.id === editingId);
+                  const contacten = p?.prospect_contacten || [];
+                  if (contacten.length === 0) {
+                    return <p className="text-xs text-gray-400 py-2">Nog geen contactpersonen toegevoegd</p>;
+                  }
+                  return (
+                    <div className="space-y-2">
+                      {contacten.map((c) => (
+                        <div key={c.id} className="flex items-center justify-between bg-gray-50 rounded-lg px-3 py-2">
+                          <div>
+                            <span className="text-sm font-medium text-gray-800">{c.naam}</span>
+                            {c.functie && <span className="text-xs text-gray-500 ml-2">({c.functie})</span>}
+                            {c.email && <span className="text-xs text-gray-400 ml-2">{c.email}</span>}
+                            {c.linkedin_url && (
+                              <a href={c.linkedin_url} target="_blank" rel="noopener noreferrer" className="text-xs text-blue-500 ml-2 hover:underline" onClick={(e) => e.stopPropagation()}>
+                                LI
+                              </a>
+                            )}
+                          </div>
+                          <div className="flex gap-1">
+                            <button type="button" onClick={() => startEditContact(c)} className="text-xs text-gray-400 hover:text-gray-700 cursor-pointer px-1">Bewerk</button>
+                            <button type="button" onClick={() => deleteContact(c.id)} className="text-xs text-gray-300 hover:text-red-600 cursor-pointer px-1">×</button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  );
+                })()}
+              </div>
+            )}
+
             <div className="flex gap-3 mt-4">
               <button
                 type="submit"
@@ -375,6 +487,86 @@ export default function CRM() {
                 onClick={resetForm}
                 className="px-4 py-2.5 border border-gray-200 rounded-lg text-sm hover:bg-gray-50 transition-colors cursor-pointer"
               >
+                Annuleren
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      {/* Contact Modal */}
+      {showContactModal && (
+        <div className="fixed inset-0 bg-black/50 z-[60] flex items-center justify-center p-4">
+          <form onSubmit={saveContact} className="bg-white rounded-xl shadow-xl max-w-md w-full p-6">
+            <h2 className="text-lg font-bold mb-4">
+              {editingContactId ? "Contact bewerken" : "Nieuw contact"}
+            </h2>
+            <div className="space-y-3">
+              <div>
+                <label className="text-xs font-medium text-gray-500 mb-1 block">Naam *</label>
+                <input
+                  type="text"
+                  value={contactForm.naam}
+                  onChange={(e) => setContactForm({ ...contactForm, naam: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-orange-400"
+                  required
+                  autoFocus
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="text-xs font-medium text-gray-500 mb-1 block">Functie</label>
+                  <input
+                    type="text"
+                    value={contactForm.functie}
+                    onChange={(e) => setContactForm({ ...contactForm, functie: e.target.value })}
+                    className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-orange-400"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs font-medium text-gray-500 mb-1 block">E-mail</label>
+                  <input
+                    type="email"
+                    value={contactForm.email}
+                    onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
+                    className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-orange-400"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs font-medium text-gray-500 mb-1 block">LinkedIn URL</label>
+                  <input
+                    type="url"
+                    value={contactForm.linkedin_url}
+                    onChange={(e) => setContactForm({ ...contactForm, linkedin_url: e.target.value })}
+                    placeholder="https://linkedin.com/in/..."
+                    className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-orange-400"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs font-medium text-gray-500 mb-1 block">Telefoon</label>
+                  <input
+                    type="tel"
+                    value={contactForm.telefoon}
+                    onChange={(e) => setContactForm({ ...contactForm, telefoon: e.target.value })}
+                    className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-orange-400"
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="text-xs font-medium text-gray-500 mb-1 block">Notities</label>
+                <textarea
+                  value={contactForm.notities}
+                  onChange={(e) => setContactForm({ ...contactForm, notities: e.target.value })}
+                  rows={2}
+                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-orange-400 resize-none"
+                />
+              </div>
+            </div>
+            <div className="flex gap-3 mt-4">
+              <button type="submit" className="flex-1 py-2.5 bg-gray-900 text-white rounded-lg font-medium text-sm hover:bg-gray-800 transition-colors cursor-pointer">
+                {editingContactId ? "Opslaan" : "Toevoegen"}
+              </button>
+              <button type="button" onClick={resetContactForm} className="px-4 py-2.5 border border-gray-200 rounded-lg text-sm hover:bg-gray-50 transition-colors cursor-pointer">
                 Annuleren
               </button>
             </div>
@@ -402,24 +594,23 @@ export default function CRM() {
                         onClick={() => startEdit(p)}
                       >
                         <p className="font-semibold text-sm text-gray-900 mb-1">{p.bedrijf}</p>
-                        {p.contactpersoon && (
-                          <p className="text-xs text-gray-600 mb-1">{p.contactpersoon}{p.functie ? ` — ${p.functie}` : ""}</p>
+                        {/* Contacten */}
+                        {(p.prospect_contacten || []).length > 0 && (
+                          <div className="mb-1.5">
+                            {p.prospect_contacten.slice(0, 2).map((c) => (
+                              <p key={c.id} className="text-xs text-gray-600">
+                                {c.naam}{c.functie ? ` — ${c.functie}` : ""}
+                              </p>
+                            ))}
+                            {p.prospect_contacten.length > 2 && (
+                              <p className="text-xs text-gray-400">+{p.prospect_contacten.length - 2} meer</p>
+                            )}
+                          </div>
                         )}
                         {p.ats_systeem && (
                           <span className="inline-block px-1.5 py-0.5 bg-gray-100 rounded text-xs text-gray-600 mb-1">
                             {ATS_LABELS[p.ats_systeem] || p.ats_systeem}
                           </span>
-                        )}
-                        {p.linkedin_url && (
-                          <a
-                            href={p.linkedin_url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="block text-xs text-blue-500 hover:underline mt-1"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            LinkedIn profiel
-                          </a>
                         )}
                         {p.notities && (
                           <p className="text-xs text-gray-400 mt-1.5 line-clamp-2">{p.notities}</p>
@@ -468,12 +659,16 @@ export default function CRM() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  <th className="px-4 py-3">Bedrijf</th>
-                  <th className="px-4 py-3">Contact</th>
+                  <th className="px-4 py-3 cursor-pointer hover:text-gray-700 select-none" onClick={() => toggleSort("bedrijf")}>
+                    Bedrijf{sortIndicator("bedrijf")}
+                  </th>
+                  <th className="px-4 py-3">Contacten</th>
                   <th className="px-4 py-3">ATS</th>
-                  <th className="px-4 py-3">Status</th>
+                  <th className="px-4 py-3 cursor-pointer hover:text-gray-700 select-none" onClick={() => toggleSort("status")}>
+                    Status{sortIndicator("status")}
+                  </th>
                   <th className="px-4 py-3">Notities</th>
-                  <th className="px-4 py-3 w-20"></th>
+                  <th className="px-4 py-3 w-24"></th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
@@ -481,15 +676,23 @@ export default function CRM() {
                   <tr key={p.id} className="hover:bg-gray-50 transition-colors">
                     <td className="px-4 py-3">
                       <span className="font-medium text-gray-900">{p.bedrijf}</span>
-                      {p.linkedin_url && (
-                        <a href={p.linkedin_url} target="_blank" rel="noopener noreferrer" className="ml-2 text-blue-500 text-xs hover:underline">
-                          LI
-                        </a>
-                      )}
                     </td>
-                    <td className="px-4 py-3 text-gray-600">
-                      {p.contactpersoon || "—"}
-                      {p.functie && <span className="text-gray-400 ml-1 text-xs">({p.functie})</span>}
+                    <td className="px-4 py-3">
+                      {(p.prospect_contacten || []).length > 0 ? (
+                        <div className="space-y-0.5">
+                          {p.prospect_contacten.map((c) => (
+                            <div key={c.id} className="flex items-center gap-1">
+                              <span className="text-xs text-gray-700">{c.naam}</span>
+                              {c.functie && <span className="text-xs text-gray-400">({c.functie})</span>}
+                              {c.linkedin_url && (
+                                <a href={c.linkedin_url} target="_blank" rel="noopener noreferrer" className="text-blue-500 text-xs hover:underline">LI</a>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <span className="text-xs text-gray-300">—</span>
+                      )}
                     </td>
                     <td className="px-4 py-3">
                       {p.ats_systeem ? (
@@ -511,6 +714,7 @@ export default function CRM() {
                     <td className="px-4 py-3">
                       <div className="flex gap-1">
                         <button onClick={() => startEdit(p)} className="text-xs text-gray-400 hover:text-gray-700 cursor-pointer">Bewerk</button>
+                        <button onClick={() => startAddContact(p.id)} className="text-xs text-gray-400 hover:text-blue-600 cursor-pointer">+Contact</button>
                         <button onClick={() => deleteProspect(p.id)} className="text-xs text-gray-300 hover:text-red-600 cursor-pointer">×</button>
                       </div>
                     </td>

@@ -13,24 +13,7 @@ function getSupabase() {
   return createClient(url, key);
 }
 
-// GET: lijst alle prospects met contacten
-export async function GET(request: NextRequest) {
-  if (!authorized(request))
-    return Response.json({ error: "Niet geautoriseerd" }, { status: 401 });
-
-  const supabase = getSupabase();
-  const { data, error } = await supabase
-    .from("prospects")
-    .select("*, prospect_contacten(*)")
-    .order("updated_at", { ascending: false });
-
-  if (error)
-    return Response.json({ error: error.message }, { status: 500 });
-
-  return Response.json(data);
-}
-
-// POST: nieuwe prospect toevoegen
+// POST: nieuw contact toevoegen
 export async function POST(request: NextRequest) {
   if (!authorized(request))
     return Response.json({ error: "Niet geautoriseerd" }, { status: 401 });
@@ -38,19 +21,19 @@ export async function POST(request: NextRequest) {
   const supabase = getSupabase();
   const body = await request.json();
 
+  if (!body.prospect_id || !body.naam)
+    return Response.json({ error: "prospect_id en naam zijn verplicht" }, { status: 400 });
+
   const { data, error } = await supabase
-    .from("prospects")
+    .from("prospect_contacten")
     .insert({
-      bedrijf: body.bedrijf,
-      contactpersoon: body.contactpersoon || null,
+      prospect_id: body.prospect_id,
+      naam: body.naam,
       functie: body.functie || null,
-      ats_systeem: body.ats_systeem || null,
       linkedin_url: body.linkedin_url || null,
       email: body.email || null,
       telefoon: body.telefoon || null,
-      status: body.status || "nieuw",
       notities: body.notities || null,
-      bron: body.bron || null,
     })
     .select()
     .single();
@@ -61,7 +44,7 @@ export async function POST(request: NextRequest) {
   return Response.json(data);
 }
 
-// PUT: prospect bijwerken
+// PUT: contact bijwerken
 export async function PUT(request: NextRequest) {
   if (!authorized(request))
     return Response.json({ error: "Niet geautoriseerd" }, { status: 401 });
@@ -75,7 +58,7 @@ export async function PUT(request: NextRequest) {
   const { id, ...updates } = body;
 
   const { data, error } = await supabase
-    .from("prospects")
+    .from("prospect_contacten")
     .update(updates)
     .eq("id", id)
     .select()
@@ -87,7 +70,7 @@ export async function PUT(request: NextRequest) {
   return Response.json(data);
 }
 
-// DELETE: prospect verwijderen
+// DELETE: contact verwijderen
 export async function DELETE(request: NextRequest) {
   if (!authorized(request))
     return Response.json({ error: "Niet geautoriseerd" }, { status: 401 });
@@ -99,7 +82,7 @@ export async function DELETE(request: NextRequest) {
   if (!id)
     return Response.json({ error: "ID is verplicht" }, { status: 400 });
 
-  const { error } = await supabase.from("prospects").delete().eq("id", id);
+  const { error } = await supabase.from("prospect_contacten").delete().eq("id", id);
 
   if (error)
     return Response.json({ error: error.message }, { status: 500 });
