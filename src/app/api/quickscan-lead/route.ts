@@ -203,8 +203,9 @@ export async function POST(request: Request) {
           ? hoog_risico_systemen.map((s: string) => hoogRisicoLabels[s] || s).join(", ")
           : "Geen";
 
+        const atsLookup: Record<string, string> = { carerix: "Carerix", mysolution: "Mysolution", bullhorn: "Bullhorn / Connexys", byner: "Byner", anders: "Ander systeem", "weet-niet": "Weet niet", "geen-ats": "Geen ATS" };
         const atsLabel = ats_systeem
-          ? { carerix: "Carerix", mysolution: "Mysolution", bullhorn: "Bullhorn / Connexys", byner: "Byner", anders: "Ander systeem", "weet-niet": "Weet niet", "geen-ats": "Geen ATS" }[ats_systeem] || ats_systeem
+          ? (atsLookup[ats_systeem as string] || ats_systeem)
           : "-";
 
         await resend.emails.send({
