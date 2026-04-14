@@ -64,14 +64,14 @@ export default function Home() {
           Jouw organisatie compliant.
         </h1>
         <p className="text-lg text-gray-300 max-w-2xl leading-relaxed mb-6">
-          Vanaf augustus 2026 moeten organisaties die AI inzetten bij werving, selectie of
-          beoordeling voldoen aan de EU AI Act. Dat vraagt meer dan techniek — het vraagt
-          mensen die begrijpen wat ze gebruiken.
+          Vanaf augustus 2026 moeten organisaties die AI inzetten bij werving en selectie
+          voldoen aan de EU AI Act. Dat vraagt meer dan techniek — het vraagt mensen die
+          begrijpen wat ze gebruiken.
         </p>
         <p className="text-lg text-gray-300 max-w-2xl leading-relaxed">
-          Normelo helpt organisaties AI-geletterd werken. Van uitleg over de wet tot
-          training en certificering — zodat je niet alleen weet wat er moet, maar het ook
-          geregeld hebt.
+          Normelo traint uitzendbureaus en recruitmentteams in AI-geletterdheid —
+          zodat je team weet wat het gebruikt, je toezicht op orde is, en je organisatie
+          aantoonbaar compliant werkt.
         </p>
       </div>
     </section>
