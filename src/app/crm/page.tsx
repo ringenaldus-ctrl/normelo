@@ -265,11 +265,23 @@ export default function CRM() {
       : "Geen";
     const notities = `Quick Scan resultaat: ${risicoLabel} risico\nHoog-risico systemen: ${systemen}\nShadow AI: ${lead.antwoorden?.shadow || "—"}\nToezicht: ${lead.antwoorden?.toezicht || "—"}`;
 
+    // Naam afleiden uit e-mailadres: britt@nijverveld.nl → Britt
+    const emailLocal = lead.email.split("@")[0] || "";
+    const contactNaam = emailLocal
+      .replace(/[._-]/g, " ")
+      .split(" ")
+      .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+      .join(" ");
+
+    // Bedrijfsnaam afleiden uit domein: nijverveld.nl → Nijverveld
+    const domain = lead.email.split("@")[1] || "";
+    const bedrijf = domain.replace(/\.\w+$/, "").charAt(0).toUpperCase() + domain.replace(/\.\w+$/, "").slice(1);
+
     const res = await fetch("/api/crm", {
       method: "POST",
       headers: headers(),
       body: JSON.stringify({
-        bedrijf: lead.email.split("@")[1]?.replace(/\.\w+$/, "") || lead.email,
+        bedrijf,
         ats_systeem: lead.ats_systeem || "",
         status: "quickscan_gedaan",
         notities,
@@ -278,6 +290,17 @@ export default function CRM() {
       }),
     });
     if (res.ok) {
+      const prospect = await res.json();
+      // Contactpersoon aanmaken
+      await fetch("/api/crm/contacten", {
+        method: "POST",
+        headers: headers(),
+        body: JSON.stringify({
+          prospect_id: prospect.id,
+          naam: contactNaam,
+          email: lead.email,
+        }),
+      });
       await loadProspects();
       setTab("alle");
     }
