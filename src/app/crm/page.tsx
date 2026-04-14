@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 
 interface Contact {
   id: string;
@@ -41,6 +41,9 @@ const STATUSSEN = [
   { id: "klant", label: "Klant", kleur: "bg-green-100 text-green-800" },
 ];
 
+// Statussen die als "actief sales proces" tellen
+const OPPORTUNITY_STATUSSEN = ["bericht_gestuurd", "quickscan_gedaan", "gesprek_gehad"];
+
 const ATS_LABELS: Record<string, string> = {
   carerix: "Carerix",
   mysolution: "Mysolution",
@@ -50,13 +53,14 @@ const ATS_LABELS: Record<string, string> = {
 
 type SortField = "bedrijf" | "updated_at" | "status";
 type SortDir = "asc" | "desc";
+type Tab = "alle" | "opportunities";
 
 export default function CRM() {
   const [password, setPassword] = useState("");
   const [authenticated, setAuthenticated] = useState(false);
   const [prospects, setProspects] = useState<Prospect[]>([]);
   const [loading, setLoading] = useState(false);
-  const [view, setView] = useState<"board" | "lijst">("board");
+  const [tab, setTab] = useState<Tab>("alle");
   const [editingId, setEditingId] = useState<string | null>(null);
   const [showAdd, setShowAdd] = useState(false);
   const [filter, setFilter] = useState<string>("alle");
@@ -240,7 +244,11 @@ export default function CRM() {
   // Filter + sort
   const filtered = prospects
     .filter((p) => {
+      // Tab filter
+      if (tab === "opportunities" && !OPPORTUNITY_STATUSSEN.includes(p.status)) return false;
+      // ATS filter
       if (filter !== "alle" && p.ats_systeem !== filter) return false;
+      // Search
       if (search) {
         const q = search.toLowerCase();
         const contactMatch = (p.prospect_contacten || []).some(
@@ -267,6 +275,8 @@ export default function CRM() {
       }
       return sortDir === "asc" ? cmp : -cmp;
     });
+
+  const opportunityCount = prospects.filter((p) => OPPORTUNITY_STATUSSEN.includes(p.status)).length;
 
   // Login screen
   if (!authenticated) {
@@ -304,32 +314,47 @@ export default function CRM() {
             <h1 className="text-lg font-bold text-gray-900">Normelo CRM</h1>
             <span className="text-sm text-gray-400">{prospects.length} bedrijven</span>
           </div>
-          <div className="flex items-center gap-3">
-            <div className="flex bg-gray-100 rounded-lg p-0.5">
-              <button
-                onClick={() => setView("board")}
-                className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors cursor-pointer ${view === "board" ? "bg-white shadow-sm text-gray-900" : "text-gray-500 hover:text-gray-700"}`}
-              >
-                Board
-              </button>
-              <button
-                onClick={() => setView("lijst")}
-                className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors cursor-pointer ${view === "lijst" ? "bg-white shadow-sm text-gray-900" : "text-gray-500 hover:text-gray-700"}`}
-              >
-                Lijst
-              </button>
-            </div>
-            <button
-              onClick={() => { resetForm(); setShowAdd(true); }}
-              className="px-4 py-2 bg-gray-900 text-white text-sm rounded-lg font-medium hover:bg-gray-800 transition-colors cursor-pointer"
-            >
-              + Bedrijf
-            </button>
-          </div>
+          <button
+            onClick={() => { resetForm(); setShowAdd(true); }}
+            className="px-4 py-2 bg-gray-900 text-white text-sm rounded-lg font-medium hover:bg-gray-800 transition-colors cursor-pointer"
+          >
+            + Bedrijf
+          </button>
+        </div>
+
+        {/* Tabs */}
+        <div className="max-w-7xl mx-auto px-4 flex items-center gap-0 border-b border-gray-100">
+          <button
+            onClick={() => setTab("alle")}
+            className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-colors cursor-pointer ${
+              tab === "alle"
+                ? "border-gray-900 text-gray-900"
+                : "border-transparent text-gray-400 hover:text-gray-600"
+            }`}
+          >
+            Alle prospects
+          </button>
+          <button
+            onClick={() => setTab("opportunities")}
+            className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-colors cursor-pointer flex items-center gap-2 ${
+              tab === "opportunities"
+                ? "border-gray-900 text-gray-900"
+                : "border-transparent text-gray-400 hover:text-gray-600"
+            }`}
+          >
+            Opportunities
+            {opportunityCount > 0 && (
+              <span className={`text-xs px-1.5 py-0.5 rounded-full ${
+                tab === "opportunities" ? "bg-orange-100 text-orange-700" : "bg-gray-100 text-gray-500"
+              }`}>
+                {opportunityCount}
+              </span>
+            )}
+          </button>
         </div>
 
         {/* Filters */}
-        <div className="max-w-7xl mx-auto px-4 pb-3 flex items-center gap-3">
+        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center gap-3">
           <input
             type="text"
             value={search}
@@ -574,160 +599,82 @@ export default function CRM() {
         </div>
       )}
 
-      {/* Board View */}
-      {view === "board" && (
-        <div className="max-w-7xl mx-auto p-4 overflow-x-auto">
-          <div className="flex gap-4 min-w-max">
-            {STATUSSEN.map((status) => {
-              const items = filtered.filter((p) => p.status === status.id);
-              return (
-                <div key={status.id} className="w-72 flex-shrink-0">
-                  <div className="flex items-center gap-2 mb-3 px-1">
-                    <h3 className="text-sm font-semibold text-gray-700">{status.label}</h3>
-                    <span className="text-xs text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded">{items.length}</span>
-                  </div>
-                  <div className="space-y-2">
-                    {items.map((p) => (
-                      <div
-                        key={p.id}
-                        className="bg-white rounded-lg border border-gray-200 p-3 hover:shadow-md transition-shadow cursor-pointer"
-                        onClick={() => startEdit(p)}
-                      >
-                        <p className="font-semibold text-sm text-gray-900 mb-1">{p.bedrijf}</p>
-                        {/* Contacten */}
-                        {(p.prospect_contacten || []).length > 0 && (
-                          <div className="mb-1.5">
-                            {p.prospect_contacten.slice(0, 2).map((c) => (
-                              <p key={c.id} className="text-xs text-gray-600">
-                                {c.naam}{c.functie ? ` — ${c.functie}` : ""}
-                              </p>
-                            ))}
-                            {p.prospect_contacten.length > 2 && (
-                              <p className="text-xs text-gray-400">+{p.prospect_contacten.length - 2} meer</p>
+      {/* List View */}
+      <div className="max-w-7xl mx-auto p-4">
+        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-4 py-3 cursor-pointer hover:text-gray-700 select-none" onClick={() => toggleSort("bedrijf")}>
+                  Bedrijf{sortIndicator("bedrijf")}
+                </th>
+                <th className="px-4 py-3">Contacten</th>
+                <th className="px-4 py-3">ATS</th>
+                <th className="px-4 py-3 cursor-pointer hover:text-gray-700 select-none" onClick={() => toggleSort("status")}>
+                  Status{sortIndicator("status")}
+                </th>
+                <th className="px-4 py-3">Notities</th>
+                <th className="px-4 py-3 w-28"></th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100">
+              {filtered.map((p) => (
+                <tr key={p.id} className="hover:bg-gray-50 transition-colors">
+                  <td className="px-4 py-3">
+                    <span className="font-medium text-gray-900">{p.bedrijf}</span>
+                  </td>
+                  <td className="px-4 py-3">
+                    {(p.prospect_contacten || []).length > 0 ? (
+                      <div className="space-y-0.5">
+                        {p.prospect_contacten.map((c) => (
+                          <div key={c.id} className="flex items-center gap-1">
+                            <span className="text-xs text-gray-700">{c.naam}</span>
+                            {c.functie && <span className="text-xs text-gray-400">({c.functie})</span>}
+                            {c.linkedin_url && (
+                              <a href={c.linkedin_url} target="_blank" rel="noopener noreferrer" className="text-blue-500 text-xs hover:underline">LI</a>
                             )}
                           </div>
-                        )}
-                        {p.ats_systeem && (
-                          <span className="inline-block px-1.5 py-0.5 bg-gray-100 rounded text-xs text-gray-600 mb-1">
-                            {ATS_LABELS[p.ats_systeem] || p.ats_systeem}
-                          </span>
-                        )}
-                        {p.notities && (
-                          <p className="text-xs text-gray-400 mt-1.5 line-clamp-2">{p.notities}</p>
-                        )}
-                        {/* Quick status buttons */}
-                        <div className="flex gap-1 mt-2 pt-2 border-t border-gray-100">
-                          {STATUSSEN.map((s, i) => {
-                            const currentIdx = STATUSSEN.findIndex((x) => x.id === p.status);
-                            if (i !== currentIdx + 1) return null;
-                            return (
-                              <button
-                                key={s.id}
-                                onClick={(e) => { e.stopPropagation(); updateStatus(p.id, s.id); }}
-                                className="text-xs px-2 py-1 rounded bg-gray-100 hover:bg-orange-50 hover:text-orange-600 transition-colors cursor-pointer"
-                              >
-                                → {s.label}
-                              </button>
-                            );
-                          })}
-                          <button
-                            onClick={(e) => { e.stopPropagation(); deleteProspect(p.id); }}
-                            className="text-xs px-2 py-1 rounded hover:bg-red-50 hover:text-red-600 transition-colors cursor-pointer ml-auto text-gray-300"
-                          >
-                            ×
-                          </button>
-                        </div>
-                      </div>
-                    ))}
-                    {items.length === 0 && (
-                      <div className="text-xs text-gray-300 text-center py-8 border border-dashed border-gray-200 rounded-lg">
-                        Geen prospects
-                      </div>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      )}
-
-      {/* List View */}
-      {view === "lijst" && (
-        <div className="max-w-7xl mx-auto p-4">
-          <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  <th className="px-4 py-3 cursor-pointer hover:text-gray-700 select-none" onClick={() => toggleSort("bedrijf")}>
-                    Bedrijf{sortIndicator("bedrijf")}
-                  </th>
-                  <th className="px-4 py-3">Contacten</th>
-                  <th className="px-4 py-3">ATS</th>
-                  <th className="px-4 py-3 cursor-pointer hover:text-gray-700 select-none" onClick={() => toggleSort("status")}>
-                    Status{sortIndicator("status")}
-                  </th>
-                  <th className="px-4 py-3">Notities</th>
-                  <th className="px-4 py-3 w-24"></th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100">
-                {filtered.map((p) => (
-                  <tr key={p.id} className="hover:bg-gray-50 transition-colors">
-                    <td className="px-4 py-3">
-                      <span className="font-medium text-gray-900">{p.bedrijf}</span>
-                    </td>
-                    <td className="px-4 py-3">
-                      {(p.prospect_contacten || []).length > 0 ? (
-                        <div className="space-y-0.5">
-                          {p.prospect_contacten.map((c) => (
-                            <div key={c.id} className="flex items-center gap-1">
-                              <span className="text-xs text-gray-700">{c.naam}</span>
-                              {c.functie && <span className="text-xs text-gray-400">({c.functie})</span>}
-                              {c.linkedin_url && (
-                                <a href={c.linkedin_url} target="_blank" rel="noopener noreferrer" className="text-blue-500 text-xs hover:underline">LI</a>
-                              )}
-                            </div>
-                          ))}
-                        </div>
-                      ) : (
-                        <span className="text-xs text-gray-300">—</span>
-                      )}
-                    </td>
-                    <td className="px-4 py-3">
-                      {p.ats_systeem ? (
-                        <span className="px-1.5 py-0.5 bg-gray-100 rounded text-xs">{ATS_LABELS[p.ats_systeem] || p.ats_systeem}</span>
-                      ) : "—"}
-                    </td>
-                    <td className="px-4 py-3">
-                      <select
-                        value={p.status}
-                        onChange={(e) => updateStatus(p.id, e.target.value)}
-                        className="text-xs px-2 py-1 border border-gray-200 rounded cursor-pointer focus:outline-none focus:border-orange-400"
-                      >
-                        {STATUSSEN.map((s) => (
-                          <option key={s.id} value={s.id}>{s.label}</option>
                         ))}
-                      </select>
-                    </td>
-                    <td className="px-4 py-3 text-xs text-gray-400 max-w-xs truncate">{p.notities || "—"}</td>
-                    <td className="px-4 py-3">
-                      <div className="flex gap-1">
-                        <button onClick={() => startEdit(p)} className="text-xs text-gray-400 hover:text-gray-700 cursor-pointer">Bewerk</button>
-                        <button onClick={() => startAddContact(p.id)} className="text-xs text-gray-400 hover:text-blue-600 cursor-pointer">+Contact</button>
-                        <button onClick={() => deleteProspect(p.id)} className="text-xs text-gray-300 hover:text-red-600 cursor-pointer">×</button>
                       </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            {filtered.length === 0 && (
-              <div className="text-center py-12 text-gray-400 text-sm">Geen prospects gevonden</div>
-            )}
-          </div>
+                    ) : (
+                      <span className="text-xs text-gray-300">—</span>
+                    )}
+                  </td>
+                  <td className="px-4 py-3">
+                    {p.ats_systeem ? (
+                      <span className="px-1.5 py-0.5 bg-gray-100 rounded text-xs">{ATS_LABELS[p.ats_systeem] || p.ats_systeem}</span>
+                    ) : "—"}
+                  </td>
+                  <td className="px-4 py-3">
+                    <select
+                      value={p.status}
+                      onChange={(e) => updateStatus(p.id, e.target.value)}
+                      className="text-xs px-2 py-1 border border-gray-200 rounded cursor-pointer focus:outline-none focus:border-orange-400"
+                    >
+                      {STATUSSEN.map((s) => (
+                        <option key={s.id} value={s.id}>{s.label}</option>
+                      ))}
+                    </select>
+                  </td>
+                  <td className="px-4 py-3 text-xs text-gray-400 max-w-xs truncate">{p.notities || "—"}</td>
+                  <td className="px-4 py-3">
+                    <div className="flex gap-2">
+                      <button onClick={() => startEdit(p)} className="text-xs text-gray-400 hover:text-gray-700 cursor-pointer">Bewerk</button>
+                      <button onClick={() => startAddContact(p.id)} className="text-xs text-gray-400 hover:text-blue-600 cursor-pointer">+Contact</button>
+                      <button onClick={() => deleteProspect(p.id)} className="text-xs text-gray-300 hover:text-red-600 cursor-pointer">Verwijder</button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {filtered.length === 0 && (
+            <div className="text-center py-12 text-gray-400 text-sm">
+              {tab === "opportunities" ? "Geen actieve opportunities" : "Geen prospects gevonden"}
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 }

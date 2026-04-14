@@ -185,6 +185,52 @@ export async function POST(request: Request) {
           ${vervolgstappen.map((stap, i) => `<tr><td style="padding:8px 12px 8px 0;font-size:14px;color:#e8612d;font-weight:bold;vertical-align:top;width:28px;">${i + 1}.</td><td style="padding:8px 0;font-size:14px;color:#4a5568;">${stap}</td></tr>`).join("")}
         </table>`;
 
+      // Notificatie naar Gérard
+      try {
+        const shadowLabel = antwoorden?.shadow === "ja" ? "Ja" : antwoorden?.shadow === "weet-niet" ? "Weet niet" : "Nee";
+        const beslissingenLabel = antwoorden?.beslissingen === "zelfstandig" ? "Zelfstandig" : antwoorden?.beslissingen === "adviserend" ? "Adviserend" : antwoorden?.beslissingen === "weet-niet" ? "Weet niet" : "-";
+        const toezichtLabel = antwoorden?.toezicht === "ja" ? "Ja" : antwoorden?.toezicht === "nee" ? "Nee" : antwoorden?.toezicht === "weet-niet" ? "Weet niet" : "-";
+        const transparantieLabel = antwoorden?.transparantie === "ja" ? "Ja" : antwoorden?.transparantie === "nee" ? "Nee" : antwoorden?.transparantie === "weet-niet" ? "Weet niet" : "-";
+
+        const hoogRisicoLabels: Record<string, string> = {
+          "cv-screening": "CV-screening / ATS met AI-ranking",
+          matching: "Matchingtool",
+          "chatbot-hr": "Chatbot voor screening",
+          monitoring: "Prestatie-/gedragsmonitoring",
+          planning: "Planningssoftware",
+        };
+        const systemenTekst = hoog_risico_systemen && hoog_risico_systemen.length > 0
+          ? hoog_risico_systemen.map((s: string) => hoogRisicoLabels[s] || s).join(", ")
+          : "Geen";
+
+        const atsLabel = ats_systeem
+          ? { carerix: "Carerix", mysolution: "Mysolution", bullhorn: "Bullhorn / Connexys", byner: "Byner", anders: "Ander systeem", "weet-niet": "Weet niet", "geen-ats": "Geen ATS" }[ats_systeem] || ats_systeem
+          : "-";
+
+        await resend.emails.send({
+          from: "Normelo <scan@normelo.com>",
+          to: ["ringenaldus@gmail.com"],
+          subject: `Nieuwe Quick Scan lead: ${email.trim().toLowerCase()} (${risicoLabel})`,
+          html: `
+<div style="font-family:sans-serif;max-width:500px;padding:20px;">
+  <h2 style="margin:0 0 16px;">Nieuwe Quick Scan lead</h2>
+  <table style="border-collapse:collapse;width:100%;">
+    <tr><td style="padding:6px 12px 6px 0;font-weight:bold;font-size:14px;">E-mail</td><td style="padding:6px 0;font-size:14px;">${email.trim().toLowerCase()}</td></tr>
+    <tr><td style="padding:6px 12px 6px 0;font-weight:bold;font-size:14px;">Resultaat</td><td style="padding:6px 0;font-size:14px;color:${risicoKleur};font-weight:bold;">${risicoLabel}</td></tr>
+    <tr><td style="padding:6px 12px 6px 0;font-weight:bold;font-size:14px;">ATS-systeem</td><td style="padding:6px 0;font-size:14px;">${atsLabel}</td></tr>
+    <tr><td style="padding:6px 12px 6px 0;font-weight:bold;font-size:14px;">Hoog-risico systemen</td><td style="padding:6px 0;font-size:14px;">${systemenTekst}</td></tr>
+    <tr><td style="padding:6px 12px 6px 0;font-weight:bold;font-size:14px;">Shadow AI</td><td style="padding:6px 0;font-size:14px;">${shadowLabel}</td></tr>
+    <tr><td style="padding:6px 12px 6px 0;font-weight:bold;font-size:14px;">Beslissingen</td><td style="padding:6px 0;font-size:14px;">${beslissingenLabel}</td></tr>
+    <tr><td style="padding:6px 12px 6px 0;font-weight:bold;font-size:14px;">Toezicht</td><td style="padding:6px 0;font-size:14px;">${toezichtLabel}</td></tr>
+    <tr><td style="padding:6px 12px 6px 0;font-weight:bold;font-size:14px;">Transparantie</td><td style="padding:6px 0;font-size:14px;">${transparantieLabel}</td></tr>
+  </table>
+</div>`,
+        });
+      } catch (notifError) {
+        console.error("Notification email error:", notifError);
+      }
+
+      // Resultaat-mail naar de bezoeker
       try {
         await resend.emails.send({
           from: "Normelo <scan@normelo.com>",
