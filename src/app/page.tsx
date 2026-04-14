@@ -118,6 +118,46 @@ export default function Home() {
         </p>
       </section>
 
+      {/* Leverancier vs. gebruiker */}
+      <section className="py-12 border-b border-border">
+        <h2 className="text-2xl font-bold mb-4">&ldquo;Maar mijn softwareleverancier regelt dit toch?&rdquo;</h2>
+        <p className="text-foreground leading-relaxed mb-4">
+          Dat is de meest gehoorde misvatting. De EU AI Act stelt eisen aan twee partijen:
+          de <strong>ontwikkelaar</strong> van het AI-systeem én de <strong>gebruiker</strong> (deployer).
+          Je softwareleverancier — Carerix, Bullhorn, Mysolution of een ander systeem — moet zorgen
+          dat het product voldoet aan de technische eisen. Inclusief CE-markering en conformiteitsverklaring.
+        </p>
+        <p className="text-foreground leading-relaxed mb-4">
+          Maar als gebruiker heb je eigen verplichtingen. Je moet menselijk toezicht inrichten met
+          mensen die dat ook daadwerkelijk kunnen. Je moet kandidaten informeren dat AI wordt ingezet.
+          Je moet een AI-register bijhouden. En je moet monitoren of het systeem nog doet wat het moet doen.
+        </p>
+        <p className="text-foreground leading-relaxed mb-6">
+          Vergelijk het met een auto: de fabrikant levert een veilig voertuig, maar jij moet
+          nog steeds een rijbewijs hebben. De CE-markering van je leverancier zonder getrainde
+          medewerkers is niet compliant. <strong>Normelo helpt jouw team AI-geletterd werken</strong> —
+          zodat je organisatie aan beide kanten van de wet voldoet.
+        </p>
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="p-5 border border-border rounded-lg bg-surface">
+            <p className="text-sm font-medium text-muted mb-2 tracking-wide uppercase">De leverancier regelt</p>
+            <p className="font-semibold mb-2">Het product</p>
+            <p className="text-sm text-muted leading-relaxed">
+              Technische documentatie, risicomanagement van het systeem, CE-markering,
+              conformiteitsverklaring en productstandaarden.
+            </p>
+          </div>
+          <div className="p-5 border-2 border-accent rounded-lg bg-surface">
+            <p className="text-sm font-medium text-accent mb-2 tracking-wide uppercase">Normelo helpt met</p>
+            <p className="font-semibold mb-2">De mensen</p>
+            <p className="text-sm text-muted leading-relaxed">
+              AI-geletterdheid van je team, menselijk toezicht inrichten, transparantie naar
+              betrokkenen, AI-register bijhouden en compliance-documentatie.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Quick Scan CTA */}
       <section className="py-12 border-b border-border">
         <div className="rounded-lg p-8 bg-surface">

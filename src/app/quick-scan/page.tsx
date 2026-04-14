@@ -526,7 +526,12 @@ export default function QuickScan() {
             {/* Hoe pak je dit aan? */}
             {(aantalHoogRisico > 0 || answers.shadow === "ja") && (
               <div className="mb-6">
-                <h3 className="text-lg font-semibold mb-4">Hoe pak je dit aan?</h3>
+                <h3 className="text-lg font-semibold mb-2">Hoe pak je dit aan?</h3>
+                <p className="text-sm text-muted leading-relaxed mb-4">
+                  Je softwareleverancier zorgt voor de technische kant — CE-markering, productstandaarden.
+                  Maar als gebruiker heb je eigen verplichtingen: je team moet AI-geletterd zijn, het toezicht
+                  moet geregeld zijn, en kandidaten moeten geïnformeerd worden. Dat kun je zelf oppakken.
+                </p>
 
                 {/* Gratis stap */}
                 <div className="p-5 bg-surface rounded-lg border border-border mb-3">
