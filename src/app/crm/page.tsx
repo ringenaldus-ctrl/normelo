@@ -250,6 +250,39 @@ export default function CRM() {
     setShowContactModal(false);
   }
 
+  // Convert lead to prospect
+  async function convertLead(lead: Lead) {
+    const systemenLabels: Record<string, string> = {
+      "cv-screening": "CV-screening",
+      matching: "Matching",
+      "chatbot-hr": "Chatbot",
+      monitoring: "Monitoring",
+      planning: "Planning",
+    };
+    const risicoLabel = lead.risico_niveau === "hoog" ? "Hoog" : lead.risico_niveau === "middel" ? "Middel" : "Laag";
+    const systemen = lead.hoog_risico_systemen?.length
+      ? lead.hoog_risico_systemen.map(s => systemenLabels[s] || s).join(", ")
+      : "Geen";
+    const notities = `Quick Scan resultaat: ${risicoLabel} risico\nHoog-risico systemen: ${systemen}\nShadow AI: ${lead.antwoorden?.shadow || "—"}\nToezicht: ${lead.antwoorden?.toezicht || "—"}`;
+
+    const res = await fetch("/api/crm", {
+      method: "POST",
+      headers: headers(),
+      body: JSON.stringify({
+        bedrijf: lead.email.split("@")[1]?.replace(/\.\w+$/, "") || lead.email,
+        ats_systeem: lead.ats_systeem || "",
+        status: "quickscan_gedaan",
+        notities,
+        bron: "Quick Scan",
+        email: lead.email,
+      }),
+    });
+    if (res.ok) {
+      await loadProspects();
+      setTab("alle");
+    }
+  }
+
   // Sorting
   function toggleSort(field: SortField) {
     if (sortField === field) {
@@ -654,6 +687,7 @@ export default function CRM() {
                   <th className="px-4 py-3">Shadow AI</th>
                   <th className="px-4 py-3">Toezicht</th>
                   <th className="px-4 py-3">Datum</th>
+                  <th className="px-4 py-3 w-28"></th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
@@ -701,6 +735,18 @@ export default function CRM() {
                         </td>
                         <td className="px-4 py-3 text-xs text-gray-400">
                           {new Date(l.created_at).toLocaleDateString("nl-NL", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}
+                        </td>
+                        <td className="px-4 py-3 text-right">
+                          {prospects.some(p => p.email === l.email || p.bedrijf.toLowerCase() === (l.email.split("@")[1]?.replace(/\.\w+$/, "") || "").toLowerCase()) ? (
+                            <span className="text-xs text-green-600 font-medium">✓ Prospect</span>
+                          ) : (
+                            <button
+                              onClick={() => convertLead(l)}
+                              className="text-xs px-3 py-1.5 bg-gray-900 text-white rounded-lg font-medium hover:bg-gray-800 transition-colors cursor-pointer"
+                            >
+                              → Prospect
+                            </button>
+                          )}
                         </td>
                       </tr>
                     );
