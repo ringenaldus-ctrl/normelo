@@ -60,13 +60,18 @@ export default function Home() {
     <section className="bg-dark">
       <div className="max-w-4xl mx-auto px-6 py-20">
         <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6 text-white">
-          De EU AI Act, <br className="hidden md:block" />
-          begrijpelijk uitgelegd
+          Jouw team AI-geletterd.<br className="hidden md:block" />
+          Jouw organisatie compliant.
         </h1>
+        <p className="text-lg text-gray-300 max-w-2xl leading-relaxed mb-6">
+          Vanaf augustus 2026 moeten organisaties die AI inzetten bij werving, selectie of
+          beoordeling voldoen aan de EU AI Act. Dat vraagt meer dan techniek — het vraagt
+          mensen die begrijpen wat ze gebruiken.
+        </p>
         <p className="text-lg text-gray-300 max-w-2xl leading-relaxed">
-          Europa heeft de eerste wet ter wereld aangenomen die kunstmatige intelligentie reguleert.
-          De EU AI Act raakt elke organisatie die AI-systemen ontwikkelt, inkoopt of gebruikt.
-          Op deze site leggen we uit wat de wet inhoudt en wat dit voor jou betekent.
+          Normelo helpt organisaties AI-geletterd werken. Van uitleg over de wet tot
+          training en certificering — zodat je niet alleen weet wat er moet, maar het ook
+          geregeld hebt.
         </p>
       </div>
     </section>
