@@ -13,12 +13,29 @@ function getSupabase() {
   return createClient(url, key);
 }
 
-// GET: lijst alle prospects met contacten
+// GET: lijst alle prospects met contacten + optioneel leads
 export async function GET(request: NextRequest) {
   if (!authorized(request))
     return Response.json({ error: "Niet geautoriseerd" }, { status: 401 });
 
   const supabase = getSupabase();
+  const { searchParams } = new URL(request.url);
+  const type = searchParams.get("type");
+
+  // Return Quick Scan leads
+  if (type === "leads") {
+    const { data, error } = await supabase
+      .from("quickscan_leads")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error)
+      return Response.json({ error: error.message }, { status: 500 });
+
+    return Response.json(data);
+  }
+
+  // Default: return prospects
   const { data, error } = await supabase
     .from("prospects")
     .select("*, prospect_contacten(*)")

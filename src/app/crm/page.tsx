@@ -53,12 +53,29 @@ const ATS_LABELS: Record<string, string> = {
 
 type SortField = "bedrijf" | "updated_at" | "status";
 type SortDir = "asc" | "desc";
-type Tab = "alle" | "opportunities";
+interface Lead {
+  id: string;
+  email: string;
+  sector: string | null;
+  risico_niveau: string | null;
+  hoog_risico_systemen: string[];
+  ats_systeem: string | null;
+  antwoorden: {
+    shadow?: string;
+    beslissingen?: string;
+    toezicht?: string;
+    transparantie?: string;
+  };
+  created_at: string;
+}
+
+type Tab = "alle" | "opportunities" | "leads";
 
 export default function CRM() {
   const [password, setPassword] = useState("");
   const [authenticated, setAuthenticated] = useState(false);
   const [prospects, setProspects] = useState<Prospect[]>([]);
+  const [leads, setLeads] = useState<Lead[]>([]);
   const [loading, setLoading] = useState(false);
   const [tab, setTab] = useState<Tab>("alle");
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -97,13 +114,20 @@ export default function CRM() {
   const loadProspects = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/crm", { headers: headers() });
-      if (res.ok) {
-        const data = await res.json();
+      const [prospectsRes, leadsRes] = await Promise.all([
+        fetch("/api/crm", { headers: headers() }),
+        fetch("/api/crm?type=leads", { headers: headers() }),
+      ]);
+      if (prospectsRes.ok) {
+        const data = await prospectsRes.json();
         setProspects(data);
         setAuthenticated(true);
       } else {
         setAuthenticated(false);
+      }
+      if (leadsRes.ok) {
+        const leadsData = await leadsRes.json();
+        setLeads(leadsData);
       }
     } catch {
       setAuthenticated(false);
@@ -348,6 +372,23 @@ export default function CRM() {
                 tab === "opportunities" ? "bg-orange-100 text-orange-700" : "bg-gray-100 text-gray-500"
               }`}>
                 {opportunityCount}
+              </span>
+            )}
+          </button>
+          <button
+            onClick={() => setTab("leads")}
+            className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-colors cursor-pointer flex items-center gap-2 ${
+              tab === "leads"
+                ? "border-gray-900 text-gray-900"
+                : "border-transparent text-gray-400 hover:text-gray-600"
+            }`}
+          >
+            Leads
+            {leads.filter(l => l.email !== "ringenaldus@gmail.com").length > 0 && (
+              <span className={`text-xs px-1.5 py-0.5 rounded-full ${
+                tab === "leads" ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-500"
+              }`}>
+                {leads.filter(l => l.email !== "ringenaldus@gmail.com").length}
               </span>
             )}
           </button>
@@ -599,7 +640,82 @@ export default function CRM() {
         </div>
       )}
 
+      {/* Leads View */}
+      {tab === "leads" && (
+        <div className="max-w-7xl mx-auto p-4">
+          <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-4 py-3">E-mail</th>
+                  <th className="px-4 py-3">Risico</th>
+                  <th className="px-4 py-3">ATS</th>
+                  <th className="px-4 py-3">Hoog-risico systemen</th>
+                  <th className="px-4 py-3">Shadow AI</th>
+                  <th className="px-4 py-3">Toezicht</th>
+                  <th className="px-4 py-3">Datum</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {leads
+                  .filter(l => l.email !== "ringenaldus@gmail.com")
+                  .map((l) => {
+                    const risicoKleur = l.risico_niveau === "hoog" ? "text-red-600 bg-red-50" : l.risico_niveau === "middel" ? "text-amber-600 bg-amber-50" : "text-green-600 bg-green-50";
+                    const risicoLabel = l.risico_niveau === "hoog" ? "Hoog" : l.risico_niveau === "middel" ? "Middel" : "Laag";
+                    const systemenLabels: Record<string, string> = {
+                      "cv-screening": "CV-screening",
+                      matching: "Matching",
+                      "chatbot-hr": "Chatbot",
+                      monitoring: "Monitoring",
+                      planning: "Planning",
+                    };
+                    const atsLabels: Record<string, string> = {
+                      carerix: "Carerix", mysolution: "Mysolution", bullhorn: "Bullhorn", byner: "Byner",
+                      anders: "Anders", "weet-niet": "Onbekend", "geen-ats": "Geen",
+                    };
+                    return (
+                      <tr key={l.id} className="hover:bg-gray-50 transition-colors">
+                        <td className="px-4 py-3 font-medium text-gray-900">{l.email}</td>
+                        <td className="px-4 py-3">
+                          <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${risicoKleur}`}>{risicoLabel}</span>
+                        </td>
+                        <td className="px-4 py-3 text-xs">{l.ats_systeem ? (atsLabels[l.ats_systeem] || l.ats_systeem) : "—"}</td>
+                        <td className="px-4 py-3 text-xs">
+                          {l.hoog_risico_systemen && l.hoog_risico_systemen.length > 0
+                            ? l.hoog_risico_systemen.map(s => systemenLabels[s] || s).join(", ")
+                            : "—"}
+                        </td>
+                        <td className="px-4 py-3 text-xs">
+                          {l.antwoorden?.shadow === "ja" ? (
+                            <span className="text-red-500 font-medium">Ja</span>
+                          ) : l.antwoorden?.shadow === "weet-niet" ? (
+                            <span className="text-amber-500">Weet niet</span>
+                          ) : "Nee"}
+                        </td>
+                        <td className="px-4 py-3 text-xs">
+                          {l.antwoorden?.toezicht === "nee" ? (
+                            <span className="text-red-500 font-medium">Nee</span>
+                          ) : l.antwoorden?.toezicht === "weet-niet" ? (
+                            <span className="text-amber-500">Weet niet</span>
+                          ) : l.antwoorden?.toezicht === "ja" ? "Ja" : "—"}
+                        </td>
+                        <td className="px-4 py-3 text-xs text-gray-400">
+                          {new Date(l.created_at).toLocaleDateString("nl-NL", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}
+                        </td>
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            </table>
+            {leads.filter(l => l.email !== "ringenaldus@gmail.com").length === 0 && (
+              <div className="text-center py-12 text-gray-400 text-sm">Nog geen Quick Scan leads</div>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* List View */}
+      {tab !== "leads" && (
       <div className="max-w-7xl mx-auto p-4">
         <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
           <table className="w-full text-sm">
@@ -675,6 +791,7 @@ export default function CRM() {
           )}
         </div>
       </div>
+      )}
     </div>
   );
 }
