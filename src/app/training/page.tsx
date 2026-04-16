@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "EU AI Act compliance pakket voor uitzendbureaus — Normelo",
   description:
-    "Normelo maakt jouw uitzendbureau EU AI Act compliant. AI-register, AI-beleid, teamtraining en certificaat. Vast tarief €3.500.",
+    "Normelo maakt jouw uitzendbureau EU AI Act compliant. AI-register, AI-beleid, teamtraining en certificaat. Vanaf €3.500.",
 };
 
 export default function Training() {
@@ -113,20 +113,19 @@ export default function Training() {
       {/* Prijs + CTA */}
       <section className="py-12 border-b border-border">
         <div className="rounded-xl p-8 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
-          <p className="text-sm font-medium text-orange-300 mb-2 tracking-wide uppercase">Vast tarief</p>
+          <p className="text-sm font-medium text-orange-300 mb-2 tracking-wide uppercase">Transparant tarief</p>
           <div className="flex items-baseline gap-2 mb-4">
-            <span className="text-4xl font-bold">€3.500</span>
-            <span className="text-gray-400">per bureau</span>
+            <span className="text-4xl font-bold">Vanaf €3.500</span>
           </div>
           <p className="text-gray-300 leading-relaxed mb-6">
-            Eén prijs, alles inbegrepen. Ongeacht het aantal medewerkers. Van inventarisatie
-            tot certificaat — Normelo regelt het.
+            De prijs hangt af van je teamgrootte en het aantal systemen. In een
+            vrijblijvend gesprek bespreken we wat jouw bureau nodig heeft.
           </p>
           <Link
             href="/aanvragen"
             className="inline-block px-8 py-3 bg-accent text-white rounded-lg font-semibold hover:bg-orange-600 transition-colors no-underline"
           >
-            Vraag het pakket aan →
+            Plan een kennismaking →
           </Link>
         </div>
       </section>

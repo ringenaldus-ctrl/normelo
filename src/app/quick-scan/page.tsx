@@ -538,7 +538,7 @@ export default function QuickScan() {
                   <p className="text-sm font-medium text-orange-300 mb-2 tracking-wide uppercase">Normelo compliance-pakket</p>
                   <p className="font-semibold text-lg mb-2">Wij maken jouw bureau compliant</p>
                   <p className="text-sm text-gray-300 leading-relaxed mb-4">
-                    Eén pakket, vast tarief van €3.500. Normelo inventariseert je AI-systemen, vult
+                    Eén pakket, vanaf €3.500. Normelo inventariseert je AI-systemen, vult
                     je AI-register in, schrijft je AI-beleid, traint je team en levert het certificaat.
                     Jij hoeft niks uit te zoeken.
                   </p>
@@ -546,7 +546,7 @@ export default function QuickScan() {
                     href="/aanvragen"
                     className="inline-block px-5 py-2.5 bg-accent text-white rounded-lg text-sm font-medium hover:bg-orange-600 transition-colors no-underline"
                   >
-                    Vraag het pakket aan &rarr;
+                    Plan een kennismaking &rarr;
                   </Link>
                 </div>
               </div>

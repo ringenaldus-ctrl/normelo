@@ -57,7 +57,7 @@ function Footer() {
     <footer className="bg-dark mt-auto">
       <div className="max-w-4xl mx-auto px-6 py-10 text-sm">
         <p className="mb-6 text-gray-300 italic">
-          Normelo maakt uitzendbureaus EU AI Act compliant — AI-register, AI-beleid, teamtraining en certificering in één pakket. <a href="/aanvragen" className="text-accent hover:underline">Vraag het pakket aan →</a>
+          Normelo maakt uitzendbureaus EU AI Act compliant — AI-register, AI-beleid, teamtraining en certificering in één pakket. <a href="/aanvragen" className="text-accent hover:underline">Plan een kennismaking →</a>
         </p>
         <p className="mb-4 text-gray-400">Vragen of opmerkingen over deze website? <a href="mailto:info@normelo.com" className="text-accent hover:underline">info@normelo.com</a></p>
         <p className="text-gray-500">&copy; {new Date().getFullYear()} Normelo</p>

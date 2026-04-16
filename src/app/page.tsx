@@ -5,7 +5,7 @@ import Script from "next/script";
 export const metadata: Metadata = {
   title: "Normelo — Wij maken jouw uitzendbureau EU AI Act compliant",
   description:
-    "Normelo ontzorgt uitzendbureaus bij de EU AI Act. Eén pakket: AI-register, AI-beleid, teamtraining en certificaat. Vast tarief €3.500.",
+    "Normelo ontzorgt uitzendbureaus bij de EU AI Act. Eén pakket: AI-register, AI-beleid, teamtraining en certificaat. Vanaf €3.500.",
 };
 
 const organizationSchema = {
@@ -37,7 +37,7 @@ const serviceSchema = {
     "@type": "Offer",
     price: "3500",
     priceCurrency: "EUR",
-    description: "Vast tarief per bureau, ongeacht teamgrootte",
+    description: "Vanaf €3.500, afhankelijk van teamgrootte en aantal systemen",
   },
 };
 
@@ -190,18 +190,18 @@ export default function Home() {
       {/* Prijs — nu NA bezwaarweerlegging en pijn */}
       <section className="py-12 border-b border-border">
         <div className="rounded-xl p-8 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
-          <p className="text-sm font-medium text-orange-300 mb-2 tracking-wide uppercase">Vast tarief</p>
+          <p className="text-sm font-medium text-orange-300 mb-2 tracking-wide uppercase">Transparant tarief</p>
           <div className="flex items-baseline gap-2 mb-4">
-            <span className="text-4xl font-bold">€3.500</span>
-            <span className="text-gray-400">per bureau</span>
+            <span className="text-4xl font-bold">Vanaf €3.500</span>
           </div>
           <p className="text-gray-300 leading-relaxed mb-4 max-w-xl">
-            Eén prijs, alles inbegrepen. Ongeacht het aantal medewerkers. Van inventarisatie
-            tot certificaat — Normelo regelt het.
+            De exacte prijs hangt af van je teamgrootte en het aantal AI-systemen
+            dat je gebruikt. In een vrijblijvend kennismakingsgesprek bespreken we
+            wat jouw bureau nodig heeft en wat het kost. Geen verrassingen achteraf.
           </p>
           <p className="text-sm text-orange-200/80 mb-6">
-            De EU AI Act boetes lopen op tot €35 miljoen. Dit pakket kost minder dan
-            één juridisch adviesgesprek over wat je had moeten doen.
+            Compliant zijn opent deuren: grotere opdrachtgevers, aanbestedingen en
+            het vertrouwen van kandidaten die weten dat je zorgvuldig met hun data omgaat.
           </p>
           <Link
             href="/aanvragen"
@@ -210,6 +210,20 @@ export default function Home() {
             Plan een kennismaking →
           </Link>
         </div>
+      </section>
+
+      {/* Voor wie niet */}
+      <section className="py-12 border-b border-border">
+        <h2 className="text-2xl font-bold mb-4">Voor wie is dit niet?</h2>
+        <p className="text-foreground leading-relaxed mb-4">
+          Niet elk uitzendbureau heeft dit pakket nodig. Als je geen ATS-systeem, matchingtool
+          of andere AI-software gebruikt bij werving en selectie, val je waarschijnlijk niet
+          onder de hoog-risico categorie van de EU AI Act. Dan is dit pakket niet voor jou.
+        </p>
+        <p className="text-foreground leading-relaxed">
+          Twijfel je? Doe de Quick Scan — binnen 2 minuten weet je of jouw bureau te maken
+          heeft met hoog-risico AI.
+        </p>
       </section>
 
       {/* Quick Scan CTA */}

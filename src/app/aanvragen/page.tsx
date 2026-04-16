@@ -48,8 +48,7 @@ export default function Aanvragen() {
 
         <div className="rounded-xl p-6 bg-gradient-to-br from-gray-900 to-gray-800 text-white mb-8">
           <div className="flex items-baseline gap-2 mb-4">
-            <span className="text-3xl font-bold">€3.500</span>
-            <span className="text-gray-400">per bureau</span>
+            <span className="text-3xl font-bold">Vanaf €3.500</span>
           </div>
           <div className="space-y-2 text-sm text-gray-300">
             <p>✓ Inventarisatie van al je AI-systemen</p>

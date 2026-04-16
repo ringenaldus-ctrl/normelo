@@ -79,13 +79,13 @@ export default function AIRegister() {
           <h3 className="text-xl font-bold mb-3">AI-register, AI-beleid én meer</h3>
           <p className="text-sm text-gray-300 leading-relaxed mb-4">
             Het AI-register en AI-beleid zijn onderdeel van het Normelo compliance-pakket
-            (€3.500 per bureau). Inclusief inventarisatie, teamtraining en certificering.
+            (vanaf €3.500). Inclusief inventarisatie, teamtraining en certificering.
           </p>
           <Link
             href="/aanvragen"
             className="inline-block px-5 py-2.5 bg-accent text-white rounded-lg text-sm font-medium hover:bg-orange-600 transition-colors no-underline"
           >
-            Vraag het pakket aan →
+            Plan een kennismaking →
           </Link>
         </div>
       </section>
