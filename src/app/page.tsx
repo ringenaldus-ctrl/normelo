@@ -64,11 +64,10 @@ export default function Home() {
     <section className="bg-dark">
       <div className="max-w-4xl mx-auto px-6 py-20">
         <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6 text-white">
-          Wij maken jouw uitzendbureau<br className="hidden md:block" />
-          EU AI Act compliant.
+          Jouw uitzendbureau EU AI Act compliant.<br className="hidden md:block" />
+          Zonder dat je er zelf in hoeft te duiken.
         </h1>
         <p className="text-lg text-gray-300 max-w-2xl leading-relaxed mb-6">
-          Geen cursussen om zelf uit te zoeken. Geen templates om zelf in te vullen.
           Normelo regelt je AI-register, schrijft je AI-beleid, traint je team en
           levert het certificaat. Jij kunt door met ondernemen.
         </p>
@@ -77,7 +76,7 @@ export default function Home() {
             href="/aanvragen"
             className="btn-accent inline-block px-8 py-4 bg-accent hover:bg-accent-hover rounded-lg font-semibold text-lg no-underline transition-colors text-center"
           >
-            Vraag het pakket aan →
+            Plan een kennismaking →
           </Link>
           <Link
             href="/quick-scan"
@@ -101,11 +100,43 @@ export default function Home() {
           naar kandidaten en een AI-geletterd team.
         </p>
         <p className="text-foreground leading-relaxed">
-          De meeste bureaus weten dit niet. Of ze denken dat hun softwareleverancier het regelt.
-          Dat klopt niet — je leverancier zorgt voor het product, maar als gebruiker heb je
-          eigen verplichtingen. Vergelijk het met een auto: de fabrikant levert een veilig voertuig,
-          maar jij moet nog steeds een rijbewijs hebben.
+          De boetes lopen op tot €35 miljoen of 7% van de jaaromzet. Maar het echte risico zit
+          dichterbij: een kandidaat die ontdekt dat AI zonder waarborg over zijn sollicitatie
+          beslist. Dat is geen theoretisch scenario — het is een kwestie van tijd.
         </p>
+      </section>
+
+      {/* Leverancier vs. gebruiker — bezwaarweerlegging */}
+      <section className="py-12 border-b border-border">
+        <h2 className="text-2xl font-bold mb-4">&ldquo;Maar mijn softwareleverancier regelt dit toch?&rdquo;</h2>
+        <p className="text-foreground leading-relaxed mb-4">
+          Dat is de meest gehoorde misvatting. Je leverancier — Carerix, Bullhorn, Mysolution —
+          zorgt dat het product voldoet aan de technische eisen. CE-markering, conformiteitsverklaring,
+          productdocumentatie. Dat is hun verantwoordelijkheid.
+        </p>
+        <p className="text-foreground leading-relaxed mb-6">
+          Maar als gebruiker van die software heb je eigen verplichtingen. Vergelijk het met een
+          auto: de fabrikant levert een veilig voertuig, maar jij moet nog steeds een rijbewijs
+          hebben. Zonder getrainde medewerkers is de CE-markering van je leverancier niet genoeg.
+        </p>
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="p-5 border border-border rounded-lg bg-surface">
+            <p className="text-sm font-medium text-muted mb-2 tracking-wide uppercase">De leverancier regelt</p>
+            <p className="font-semibold mb-2">Het product</p>
+            <p className="text-sm text-muted leading-relaxed">
+              Technische documentatie, risicomanagement van het systeem, CE-markering
+              en conformiteitsverklaring.
+            </p>
+          </div>
+          <div className="p-5 border-2 border-accent rounded-lg bg-surface">
+            <p className="text-sm font-medium text-accent mb-2 tracking-wide uppercase">Normelo regelt</p>
+            <p className="font-semibold mb-2">Jouw compliance</p>
+            <p className="text-sm text-muted leading-relaxed">
+              AI-register, AI-beleid, teamtraining, certificering, menselijk toezicht
+              en transparantie naar kandidaten.
+            </p>
+          </div>
+        </div>
       </section>
 
       {/* Wat je krijgt */}
@@ -156,7 +187,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Prijs */}
+      {/* Prijs — nu NA bezwaarweerlegging en pijn */}
       <section className="py-12 border-b border-border">
         <div className="rounded-xl p-8 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
           <p className="text-sm font-medium text-orange-300 mb-2 tracking-wide uppercase">Vast tarief</p>
@@ -164,53 +195,20 @@ export default function Home() {
             <span className="text-4xl font-bold">€3.500</span>
             <span className="text-gray-400">per bureau</span>
           </div>
-          <p className="text-gray-300 leading-relaxed mb-6 max-w-xl">
-            Eén prijs, alles inbegrepen. Ongeacht het aantal medewerkers. Je krijgt een
-            ingevuld AI-register, AI-beleid op maat, teamtraining voor al je medewerkers
-            en een certificaat per persoon.
+          <p className="text-gray-300 leading-relaxed mb-4 max-w-xl">
+            Eén prijs, alles inbegrepen. Ongeacht het aantal medewerkers. Van inventarisatie
+            tot certificaat — Normelo regelt het.
           </p>
-          <p className="text-sm text-gray-400 mb-6">
-            Inclusief: inventarisatie, register, beleid, training, toets, certificaten en compliance-dossier.
+          <p className="text-sm text-orange-200/80 mb-6">
+            De EU AI Act boetes lopen op tot €35 miljoen. Dit pakket kost minder dan
+            één juridisch adviesgesprek over wat je had moeten doen.
           </p>
           <Link
             href="/aanvragen"
             className="inline-block px-8 py-3 bg-accent text-white rounded-lg font-semibold hover:bg-orange-600 transition-colors no-underline"
           >
-            Vraag het pakket aan →
+            Plan een kennismaking →
           </Link>
-        </div>
-      </section>
-
-      {/* Waarom Normelo */}
-      <section className="py-12 border-b border-border">
-        <h2 className="text-2xl font-bold mb-4">&ldquo;Maar mijn softwareleverancier regelt dit toch?&rdquo;</h2>
-        <p className="text-foreground leading-relaxed mb-4">
-          Dat is de meest gehoorde misvatting. Je leverancier — Carerix, Bullhorn, Mysolution —
-          zorgt dat het product voldoet aan de technische eisen. CE-markering, conformiteitsverklaring,
-          productdocumentatie. Dat is hun verantwoordelijkheid.
-        </p>
-        <p className="text-foreground leading-relaxed mb-6">
-          Maar als gebruiker van die software heb je eigen verplichtingen. Je moet menselijk
-          toezicht inrichten, kandidaten informeren, een AI-register bijhouden en je team
-          AI-geletterd maken. Dat regelt geen leverancier voor je. Dat regelt Normelo.
-        </p>
-        <div className="grid gap-4 md:grid-cols-2">
-          <div className="p-5 border border-border rounded-lg bg-surface">
-            <p className="text-sm font-medium text-muted mb-2 tracking-wide uppercase">De leverancier regelt</p>
-            <p className="font-semibold mb-2">Het product</p>
-            <p className="text-sm text-muted leading-relaxed">
-              Technische documentatie, risicomanagement van het systeem, CE-markering
-              en conformiteitsverklaring.
-            </p>
-          </div>
-          <div className="p-5 border-2 border-accent rounded-lg bg-surface">
-            <p className="text-sm font-medium text-accent mb-2 tracking-wide uppercase">Normelo regelt</p>
-            <p className="font-semibold mb-2">Jouw compliance</p>
-            <p className="text-sm text-muted leading-relaxed">
-              AI-register, AI-beleid, teamtraining, certificering, menselijk toezicht
-              en transparantie naar kandidaten.
-            </p>
-          </div>
         </div>
       </section>
 

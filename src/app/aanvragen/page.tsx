@@ -79,7 +79,7 @@ export default function Aanvragen() {
           </div>
         ) : (
           <>
-            <h2 className="text-2xl font-bold mb-2">Vraag het pakket aan</h2>
+            <h2 className="text-2xl font-bold mb-2">Plan een kennismaking</h2>
             <p className="text-muted mb-6">
               Vul je gegevens in en we nemen contact op om alles door te spreken.
               Geen verplichtingen.
@@ -156,7 +156,7 @@ export default function Aanvragen() {
                 disabled={status === "sending"}
                 className="w-full px-5 py-3 bg-accent text-white rounded-lg font-semibold hover:bg-accent-hover transition-colors disabled:opacity-60 cursor-pointer text-lg"
               >
-                {status === "sending" ? "Verzenden..." : "Vraag het pakket aan"}
+                {status === "sending" ? "Verzenden..." : "Plan een kennismaking"}
               </button>
               <p className="text-xs text-muted text-center">
                 We nemen binnen twee werkdagen contact op. Geen verplichtingen.
