@@ -73,7 +73,7 @@ export default function Aanvragen() {
       <div className="max-w-xl mx-auto px-6 py-20 text-center">
         <p className="text-2xl font-bold text-green-700 mb-3">Bedankt voor je aanvraag</p>
         <p className="text-foreground leading-relaxed mb-6">
-          We nemen binnen twee werkdagen contact op om het traject te bespreken
+          We nemen dezelfde werkdag nog contact op om het traject te bespreken
           en af te stemmen op jouw bureau.
         </p>
         <Link
@@ -93,7 +93,7 @@ export default function Aanvragen() {
         <div className="md:col-span-3">
           <h1 className="text-3xl font-bold leading-tight mb-2">Plan een kennismaking</h1>
           <p className="text-muted mb-6">
-            Vul je gegevens in — we bellen binnen twee werkdagen om alles door te spreken. Geen verplichtingen.
+            Vul je gegevens in — we nemen dezelfde werkdag nog contact op. Geen verplichtingen.
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
