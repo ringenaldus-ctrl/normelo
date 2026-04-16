@@ -217,7 +217,7 @@ export default function Home() {
         <h2 className="text-2xl font-bold mb-4">Voor wie is dit niet?</h2>
         <p className="text-foreground leading-relaxed mb-4">
           Niet elk uitzendbureau heeft dit pakket nodig. Als je geen ATS-systeem, matchingtool
-          of andere AI-software gebruikt bij werving en selectie, val je waarschijnlijk niet
+          of AI-tools zoals ChatGPT gebruikt bij werving en selectie, val je waarschijnlijk niet
           onder de hoog-risico categorie van de EU AI Act. Dan is dit pakket niet voor jou.
         </p>
         <p className="text-foreground leading-relaxed">
