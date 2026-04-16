@@ -3,9 +3,35 @@
 import { useState } from "react";
 import Link from "next/link";
 
+const AI_TOOLS = [
+  "Carerix",
+  "Bullhorn / Connexys",
+  "Mysolution",
+  "Byner",
+  "ChatGPT / Copilot",
+  "Anders",
+];
+
 export default function Aanvragen() {
-  const [form, setForm] = useState({ naam: "", organisatie: "", email: "", telefoon: "", teamgrootte: "", opmerkingen: "" });
+  const [form, setForm] = useState({
+    naam: "",
+    organisatie: "",
+    email: "",
+    telefoon: "",
+    teamgrootte: "",
+    aiTools: [] as string[],
+    opmerkingen: "",
+  });
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+
+  function toggleTool(tool: string) {
+    setForm((prev) => ({
+      ...prev,
+      aiTools: prev.aiTools.includes(tool)
+        ? prev.aiTools.filter((t) => t !== tool)
+        : [...prev.aiTools, tool],
+    }));
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -22,7 +48,14 @@ export default function Aanvragen() {
           organisatie: form.organisatie,
           telefoon: form.telefoon,
           teamgrootte: form.teamgrootte,
-          opmerkingen: form.opmerkingen,
+          opmerkingen: [
+            form.aiTools.length > 0
+              ? `AI-tools: ${form.aiTools.join(", ")}`
+              : "",
+            form.opmerkingen,
+          ]
+            .filter(Boolean)
+            .join("\n"),
         }),
       });
       if (res.ok) {
@@ -120,12 +153,36 @@ export default function Aanvragen() {
                 className="w-full px-4 py-3 border border-border rounded-lg text-sm focus:outline-none focus:border-accent"
               />
             </div>
+
+            {/* AI-tools checkboxes */}
+            <div>
+              <label className="text-xs font-medium text-muted mb-2 block">
+                Welke AI-tools gebruikt jullie bureau? (optioneel)
+              </label>
+              <div className="flex flex-wrap gap-2">
+                {AI_TOOLS.map((tool) => (
+                  <button
+                    key={tool}
+                    type="button"
+                    onClick={() => toggleTool(tool)}
+                    className={`px-3 py-1.5 rounded-full text-sm border transition-colors cursor-pointer ${
+                      form.aiTools.includes(tool)
+                        ? "bg-accent text-white border-accent"
+                        : "bg-white text-foreground border-border hover:border-accent"
+                    }`}
+                  >
+                    {tool}
+                  </button>
+                ))}
+              </div>
+            </div>
+
             <div>
               <label className="text-xs font-medium text-muted mb-1 block">Opmerkingen (optioneel)</label>
               <textarea
                 value={form.opmerkingen}
                 onChange={(e) => setForm({ ...form, opmerkingen: e.target.value })}
-                placeholder="Heb je specifieke vragen of opmerkingen?"
+                placeholder="bijv. hoeveel vestigingen, specifieke vragen, of wanneer jullie willen starten"
                 rows={3}
                 className="w-full px-4 py-3 border border-border rounded-lg text-sm focus:outline-none focus:border-accent resize-none"
               />
@@ -135,7 +192,7 @@ export default function Aanvragen() {
               disabled={status === "sending"}
               className="w-full px-5 py-3 bg-accent text-white rounded-lg font-semibold hover:bg-accent-hover transition-colors disabled:opacity-60 cursor-pointer text-lg"
             >
-              {status === "sending" ? "Verzenden..." : "Verstuur aanvraag"}
+              {status === "sending" ? "Verzenden..." : "Plan een gesprek"}
             </button>
             {status === "error" && (
               <p className="text-sm text-red-600 mt-1">
@@ -160,9 +217,6 @@ export default function Aanvragen() {
               <p>✓ Toets en certificaat per persoon</p>
               <p>✓ Compleet compliance-dossier</p>
             </div>
-            <p className="text-xs text-gray-400 mt-5 leading-relaxed">
-              Exacte prijs hangt af van teamgrootte en aantal systemen. Bespreken we in het gesprek.
-            </p>
           </div>
         </aside>
       </div>
