@@ -37,8 +37,8 @@ function Header() {
           <Link href="/tijdlijn" className="text-muted hover:text-primary transition-colors no-underline hover:no-underline">
             Tijdlijn
           </Link>
-          <Link href="/training" className="text-muted hover:text-primary transition-colors no-underline hover:no-underline">
-            Training
+          <Link href="/aanvragen" className="text-accent hover:text-primary transition-colors no-underline hover:no-underline font-medium">
+            Compliance-pakket
           </Link>
           <Link href="/quick-scan" className="text-muted hover:text-primary transition-colors no-underline hover:no-underline">
             Quick Scan
@@ -57,7 +57,7 @@ function Footer() {
     <footer className="bg-dark mt-auto">
       <div className="max-w-4xl mx-auto px-6 py-10 text-sm">
         <p className="mb-6 text-gray-300 italic">
-          Normelo biedt een <a href="/training" className="text-accent hover:underline">AI-geletterdheid training</a> voor de uitzendbranche — inclusief certificering en compliance-documentatie. <a href="/training" className="text-accent hover:underline">Bekijk het traject →</a>
+          Normelo maakt uitzendbureaus EU AI Act compliant — AI-register, AI-beleid, teamtraining en certificering in één pakket. <a href="/aanvragen" className="text-accent hover:underline">Vraag het pakket aan →</a>
         </p>
         <p className="mb-4 text-gray-400">Vragen of opmerkingen over deze website? <a href="mailto:info@normelo.com" className="text-accent hover:underline">info@normelo.com</a></p>
         <p className="text-gray-500">&copy; {new Date().getFullYear()} Normelo</p>

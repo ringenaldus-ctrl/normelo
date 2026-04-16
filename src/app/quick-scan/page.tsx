@@ -529,56 +529,25 @@ export default function QuickScan() {
                 <h3 className="text-lg font-semibold mb-2">Hoe pak je dit aan?</h3>
                 <p className="text-sm text-muted leading-relaxed mb-4">
                   Je softwareleverancier zorgt voor de technische kant — CE-markering, productstandaarden.
-                  Maar als gebruiker heb je eigen verplichtingen: je team moet AI-geletterd zijn, het toezicht
-                  moet geregeld zijn, en kandidaten moeten geïnformeerd worden. Dat kun je zelf oppakken.
+                  Maar als gebruiker heb je eigen verplichtingen: een AI-register, AI-beleid, menselijk
+                  toezicht, transparantie naar kandidaten en een AI-geletterd team. Dat is veel om zelf
+                  uit te zoeken. Normelo regelt het voor je.
                 </p>
 
-                {/* Gratis stap */}
-                <div className="p-5 bg-surface rounded-lg border border-border mb-3">
-                  <div className="flex items-start gap-3">
-                    <span className="text-lg mt-0.5">&#9745;</span>
-                    <div>
-                      <p className="font-semibold mb-1">Begin vandaag — gratis</p>
-                      <p className="text-sm text-muted leading-relaxed mb-3">
-                        Download het AI-register template en breng in kaart welke AI-systemen jouw organisatie gebruikt.
-                        Dat is stap één van compliance — en je kunt het zelf.
-                      </p>
-                      <div className="flex flex-wrap gap-3">
-                        <Link
-                          href="/ai-register"
-                          className="inline-block px-4 py-2 text-sm font-medium border border-accent text-accent rounded-lg hover:bg-blue-50 transition-colors no-underline"
-                        >
-                          AI-register template &rarr;
-                        </Link>
-                        <Link
-                          href="/uitzendbranche"
-                          className="inline-block px-4 py-2 text-sm font-medium border border-border text-muted rounded-lg hover:border-accent/50 hover:text-foreground transition-colors no-underline"
-                        >
-                          Kennisbank uitzendbranche
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Traject */}
                 <div className="p-6 rounded-xl bg-gradient-to-br from-gray-900 to-gray-800 text-white">
-                  <div className="flex items-start gap-3">
-                    <span className="text-lg mt-0.5">&#9889;</span>
-                    <div>
-                      <p className="font-semibold mb-1">Wil je het goed geregeld hebben?</p>
-                      <p className="text-sm text-gray-300 leading-relaxed mb-4">
-                        Het Normelo AI-geletterdheid traject helpt je van inventarisatie tot certificering.
-                        Specifiek voor de uitzendbranche en de systemen die jij gebruikt.
-                      </p>
-                      <Link
-                        href="/training"
-                        className="inline-block px-5 py-2.5 bg-accent text-white rounded-lg text-sm font-medium hover:bg-orange-600 transition-colors no-underline"
-                      >
-                        Bekijk het traject &rarr;
-                      </Link>
-                    </div>
-                  </div>
+                  <p className="text-sm font-medium text-orange-300 mb-2 tracking-wide uppercase">Normelo compliance-pakket</p>
+                  <p className="font-semibold text-lg mb-2">Wij maken jouw bureau compliant</p>
+                  <p className="text-sm text-gray-300 leading-relaxed mb-4">
+                    Eén pakket, vast tarief van €3.500. Normelo inventariseert je AI-systemen, vult
+                    je AI-register in, schrijft je AI-beleid, traint je team en levert het certificaat.
+                    Jij hoeft niks uit te zoeken.
+                  </p>
+                  <Link
+                    href="/aanvragen"
+                    className="inline-block px-5 py-2.5 bg-accent text-white rounded-lg text-sm font-medium hover:bg-orange-600 transition-colors no-underline"
+                  >
+                    Vraag het pakket aan &rarr;
+                  </Link>
                 </div>
               </div>
             )}

@@ -3,9 +3,9 @@ import Link from "next/link";
 import Script from "next/script";
 
 export const metadata: Metadata = {
-  title: "Normelo — EU AI Act uitleg voor organisaties",
+  title: "Normelo — Wij maken jouw uitzendbureau EU AI Act compliant",
   description:
-    "Wat is de EU AI Act en wat betekent het voor jouw organisatie? Normelo legt het uit in begrijpelijke taal.",
+    "Normelo ontzorgt uitzendbureaus bij de EU AI Act. Eén pakket: AI-register, AI-beleid, teamtraining en certificaat. Vast tarief €3.500.",
 };
 
 const organizationSchema = {
@@ -14,7 +14,7 @@ const organizationSchema = {
   name: "Normelo",
   url: "https://normelo.com",
   description:
-    "Normelo is een informatief kennisplatform over de EU AI Act. Duidelijke uitleg voor organisaties over hoog-risico AI-systemen, deadlines en verplichtingen.",
+    "Normelo maakt uitzendbureaus EU AI Act compliant. AI-register, AI-beleid, teamtraining en certificering in één pakket.",
 };
 
 const websiteSchema = {
@@ -23,20 +23,22 @@ const websiteSchema = {
   name: "Normelo",
   url: "https://normelo.com",
   description:
-    "EU AI Act uitleg voor organisaties. Begrijpelijk, compleet en gratis.",
+    "EU AI Act compliance voor uitzendbureaus. Normelo regelt het — jij kunt door met ondernemen.",
 };
 
-const articleSchema = {
+const serviceSchema = {
   "@context": "https://schema.org",
-  "@type": "Article",
-  headline: "De EU AI Act, begrijpelijk uitgelegd",
+  "@type": "Service",
+  name: "Normelo EU AI Act Compliance Pakket",
+  provider: { "@type": "Organization", name: "Normelo", url: "https://normelo.com" },
   description:
-    "Wat is de EU AI Act en wat betekent het voor jouw organisatie? Uitleg over de wet, de risicocategorieën en wie er aan moet voldoen.",
-  author: { "@type": "Organization", name: "Normelo", url: "https://normelo.com" },
-  publisher: { "@type": "Organization", name: "Normelo", url: "https://normelo.com" },
-  datePublished: "2026-04-01",
-  dateModified: "2026-04-01",
-  mainEntityOfPage: "https://normelo.com",
+    "Compleet ontzorgpakket voor EU AI Act compliance: AI-register, AI-beleid op maat, teamtraining en certificering.",
+  offers: {
+    "@type": "Offer",
+    price: "3500",
+    priceCurrency: "EUR",
+    description: "Vast tarief per bureau, ongeacht teamgrootte",
+  },
 };
 
 export default function Home() {
@@ -53,111 +55,160 @@ export default function Home() {
       dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
     />
     <Script
-      id="article-schema"
+      id="service-schema"
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
     />
+
+    {/* Hero */}
     <section className="bg-dark">
       <div className="max-w-4xl mx-auto px-6 py-20">
         <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6 text-white">
-          Jouw team AI-geletterd.<br className="hidden md:block" />
-          Jouw organisatie compliant.
+          Wij maken jouw uitzendbureau<br className="hidden md:block" />
+          EU AI Act compliant.
         </h1>
         <p className="text-lg text-gray-300 max-w-2xl leading-relaxed mb-6">
-          Vanaf augustus 2026 moeten organisaties die AI inzetten bij werving en selectie
-          voldoen aan de EU AI Act. Dat vraagt meer dan techniek — het vraagt mensen die
-          begrijpen wat ze gebruiken.
+          Geen cursussen om zelf uit te zoeken. Geen templates om zelf in te vullen.
+          Normelo regelt je AI-register, schrijft je AI-beleid, traint je team en
+          levert het certificaat. Jij kunt door met ondernemen.
         </p>
-        <p className="text-lg text-gray-300 max-w-2xl leading-relaxed">
-          Normelo traint uitzendbureaus en recruitmentteams in AI-geletterdheid —
-          zodat je team weet wat het gebruikt, je toezicht op orde is, en je organisatie
-          aantoonbaar compliant werkt.
-        </p>
+        <div className="flex flex-col sm:flex-row gap-4 mt-8">
+          <Link
+            href="/aanvragen"
+            className="btn-accent inline-block px-8 py-4 bg-accent hover:bg-accent-hover rounded-lg font-semibold text-lg no-underline transition-colors text-center"
+          >
+            Vraag het pakket aan →
+          </Link>
+          <Link
+            href="/quick-scan"
+            className="inline-block px-8 py-4 border border-gray-500 text-gray-300 hover:border-gray-300 hover:text-white rounded-lg font-medium text-lg no-underline transition-colors text-center"
+          >
+            Doe eerst de Quick Scan
+          </Link>
+        </div>
       </div>
     </section>
 
     <div className="max-w-4xl mx-auto px-6">
 
-      {/* Wat is de EU AI Act */}
+      {/* Het probleem */}
       <section className="py-12 border-b border-border">
-        <h2 className="text-2xl font-bold mb-4">Wat is de EU AI Act?</h2>
+        <h2 className="text-2xl font-bold mb-4">De wet geldt al. De meeste bureaus zijn nog niet klaar.</h2>
         <p className="text-foreground leading-relaxed mb-4">
-          De EU AI Act (officieel: de Verordening Artificiële Intelligentie) is een Europese wet
-          die eisen stelt aan AI-systemen op basis van het risico dat ze vormen. De wet is op
-          1 augustus 2024 in werking getreden en wordt stapsgewijs van toepassing. Het doel is
-          helder: AI die fundamentele rechten raakt — denk aan werving, kredietbeoordeling of
-          medische diagnoses — moet aan strenge eisen voldoen.
-        </p>
-        <p className="text-foreground leading-relaxed mb-4">
-          De wet geldt niet alleen voor ontwikkelaars van AI. Ook organisaties die AI-systemen
-          inkopen en inzetten — de wet noemt hen &ldquo;deployers&rdquo; — krijgen verplichtingen.
-          Als je een ATS-systeem gebruikt dat automatisch cv&apos;s rankt, dan valt dat onder de
-          EU AI Act. Ook als je het systeem niet zelf hebt gebouwd.
+          Sinds augustus 2024 is de EU AI Act van kracht. Uitzendbureaus die ATS-systemen,
+          matchingtools of CV-screening gebruiken, werken met hoog-risico AI. Dat betekent
+          wettelijke verplichtingen: een AI-register, AI-beleid, menselijk toezicht, transparantie
+          naar kandidaten en een AI-geletterd team.
         </p>
         <p className="text-foreground leading-relaxed">
-          De kern van de wet is een risicogebaseerde aanpak. AI-systemen worden ingedeeld in vier
-          categorieën: onaanvaardbaar risico (verboden), hoog risico (streng gereguleerd), beperkt
-          risico (transparantieverplichtingen) en minimaal risico (geen extra eisen). De meeste
-          verplichtingen gelden voor de hoog-risico categorie.
+          De meeste bureaus weten dit niet. Of ze denken dat hun softwareleverancier het regelt.
+          Dat klopt niet — je leverancier zorgt voor het product, maar als gebruiker heb je
+          eigen verplichtingen. Vergelijk het met een auto: de fabrikant levert een veilig voertuig,
+          maar jij moet nog steeds een rijbewijs hebben.
         </p>
       </section>
 
-      {/* Voor wie */}
+      {/* Wat je krijgt */}
       <section className="py-12 border-b border-border">
-        <h2 className="text-2xl font-bold mb-4">Voor wie geldt dit?</h2>
-        <p className="text-foreground leading-relaxed mb-4">
-          Kort gezegd: voor vrijwel elke organisatie die AI-systemen gebruikt in een context die
-          mensen raakt. De EU AI Act maakt geen onderscheid tussen grote en kleine organisaties.
-          Het gaat om wat het AI-systeem doet, niet om hoe groot het bedrijf is dat het gebruikt.
-        </p>
-        <p className="text-foreground leading-relaxed mb-4">
-          Concreet betekent dit dat als jouw organisatie software gebruikt die automatisch
-          kandidaten selecteert, medewerkers beoordeelt, kredietaanvragen verwerkt of
-          verzekeringsrisico&apos;s inschat, je waarschijnlijk te maken hebt met hoog-risico
-          AI volgens de EU AI Act.
-        </p>
-        <p className="text-foreground leading-relaxed">
-          Veel directeuren en HR-managers realiseren zich nog niet dat de systemen die ze dagelijks
-          gebruiken onder deze wet vallen. Een ATS dat cv&apos;s rankt is niet zomaar software — het is
-          een hoog-risico AI-systeem met bijbehorende wettelijke verplichtingen.
-        </p>
+        <h2 className="text-2xl font-bold mb-2">Eén pakket. Alles geregeld.</h2>
+        <p className="text-muted mb-8">Normelo levert het resultaat — niet alleen de kennis.</p>
+
+        <div className="grid gap-6 md:grid-cols-2">
+          <div className="p-6 border border-border rounded-lg">
+            <p className="text-sm font-medium text-accent mb-2 tracking-wide uppercase">Stap 1</p>
+            <p className="font-bold text-lg mb-2">AI-register</p>
+            <p className="text-sm text-muted leading-relaxed">
+              Wij inventariseren welke AI-systemen jouw bureau gebruikt en vullen het
+              AI-register voor je in. Carerix, Bullhorn, ChatGPT, Copilot — alles gedocumenteerd
+              zoals de wet het vereist.
+            </p>
+          </div>
+
+          <div className="p-6 border border-border rounded-lg">
+            <p className="text-sm font-medium text-accent mb-2 tracking-wide uppercase">Stap 2</p>
+            <p className="font-bold text-lg mb-2">AI-beleid op maat</p>
+            <p className="text-sm text-muted leading-relaxed">
+              Geen standaard template, maar een beleidsdocument afgestemd op jouw bureau.
+              Wat mag wel, wat mag niet, wie houdt toezicht, en hoe je kandidaten informeert.
+              Klaar om te delen met je team.
+            </p>
+          </div>
+
+          <div className="p-6 border border-border rounded-lg">
+            <p className="text-sm font-medium text-accent mb-2 tracking-wide uppercase">Stap 3</p>
+            <p className="font-bold text-lg mb-2">Teamtraining</p>
+            <p className="text-sm text-muted leading-relaxed">
+              Elke recruiter, intercedent en teamleider krijgt een praktische training
+              over de AI-systemen die jullie dagelijks gebruiken. Geen juridische taal —
+              concrete kennis die ze direct kunnen toepassen.
+            </p>
+          </div>
+
+          <div className="p-6 border border-border rounded-lg">
+            <p className="text-sm font-medium text-accent mb-2 tracking-wide uppercase">Stap 4</p>
+            <p className="font-bold text-lg mb-2">Certificaat</p>
+            <p className="text-sm text-muted leading-relaxed">
+              Elke medewerker die de training afrondt, ontvangt een Normelo AI-geletterdheid
+              certificaat. Jouw bewijs richting toezichthouders, opdrachtgevers en kandidaten
+              dat je compliance serieus neemt.
+            </p>
+          </div>
+        </div>
       </section>
 
-      {/* Leverancier vs. gebruiker */}
+      {/* Prijs */}
+      <section className="py-12 border-b border-border">
+        <div className="rounded-xl p-8 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
+          <p className="text-sm font-medium text-orange-300 mb-2 tracking-wide uppercase">Vast tarief</p>
+          <div className="flex items-baseline gap-2 mb-4">
+            <span className="text-4xl font-bold">€3.500</span>
+            <span className="text-gray-400">per bureau</span>
+          </div>
+          <p className="text-gray-300 leading-relaxed mb-6 max-w-xl">
+            Eén prijs, alles inbegrepen. Ongeacht het aantal medewerkers. Je krijgt een
+            ingevuld AI-register, AI-beleid op maat, teamtraining voor al je medewerkers
+            en een certificaat per persoon.
+          </p>
+          <p className="text-sm text-gray-400 mb-6">
+            Inclusief: inventarisatie, register, beleid, training, toets, certificaten en compliance-dossier.
+          </p>
+          <Link
+            href="/aanvragen"
+            className="inline-block px-8 py-3 bg-accent text-white rounded-lg font-semibold hover:bg-orange-600 transition-colors no-underline"
+          >
+            Vraag het pakket aan →
+          </Link>
+        </div>
+      </section>
+
+      {/* Waarom Normelo */}
       <section className="py-12 border-b border-border">
         <h2 className="text-2xl font-bold mb-4">&ldquo;Maar mijn softwareleverancier regelt dit toch?&rdquo;</h2>
         <p className="text-foreground leading-relaxed mb-4">
-          Dat is de meest gehoorde misvatting. De EU AI Act stelt eisen aan twee partijen:
-          de <strong>ontwikkelaar</strong> van het AI-systeem én de <strong>gebruiker</strong> (deployer).
-          Je softwareleverancier — Carerix, Bullhorn, Mysolution of een ander systeem — moet zorgen
-          dat het product voldoet aan de technische eisen. Inclusief CE-markering en conformiteitsverklaring.
-        </p>
-        <p className="text-foreground leading-relaxed mb-4">
-          Maar als gebruiker heb je eigen verplichtingen. Je moet menselijk toezicht inrichten met
-          mensen die dat ook daadwerkelijk kunnen. Je moet kandidaten informeren dat AI wordt ingezet.
-          Je moet een AI-register bijhouden. En je moet monitoren of het systeem nog doet wat het moet doen.
+          Dat is de meest gehoorde misvatting. Je leverancier — Carerix, Bullhorn, Mysolution —
+          zorgt dat het product voldoet aan de technische eisen. CE-markering, conformiteitsverklaring,
+          productdocumentatie. Dat is hun verantwoordelijkheid.
         </p>
         <p className="text-foreground leading-relaxed mb-6">
-          Vergelijk het met een auto: de fabrikant levert een veilig voertuig, maar jij moet
-          nog steeds een rijbewijs hebben. De CE-markering van je leverancier zonder getrainde
-          medewerkers is niet compliant. <strong>Normelo helpt jouw team AI-geletterd werken</strong> —
-          zodat je organisatie aan beide kanten van de wet voldoet.
+          Maar als gebruiker van die software heb je eigen verplichtingen. Je moet menselijk
+          toezicht inrichten, kandidaten informeren, een AI-register bijhouden en je team
+          AI-geletterd maken. Dat regelt geen leverancier voor je. Dat regelt Normelo.
         </p>
         <div className="grid gap-4 md:grid-cols-2">
           <div className="p-5 border border-border rounded-lg bg-surface">
             <p className="text-sm font-medium text-muted mb-2 tracking-wide uppercase">De leverancier regelt</p>
             <p className="font-semibold mb-2">Het product</p>
             <p className="text-sm text-muted leading-relaxed">
-              Technische documentatie, risicomanagement van het systeem, CE-markering,
-              conformiteitsverklaring en productstandaarden.
+              Technische documentatie, risicomanagement van het systeem, CE-markering
+              en conformiteitsverklaring.
             </p>
           </div>
           <div className="p-5 border-2 border-accent rounded-lg bg-surface">
-            <p className="text-sm font-medium text-accent mb-2 tracking-wide uppercase">Normelo helpt met</p>
-            <p className="font-semibold mb-2">De mensen</p>
+            <p className="text-sm font-medium text-accent mb-2 tracking-wide uppercase">Normelo regelt</p>
+            <p className="font-semibold mb-2">Jouw compliance</p>
             <p className="text-sm text-muted leading-relaxed">
-              AI-geletterdheid van je team, menselijk toezicht inrichten, transparantie naar
-              betrokkenen, AI-register bijhouden en compliance-documentatie.
+              AI-register, AI-beleid, teamtraining, certificering, menselijk toezicht
+              en transparantie naar kandidaten.
             </p>
           </div>
         </div>
@@ -166,10 +217,10 @@ export default function Home() {
       {/* Quick Scan CTA */}
       <section className="py-12 border-b border-border">
         <div className="rounded-lg p-8 bg-surface">
-          <h2 className="text-2xl font-bold mb-3">Valt jouw AI-gebruik onder de wet?</h2>
+          <h2 className="text-2xl font-bold mb-3">Niet zeker of dit voor jou geldt?</h2>
           <p className="text-foreground leading-relaxed mb-5 max-w-2xl">
-            Doe de gratis Quick Scan en ontdek in 2 minuten of jouw organisatie te maken
-            heeft met hoog-risico AI volgens de EU AI Act. Geen registratie nodig.
+            Doe de Quick Scan en ontdek in 2 minuten of jouw bureau werkt met
+            hoog-risico AI volgens de EU AI Act.
           </p>
           <Link
             href="/quick-scan"
@@ -183,7 +234,7 @@ export default function Home() {
       {/* Uitgelichte sector */}
       <section className="py-12 border-b border-border">
         <h2 className="text-2xl font-bold mb-2">Uitgelicht: de uitzendbranche</h2>
-        <p className="text-muted mb-6">De meest direct geraakt sector onder de EU AI Act.</p>
+        <p className="text-muted mb-6">De meest direct geraakte sector onder de EU AI Act.</p>
         <Link href="/uitzendbranche" className="block p-6 border-2 border-accent rounded-lg hover:shadow-md transition-all no-underline group bg-surface">
           <h3 className="text-lg font-bold mb-2 text-accent">EU AI Act &amp; de Uitzendbranche</h3>
           <p className="text-foreground leading-relaxed mb-2">
