@@ -6,11 +6,11 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "Normelo — EU AI Act uitleg voor organisaties",
+    default: "Normelo — Klaar voor de EU AI Act",
     template: "%s | Normelo",
   },
   description:
-    "Begrijp de EU AI Act. Duidelijke uitleg over hoog-risico AI-systemen, deadlines en wat dit betekent voor jouw organisatie.",
+    "Normelo bereidt uitzendbureaus voor op de EU AI Act. Register, beleid, training en dossier in één pakket.",
   metadataBase: new URL("https://normelo.com"),
   openGraph: {
     type: "website",
@@ -57,9 +57,17 @@ function Footer() {
     <footer className="bg-dark mt-auto">
       <div className="max-w-4xl mx-auto px-6 py-10 text-sm">
         <p className="mb-6 text-gray-300 italic">
-          Normelo maakt uitzendbureaus EU AI Act compliant — AI-register, AI-beleid, teamtraining en certificering in één pakket. <a href="/aanvragen" className="text-accent hover:underline">Plan een kennismaking →</a>
+          Normelo bereidt uitzendbureaus voor op de EU AI Act — AI-register, AI-beleid, teamtraining en deelnamebewijs AI-geletterdheid in één pakket. <a href="/aanvragen" className="text-accent hover:underline">Plan een kennismaking →</a>
         </p>
         <p className="mb-4 text-gray-400">Vragen of opmerkingen over deze website? <a href="mailto:info@normelo.com" className="text-accent hover:underline">info@normelo.com</a></p>
+        <p className="mb-4 text-xs text-gray-500 leading-relaxed max-w-3xl">
+          Disclaimer: Normelo is geen aangemelde instantie (notified body) onder de EU AI Act. Onze dienstverlening
+          is een inspanningsverbintenis gericht op voorbereiding en dossieropbouw; de uiteindelijke beoordeling van
+          compliance ligt bij de bevoegde toezichthouder. Informatie op deze website is geen juridisch advies.
+        </p>
+        <p className="mb-2 text-xs text-gray-500">
+          <Link href="/privacy" className="hover:text-gray-300 hover:underline">Privacyverklaring</Link>
+        </p>
         <p className="text-gray-500">&copy; {new Date().getFullYear()} Normelo</p>
       </div>
     </footer>

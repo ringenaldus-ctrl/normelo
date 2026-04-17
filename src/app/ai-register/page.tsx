@@ -61,9 +61,11 @@ export default function AIRegister() {
       <section className="py-10 border-b border-border">
         <h2 className="text-2xl font-bold mb-4">Normelo vult het voor je in</h2>
         <p className="text-foreground leading-relaxed mb-4">
-          Als onderdeel van het Normelo compliance-pakket inventariseren wij welke AI-systemen
+          Als onderdeel van het Normelo voorbereidingspakket inventariseren wij welke AI-systemen
           jouw bureau gebruikt en vullen we het AI-register voor je in. Geen leeg template dat
-          je zelf moet uitzoeken — een ingevuld document dat klaar is voor een audit.
+          je zelf moet uitzoeken — een ingevuld document dat de basis vormt voor je
+          deployer-dossier en dat je kunt overleggen als een toezichthouder of opdrachtgever
+          erom vraagt.
         </p>
         <p className="text-foreground leading-relaxed">
           Hetzelfde geldt voor het AI-beleid. Wij schrijven een beleidsdocument op maat:
@@ -78,8 +80,13 @@ export default function AIRegister() {
           <p className="text-sm font-medium text-orange-300 mb-2 tracking-wide uppercase">Onderdeel van het pakket</p>
           <h3 className="text-xl font-bold mb-3">AI-register, AI-beleid én meer</h3>
           <p className="text-sm text-gray-300 leading-relaxed mb-4">
-            Het AI-register en AI-beleid zijn onderdeel van het Normelo compliance-pakket
-            (vanaf €3.500). Inclusief inventarisatie, teamtraining en certificering.
+            Het AI-register en AI-beleid zijn onderdeel van het Normelo voorbereidingspakket.
+            Inclusief inventarisatie, teamtraining en een deelnamebewijs AI-geletterdheid per
+            medewerker. In een vrijblijvend gesprek lichten we scope en richtprijs toe.
+          </p>
+          <p className="text-xs text-gray-400 italic mb-4">
+            Inspanningsverbintenis. Normelo is geen aangemelde instantie (notified body) onder
+            de EU AI Act.
           </p>
           <Link
             href="/aanvragen"

@@ -112,9 +112,10 @@ export default function Module6() {
               transparantie en kandidaatrechten.
             </p>
             <p>
-              Wie slaagt voor de volledige toets ontvangt het Normelo certificaat —
-              het bewijs dat jouw team voldoet aan de AI-geletterdheidsverplichting
-              van Artikel 4.
+              Wie slaagt voor de volledige toets ontvangt een Normelo deelnamebewijs
+              AI-geletterdheid — waarmee jouw team aantoonbaar invulling geeft aan
+              artikel 4 EU AI Act. Dit is een privaat attest van Normelo, geen
+              EU-conformiteitscertificering door een aangemelde instantie.
             </p>
           </div>
 
@@ -129,11 +130,11 @@ export default function Module6() {
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-accent mt-0.5">✓</span>
-                <span>Toets en certificering per medewerker</span>
+                <span>Toets en deelnamebewijs per medewerker</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-accent mt-0.5">✓</span>
-                <span>Compliance-documentatie die je kunt overleggen bij audits</span>
+                <span>Auditklaar dossier dat je kunt overleggen aan toezichthouder of opdrachtgever</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-accent mt-0.5">✓</span>

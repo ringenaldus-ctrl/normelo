@@ -3,9 +3,9 @@ import Link from "next/link";
 import Script from "next/script";
 
 export const metadata: Metadata = {
-  title: "Normelo — Wij maken jouw uitzendbureau EU AI Act compliant",
+  title: "Normelo — Klaar voor de EU AI Act. Register, beleid, training en dossier.",
   description:
-    "Normelo ontzorgt uitzendbureaus bij de EU AI Act. Eén pakket: AI-register, AI-beleid, teamtraining en certificaat. Vanaf €3.500.",
+    "Normelo bereidt uitzendbureaus voor op de EU AI Act. Eén pakket: AI-register, AI-beleid, teamtraining en deelnamebewijs AI-geletterdheid.",
 };
 
 const organizationSchema = {
@@ -14,7 +14,7 @@ const organizationSchema = {
   name: "Normelo",
   url: "https://normelo.com",
   description:
-    "Normelo maakt uitzendbureaus EU AI Act compliant. AI-register, AI-beleid, teamtraining en certificering in één pakket.",
+    "Normelo bereidt uitzendbureaus voor op de EU AI Act. AI-register, AI-beleid, teamtraining en deelnamebewijs AI-geletterdheid in één pakket. Normelo is geen aangemelde instantie (notified body) onder de EU AI Act.",
 };
 
 const websiteSchema = {
@@ -23,22 +23,17 @@ const websiteSchema = {
   name: "Normelo",
   url: "https://normelo.com",
   description:
-    "EU AI Act compliance voor uitzendbureaus. Normelo regelt het — jij kunt door met ondernemen.",
+    "Voorbereiding op de EU AI Act voor uitzendbureaus. Normelo levert register, beleid, training en dossier — jij houdt de regie.",
 };
 
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  name: "Normelo EU AI Act Compliance Pakket",
+  name: "Normelo EU AI Act Voorbereidingspakket",
   provider: { "@type": "Organization", name: "Normelo", url: "https://normelo.com" },
   description:
-    "Compleet ontzorgpakket voor EU AI Act compliance: AI-register, AI-beleid op maat, teamtraining en certificering.",
-  offers: {
-    "@type": "Offer",
-    price: "3500",
-    priceCurrency: "EUR",
-    description: "Vanaf €3.500, afhankelijk van teamgrootte en aantal systemen",
-  },
+    "Voorbereidingstraject op de EU AI Act voor uitzendbureaus: AI-register, AI-beleid op maat, teamtraining en deelnamebewijs AI-geletterdheid. Inspanningsverbintenis; Normelo is geen aangemelde instantie onder de EU AI Act.",
+  areaServed: "NL",
 };
 
 export default function Home() {
@@ -64,12 +59,12 @@ export default function Home() {
     <section className="bg-dark">
       <div className="max-w-4xl mx-auto px-6 py-20">
         <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6 text-white">
-          Jouw uitzendbureau EU AI Act compliant.<br className="hidden md:block" />
+          Jouw uitzendbureau klaar voor de EU AI Act.<br className="hidden md:block" />
           Zonder dat je er zelf in hoeft te duiken.
         </h1>
         <p className="text-lg text-gray-300 max-w-2xl leading-relaxed mb-6">
-          Normelo regelt je AI-register, schrijft je AI-beleid, traint je team en
-          levert het certificaat. Jij kunt door met ondernemen.
+          Normelo levert je AI-register, schrijft je AI-beleid, traint je team
+          en bouwt je auditklaar dossier. Jij houdt de regie — wij doen het werk.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 mt-8">
           <Link
@@ -100,9 +95,10 @@ export default function Home() {
           naar kandidaten en een AI-geletterd team.
         </p>
         <p className="text-foreground leading-relaxed">
-          De boetes lopen op tot €35 miljoen of 7% van de jaaromzet. Maar het echte risico zit
-          dichterbij: een kandidaat die ontdekt dat AI zonder waarborg over zijn sollicitatie
-          beslist. Dat is geen theoretisch scenario — het is een kwestie van tijd.
+          De EU AI Act kent boetes tot €35 miljoen of 7% van de wereldwijde jaaromzet. Maar het
+          meest directe risico zit dichterbij: een kandidaat die ontdekt dat AI zonder waarborg
+          over zijn sollicitatie heeft beslist. Dat is geen theoretisch scenario — het is een
+          kwestie van tijd.
         </p>
       </section>
 
@@ -129,11 +125,12 @@ export default function Home() {
             </p>
           </div>
           <div className="p-5 border-2 border-accent rounded-lg bg-surface">
-            <p className="text-sm font-medium text-accent mb-2 tracking-wide uppercase">Normelo regelt</p>
-            <p className="font-semibold mb-2">Jouw compliance</p>
+            <p className="text-sm font-medium text-accent mb-2 tracking-wide uppercase">Normelo levert</p>
+            <p className="font-semibold mb-2">Jouw deployer-dossier</p>
             <p className="text-sm text-muted leading-relaxed">
-              AI-register, AI-beleid, teamtraining, certificering, menselijk toezicht
-              en transparantie naar kandidaten.
+              AI-register, AI-beleid op maat, teamtraining met deelnamebewijs,
+              en werkinstructies voor menselijk toezicht en transparantie naar
+              kandidaten.
             </p>
           </div>
         </div>
@@ -141,8 +138,8 @@ export default function Home() {
 
       {/* Wat je krijgt */}
       <section className="py-12 border-b border-border">
-        <h2 className="text-2xl font-bold mb-2">Eén pakket. Alles geregeld.</h2>
-        <p className="text-muted mb-8">Normelo levert het resultaat — niet alleen de kennis.</p>
+        <h2 className="text-2xl font-bold mb-2">Eén pakket. Vier concrete deliverables.</h2>
+        <p className="text-muted mb-8">Normelo levert de documenten, training en dossieropbouw — niet alleen de kennis.</p>
 
         <div className="grid gap-6 md:grid-cols-2">
           <div className="p-6 border border-border rounded-lg">
@@ -177,30 +174,34 @@ export default function Home() {
 
           <div className="p-6 border border-border rounded-lg">
             <p className="text-sm font-medium text-accent mb-2 tracking-wide uppercase">Stap 4</p>
-            <p className="font-bold text-lg mb-2">Certificaat</p>
-            <p className="text-sm text-muted leading-relaxed">
-              Elke medewerker die de training afrondt, ontvangt een Normelo AI-geletterdheid
-              certificaat. Jouw bewijs richting toezichthouders, opdrachtgevers en kandidaten
-              dat je compliance serieus neemt.
+            <p className="font-bold text-lg mb-2">Deelnamebewijs AI-geletterdheid</p>
+            <p className="text-sm text-muted leading-relaxed mb-3">
+              Elke medewerker die de training afrondt en de toets haalt, ontvangt een
+              deelnamebewijs van Normelo. Daarmee kun je aantonen dat je invulling geeft
+              aan de AI-geletterdheidsplicht uit artikel 4 van de EU AI Act, richting
+              opdrachtgevers, kandidaten en — indien gevraagd — de toezichthouder.
+            </p>
+            <p className="text-xs text-muted leading-relaxed italic">
+              Normelo is geen aangemelde instantie (notified body) onder de EU AI Act.
+              Het deelnamebewijs is een privaat attest, geen EU-conformiteitscertificering.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Prijs — nu NA bezwaarweerlegging en pijn */}
+      {/* Kennismaking — geen prijs tot we meer klantdata hebben */}
       <section className="py-12 border-b border-border">
         <div className="rounded-xl p-8 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
-          <p className="text-sm font-medium text-orange-300 mb-2 tracking-wide uppercase">Transparant tarief</p>
-          <div className="flex items-baseline gap-2 mb-4">
-            <span className="text-4xl font-bold">Vanaf €3.500</span>
-          </div>
+          <p className="text-sm font-medium text-orange-300 mb-2 tracking-wide uppercase">Kennismakingsgesprek</p>
+          <h3 className="text-2xl font-bold mb-3">Wat past bij jouw bureau?</h3>
           <p className="text-gray-300 leading-relaxed mb-4 max-w-xl">
-            De exacte prijs hangt af van je teamgrootte en het aantal AI-systemen
-            dat je gebruikt. In een vrijblijvend kennismakingsgesprek bespreken we
-            wat jouw bureau nodig heeft en wat het kost. Geen verrassingen achteraf.
+            Elke uitzendorganisatie is anders: aantal vestigingen, teamgrootte, welke
+            AI-systemen er draaien en hoeveel shadow AI er rondloopt. In een vrijblijvend
+            gesprek van 30 minuten brengen we dat in kaart en bespreken we een scope en
+            richtprijs die past. Geen verplichtingen.
           </p>
           <p className="text-sm text-orange-200/80 mb-6">
-            Compliant zijn opent deuren: grotere opdrachtgevers, aanbestedingen en
+            Op tijd klaar zijn opent deuren: grotere opdrachtgevers, aanbestedingen en
             het vertrouwen van kandidaten die weten dat je zorgvuldig met hun data omgaat.
           </p>
           <Link
@@ -216,9 +217,14 @@ export default function Home() {
       <section className="py-12 border-b border-border">
         <h2 className="text-2xl font-bold mb-4">Voor wie is dit niet?</h2>
         <p className="text-foreground leading-relaxed mb-4">
-          Niet elk uitzendbureau heeft dit pakket nodig. Als je geen ATS-systeem, matchingtool
-          of AI-tools zoals ChatGPT gebruikt bij werving en selectie, val je waarschijnlijk niet
-          onder de hoog-risico categorie van de EU AI Act. Dan is dit pakket niet voor jou.
+          Niet elk uitzendbureau heeft het volledige pakket nodig. Gebruik je geen ATS met
+          ranking, matchingtool of AI-tools zoals ChatGPT bij werving en selectie, dan val je
+          waarschijnlijk niet onder de hoog-risico categorie van de EU AI Act. De zwaardere
+          verplichtingen rond menselijk toezicht, risicobeheer en registratie gelden dan niet.
+        </p>
+        <p className="text-foreground leading-relaxed mb-4">
+          Let op: de AI-geletterdheidsplicht (art. 4) geldt wél voor elke organisatie die AI
+          inzet, ook low-risk. Voor die groep is een lichtere variant van de training beschikbaar.
         </p>
         <p className="text-foreground leading-relaxed">
           Twijfel je? Doe de Quick Scan — binnen 2 minuten weet je of jouw bureau te maken

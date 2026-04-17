@@ -365,13 +365,28 @@ export default function Uitzendbranche() {
         </div>
       </section>
 
-      {/* Certificering hint */}
+      {/* Pakket-verwijzing */}
       <section className="py-12 border-b border-border">
-        <p className="text-muted leading-relaxed italic">
-          Normelo werkt aan een certificeringsprogramma specifiek voor de uitzendbranche.
-          AI-geletterdheid voor recruiters, intercedenten en hiring managers — zodat niet
-          alleen je systemen, maar ook je mensen compliant zijn. Meer informatie volgt.
-        </p>
+        <div className="rounded-lg p-8 border border-border bg-surface">
+          <h2 className="text-2xl font-bold mb-3">Het hele traject in één pakket</h2>
+          <p className="text-foreground leading-relaxed mb-3 max-w-2xl">
+            Normelo biedt een voorbereidingstraject specifiek voor de uitzendbranche:
+            AI-register, AI-beleid op maat, teamtraining en een deelnamebewijs AI-geletterdheid
+            voor recruiters, intercedenten en hiring managers. Zodat zowel je systemen als je
+            mensen aantoonbaar invulling geven aan de verplichtingen uit de EU AI Act.
+          </p>
+          <p className="text-xs text-muted italic mb-5">
+            Inspanningsverbintenis. Normelo is geen aangemelde instantie (notified body) onder
+            de EU AI Act; de uiteindelijke beoordeling van compliance ligt bij de bevoegde
+            toezichthouder.
+          </p>
+          <Link
+            href="/aanvragen"
+            className="btn-accent inline-block px-6 py-3 bg-accent hover:bg-accent-hover rounded-lg font-medium no-underline transition-colors"
+          >
+            Plan een kennismaking →
+          </Link>
+        </div>
       </section>
 
       {/* Bottom navigation */}

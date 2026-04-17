@@ -199,6 +199,14 @@ export default function Aanvragen() {
                 Er ging iets mis. Probeer het opnieuw.
               </p>
             )}
+            <p className="text-xs text-muted mt-2">
+              We gebruiken je gegevens alleen om contact met je op te nemen over het pakket.
+              Lees hoe we ermee omgaan in onze{" "}
+              <Link href="/privacy" className="text-accent hover:underline">
+                privacyverklaring
+              </Link>
+              .
+            </p>
           </form>
         </div>
 
@@ -206,17 +214,22 @@ export default function Aanvragen() {
         <aside className="md:col-span-2">
           <div className="rounded-xl p-6 bg-gradient-to-br from-gray-900 to-gray-800 text-white md:sticky md:top-8">
             <p className="text-sm font-medium text-orange-300 mb-3 tracking-wide uppercase">Het pakket</p>
-            <div className="flex items-baseline gap-2 mb-5">
-              <span className="text-3xl font-bold">Vanaf €3.500</span>
-            </div>
+            <p className="text-sm text-gray-300 mb-5 leading-relaxed">
+              Richtprijs wordt in het kennismakingsgesprek toegelicht — afhankelijk van je
+              teamgrootte en het aantal AI-systemen dat je gebruikt.
+            </p>
             <div className="space-y-2.5 text-sm text-gray-300">
               <p>✓ Inventarisatie van al je AI-systemen</p>
               <p>✓ Ingevuld AI-register conform de wet</p>
               <p>✓ AI-beleid op maat voor jouw bureau</p>
               <p>✓ Teamtraining voor al je medewerkers</p>
-              <p>✓ Toets en certificaat per persoon</p>
-              <p>✓ Compleet compliance-dossier</p>
+              <p>✓ Toets en deelnamebewijs per persoon</p>
+              <p>✓ Auditklaar dossier</p>
             </div>
+            <p className="mt-5 text-[11px] text-gray-400 italic leading-relaxed">
+              Inspanningsverbintenis. Normelo is geen aangemelde instantie onder de EU AI Act;
+              het deelnamebewijs is een privaat attest, geen EU-conformiteitscertificering.
+            </p>
           </div>
         </aside>
       </div>

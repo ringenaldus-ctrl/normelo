@@ -531,16 +531,20 @@ export default function QuickScan() {
                   Je softwareleverancier zorgt voor de technische kant — CE-markering, productstandaarden.
                   Maar als gebruiker heb je eigen verplichtingen: een AI-register, AI-beleid, menselijk
                   toezicht, transparantie naar kandidaten en een AI-geletterd team. Dat is veel om zelf
-                  uit te zoeken. Normelo regelt het voor je.
+                  uit te zoeken. Normelo levert de documenten, training en het dossier.
                 </p>
 
                 <div className="p-6 rounded-xl bg-gradient-to-br from-gray-900 to-gray-800 text-white">
-                  <p className="text-sm font-medium text-orange-300 mb-2 tracking-wide uppercase">Normelo compliance-pakket</p>
-                  <p className="font-semibold text-lg mb-2">Wij maken jouw bureau compliant</p>
+                  <p className="text-sm font-medium text-orange-300 mb-2 tracking-wide uppercase">Normelo voorbereidingspakket</p>
+                  <p className="font-semibold text-lg mb-2">Wij maken je bureau klaar voor de EU AI Act</p>
                   <p className="text-sm text-gray-300 leading-relaxed mb-4">
-                    Eén pakket, vanaf €3.500. Normelo inventariseert je AI-systemen, vult
-                    je AI-register in, schrijft je AI-beleid, traint je team en levert het certificaat.
-                    Jij hoeft niks uit te zoeken.
+                    Eén pakket. Normelo inventariseert je AI-systemen, vult je AI-register in,
+                    schrijft je AI-beleid, traint je team en levert deelnamebewijzen
+                    AI-geletterdheid. Jij hoeft niks uit te zoeken. In een vrijblijvend
+                    gesprek bespreken we scope en richtprijs.
+                  </p>
+                  <p className="text-xs text-gray-400 italic mb-4">
+                    Inspanningsverbintenis. Normelo is geen aangemelde instantie onder de EU AI Act.
                   </p>
                   <Link
                     href="/aanvragen"
