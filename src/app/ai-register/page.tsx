@@ -231,8 +231,8 @@ export default function AIRegister() {
       {/* Over Normelo */}
       <section className="py-12 border-b border-border">
         <p className="text-sm text-muted leading-relaxed">
-          Normelo wordt gebouwd en ondersteund door Gérard Ringenaldus, specialist EU AI Act
-          en oprichter. Directe lijn met de ontwikkelaar — geen callcenter.
+          Normelo is een gespecialiseerd compliance-platform voor de uitzendbranche.
+          Directe lijn met de ontwikkelaar — geen callcenter.
         </p>
       </section>
 
