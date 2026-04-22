@@ -530,27 +530,32 @@ export default function QuickScan() {
                 <p className="text-sm text-muted leading-relaxed mb-4">
                   Je softwareleverancier zorgt voor de technische kant — CE-markering, productstandaarden.
                   Maar als gebruiker heb je eigen verplichtingen: een AI-register, AI-beleid, menselijk
-                  toezicht, transparantie naar kandidaten en een AI-geletterd team. Dat is veel om zelf
-                  uit te zoeken. Normelo levert de documenten, training en het dossier.
+                  toezicht, transparantie naar kandidaten en een AI-geletterd team.
                 </p>
 
-                <div className="p-6 rounded-xl bg-gradient-to-br from-gray-900 to-gray-800 text-white">
-                  <p className="text-sm font-medium text-orange-300 mb-2 tracking-wide uppercase">Normelo voorbereidingspakket</p>
-                  <p className="font-semibold text-lg mb-2">Wij maken je bureau klaar voor de EU AI Act</p>
-                  <p className="text-sm text-gray-300 leading-relaxed mb-4">
-                    Eén pakket. Normelo inventariseert je AI-systemen, vult je AI-register in,
-                    schrijft je AI-beleid, traint je team en levert deelnamebewijzen
-                    AI-geletterdheid. Jij hoeft niks uit te zoeken. In een vrijblijvend
-                    gesprek bespreken we scope en richtprijs.
-                  </p>
-                  <p className="text-xs text-gray-400 italic mb-4">
-                    Inspanningsverbintenis. Normelo is geen aangemelde instantie onder de EU AI Act.
-                  </p>
-                  <Link
-                    href="/aanvragen"
-                    className="inline-block px-5 py-2.5 bg-accent text-white rounded-lg text-sm font-medium hover:bg-orange-600 transition-colors no-underline"
-                  >
-                    Plan een kennismaking &rarr;
+                <div className="grid gap-4 md:grid-cols-2">
+                  <Link href="/aanvragen" className="block p-6 rounded-xl bg-gradient-to-br from-gray-900 to-gray-800 text-white no-underline hover:from-gray-800 hover:to-gray-700 transition-all group">
+                    <p className="text-sm font-medium text-orange-300 mb-2 tracking-wide uppercase">Stap 1</p>
+                    <p className="font-semibold text-lg mb-2">Start de gratis training</p>
+                    <p className="text-sm text-gray-300 leading-relaxed mb-4">
+                      Word AI-geletterd — verplicht sinds februari 2025.
+                      Gratis, in eigen tempo, specifiek voor jouw rol in de uitzendbranche.
+                    </p>
+                    <span className="inline-block px-5 py-2.5 bg-accent text-white rounded-lg text-sm font-medium group-hover:bg-orange-600 transition-colors">
+                      Start de training →
+                    </span>
+                  </Link>
+
+                  <Link href="/ai-register" className="block p-6 rounded-xl border-2 border-accent no-underline hover:shadow-lg transition-all group bg-surface">
+                    <p className="text-sm font-medium text-accent mb-2 tracking-wide uppercase">Stap 2</p>
+                    <p className="font-semibold text-lg mb-2 text-primary">Start het AI-register</p>
+                    <p className="text-sm text-muted leading-relaxed mb-4">
+                      Registreer je AI-systemen, genereer documentatie en bouw een
+                      auditklaar dossier. Alles op één plek.
+                    </p>
+                    <span className="inline-block px-5 py-2.5 bg-accent text-white rounded-lg text-sm font-medium group-hover:bg-orange-600 transition-colors">
+                      Bekijk het AI-register →
+                    </span>
                   </Link>
                 </div>
               </div>
