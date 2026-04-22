@@ -47,12 +47,14 @@ export default function Home() {
         <div className="grid gap-12 md:grid-cols-2 items-center">
           <div>
             <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6 text-white">
-              Leer gratis wat de EU AI Act voor jouw bureau betekent.
+              Word AI-geletterd.<br className="hidden md:block" />
+              Gratis. In je eigen tempo.
             </h1>
             <p className="text-lg text-gray-300 leading-relaxed">
-              Sinds februari 2025 moeten medewerkers die met AI werken AI-geletterd zijn.
-              De Normelo training legt uit wat dat betekent voor recruiters en intercedenten
-              — gratis, in je eigen tempo.
+              Sinds februari 2025 moeten medewerkers die met AI werken aantoonbaar
+              AI-geletterd zijn. Met de Normelo training voldoe je aan artikel 4 van
+              de EU AI Act — specifiek gemaakt voor recruiters en intercedenten in
+              de uitzendbranche.
             </p>
           </div>
           <div>
