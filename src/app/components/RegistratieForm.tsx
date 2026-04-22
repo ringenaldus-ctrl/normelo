@@ -60,9 +60,10 @@ export default function RegistratieForm() {
         <select
           value={rol}
           onChange={(e) => setRol(e.target.value)}
-          className="w-full px-4 py-3 rounded-lg text-sm border border-border text-muted focus:outline-none focus:border-accent cursor-pointer"
+          required
+          className={`w-full px-4 py-3 rounded-lg text-sm border border-border focus:outline-none focus:border-accent cursor-pointer ${rol ? "text-foreground" : "text-muted"}`}
         >
-          <option value="">Je rol (optioneel)</option>
+          <option value="" disabled>Wat is je rol?</option>
           <option value="intercedent">Recruiter / Intercedent</option>
           <option value="hiringManager">Accountmanager</option>
           <option value="hrCompliance">HR / Compliance</option>
@@ -70,7 +71,7 @@ export default function RegistratieForm() {
         </select>
         <button
           type="submit"
-          disabled={status === "sending"}
+          disabled={status === "sending" || !rol}
           className="w-full px-5 py-3 bg-accent text-white rounded-lg font-semibold hover:bg-accent-hover transition-colors disabled:opacity-60 cursor-pointer"
         >
           {status === "sending" ? "Even geduld..." : "Start de training →"}
