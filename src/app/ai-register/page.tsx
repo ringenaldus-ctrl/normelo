@@ -118,16 +118,15 @@ export default function AIRegister() {
               </li>
             </ul>
             <Link
-              href="/aanvragen"
+              href="mailto:info@normelo.com?subject=AI-register%20Starter&body=Ik%20wil%20graag%20starten%20met%20het%20Starter-plan."
               className="block text-center px-5 py-3 border-2 border-accent text-accent rounded-lg font-semibold hover:bg-accent hover:text-white transition-colors no-underline"
             >
-              Start met Starter →
+              Neem contact op →
             </Link>
           </div>
 
-          {/* Groei — primary */}
-          <div className="p-6 border-2 border-accent rounded-xl flex flex-col relative bg-surface">
-            <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-accent text-white text-xs font-semibold rounded-full">Meest gekozen</span>
+          {/* Groei */}
+          <div className="p-6 border-2 border-accent rounded-xl flex flex-col bg-surface">
             <p className="text-sm font-medium text-accent mb-1 tracking-wide uppercase">Groei</p>
             <p className="text-xs text-muted mb-4">Tot 100 medewerkers</p>
             <div className="mb-4">
@@ -162,10 +161,10 @@ export default function AIRegister() {
               </li>
             </ul>
             <Link
-              href="/aanvragen"
+              href="mailto:info@normelo.com?subject=AI-register%20Groei&body=Ik%20wil%20graag%20starten%20met%20het%20Groei-plan."
               className="block text-center px-5 py-3 bg-accent text-white rounded-lg font-semibold hover:bg-accent-hover transition-colors no-underline"
             >
-              Start met Groei →
+              Neem contact op →
             </Link>
           </div>
 

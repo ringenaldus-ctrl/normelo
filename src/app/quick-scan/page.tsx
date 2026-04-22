@@ -561,8 +561,8 @@ export default function QuickScan() {
               </div>
             )}
 
-            {/* Resultaat per e-mail */}
-            <div className="mb-6 p-5 bg-surface rounded-lg border border-border">
+            {/* Resultaat per e-mail — alleen bij middel/hoog risico */}
+            {risicoNiveau !== "laag" && <div className="mb-6 p-5 bg-surface rounded-lg border border-border">
               {emailStatus === "sent" ? (
                 <div>
                   <p className="font-semibold text-green-700 mb-1">Verstuurd!</p>
@@ -598,7 +598,7 @@ export default function QuickScan() {
                   )}
                 </form>
               )}
-            </div>
+            </div>}
 
             {/* Opnieuw */}
             <button
