@@ -35,6 +35,19 @@ export async function GET(request: NextRequest) {
     return Response.json(data);
   }
 
+  // Return training registrations
+  if (type === "registraties") {
+    const { data, error } = await supabase
+      .from("training_wachtlijst")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error)
+      return Response.json({ error: error.message }, { status: 500 });
+
+    return Response.json(data);
+  }
+
   // Default: return prospects
   const { data, error } = await supabase
     .from("prospects")

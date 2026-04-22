@@ -31,6 +31,24 @@ interface Prospect {
   prospect_contacten: Contact[];
 }
 
+interface Registratie {
+  id: number;
+  email: string;
+  naam: string | null;
+  organisatie: string | null;
+  rol: string | null;
+  bron: string | null;
+  telefoon: string | null;
+  created_at: string;
+}
+
+const ROL_LABELS: Record<string, string> = {
+  intercedent: "Recruiter / Intercedent",
+  hiringManager: "Accountmanager",
+  hrCompliance: "HR / Compliance",
+  directie: "Directie / Eigenaar",
+};
+
 const STATUSSEN = [
   { id: "nieuw", label: "Nieuw", kleur: "bg-gray-100 text-gray-700" },
   { id: "linkedin_verstuurd", label: "LinkedIn verstuurd", kleur: "bg-blue-50 text-blue-700" },
@@ -53,31 +71,16 @@ const ATS_LABELS: Record<string, string> = {
 
 type SortField = "bedrijf" | "updated_at" | "status";
 type SortDir = "asc" | "desc";
-interface Lead {
-  id: string;
-  email: string;
-  sector: string | null;
-  risico_niveau: string | null;
-  hoog_risico_systemen: string[];
-  ats_systeem: string | null;
-  antwoorden: {
-    shadow?: string;
-    beslissingen?: string;
-    toezicht?: string;
-    transparantie?: string;
-  };
-  created_at: string;
-}
 
-type Tab = "alle" | "opportunities" | "leads";
+type Tab = "registraties" | "opportunities";
 
 export default function CRM() {
   const [password, setPassword] = useState("");
   const [authenticated, setAuthenticated] = useState(false);
   const [prospects, setProspects] = useState<Prospect[]>([]);
-  const [leads, setLeads] = useState<Lead[]>([]);
+  const [registraties, setRegistraties] = useState<Registratie[]>([]);
   const [loading, setLoading] = useState(false);
-  const [tab, setTab] = useState<Tab>("alle");
+  const [tab, setTab] = useState<Tab>("registraties");
   const [editingId, setEditingId] = useState<string | null>(null);
   const [showAdd, setShowAdd] = useState(false);
   const [filter, setFilter] = useState<string>("alle");
@@ -111,12 +114,12 @@ export default function CRM() {
     "x-crm-password": password,
   }), [password]);
 
-  const loadProspects = useCallback(async () => {
+  const loadData = useCallback(async () => {
     setLoading(true);
     try {
-      const [prospectsRes, leadsRes] = await Promise.all([
+      const [prospectsRes, registratiesRes] = await Promise.all([
         fetch("/api/crm", { headers: headers() }),
-        fetch("/api/crm?type=leads", { headers: headers() }),
+        fetch("/api/crm?type=registraties", { headers: headers() }),
       ]);
       if (prospectsRes.ok) {
         const data = await prospectsRes.json();
@@ -125,9 +128,9 @@ export default function CRM() {
       } else {
         setAuthenticated(false);
       }
-      if (leadsRes.ok) {
-        const leadsData = await leadsRes.json();
-        setLeads(leadsData);
+      if (registratiesRes.ok) {
+        const regData = await registratiesRes.json();
+        setRegistraties(regData);
       }
     } catch {
       setAuthenticated(false);
@@ -137,7 +140,7 @@ export default function CRM() {
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
-    await loadProspects();
+    await loadData();
   }
 
   async function saveProspect(e: React.FormEvent) {
@@ -158,7 +161,7 @@ export default function CRM() {
       });
     }
     resetForm();
-    loadProspects();
+    loadData();
   }
 
   async function updateStatus(id: string, newStatus: string) {
@@ -167,13 +170,13 @@ export default function CRM() {
       headers: headers(),
       body: JSON.stringify({ id, status: newStatus }),
     });
-    loadProspects();
+    loadData();
   }
 
   async function deleteProspect(id: string) {
     if (!confirm("Weet je zeker dat je dit bedrijf en alle contacten wilt verwijderen?")) return;
     await fetch(`/api/crm?id=${id}`, { method: "DELETE", headers: headers() });
-    loadProspects();
+    loadData();
   }
 
   function startEdit(p: Prospect) {
@@ -213,13 +216,13 @@ export default function CRM() {
       });
     }
     resetContactForm();
-    loadProspects();
+    loadData();
   }
 
   async function deleteContact(id: string) {
     if (!confirm("Contact verwijderen?")) return;
     await fetch(`/api/crm/contacten?id=${id}`, { method: "DELETE", headers: headers() });
-    loadProspects();
+    loadData();
   }
 
   function startAddContact(prospectId: string) {
@@ -250,43 +253,34 @@ export default function CRM() {
     setShowContactModal(false);
   }
 
-  // Convert lead to prospect
-  async function convertLead(lead: Lead) {
-    const systemenLabels: Record<string, string> = {
-      "cv-screening": "CV-screening",
-      matching: "Matching",
-      "chatbot-hr": "Chatbot",
-      monitoring: "Monitoring",
-      planning: "Planning",
-    };
-    const risicoLabel = lead.risico_niveau === "hoog" ? "Hoog" : lead.risico_niveau === "middel" ? "Middel" : "Laag";
-    const systemen = lead.hoog_risico_systemen?.length
-      ? lead.hoog_risico_systemen.map(s => systemenLabels[s] || s).join(", ")
-      : "Geen";
-    const notities = `Quick Scan resultaat: ${risicoLabel} risico\nHoog-risico systemen: ${systemen}\nShadow AI: ${lead.antwoorden?.shadow || "—"}\nToezicht: ${lead.antwoorden?.toezicht || "—"}`;
-
-    // Naam afleiden uit e-mailadres: britt@nijverveld.nl → Britt
-    const emailLocal = lead.email.split("@")[0] || "";
-    const contactNaam = emailLocal
+  // Convert registratie to opportunity (prospect with bericht_gestuurd status)
+  async function convertRegistratie(reg: Registratie) {
+    const contactNaam = reg.naam || reg.email.split("@")[0]
       .replace(/[._-]/g, " ")
       .split(" ")
       .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
       .join(" ");
 
-    // Bedrijfsnaam afleiden uit domein: nijverveld.nl → Nijverveld
-    const domain = lead.email.split("@")[1] || "";
-    const bedrijf = domain.replace(/\.\w+$/, "").charAt(0).toUpperCase() + domain.replace(/\.\w+$/, "").slice(1);
+    const bedrijf = reg.organisatie?.trim() ||
+      (() => {
+        const domain = reg.email.split("@")[1] || "";
+        const name = domain.replace(/\.\w+$/, "");
+        return name.charAt(0).toUpperCase() + name.slice(1);
+      })();
+
+    const rolLabel = reg.rol ? (ROL_LABELS[reg.rol] || reg.rol) : "—";
+    const notities = `Training-registratie op ${new Date(reg.created_at).toLocaleDateString("nl-NL")}\nRol: ${rolLabel}`;
 
     const res = await fetch("/api/crm", {
       method: "POST",
       headers: headers(),
       body: JSON.stringify({
         bedrijf,
-        ats_systeem: lead.ats_systeem || "",
-        status: "quickscan_gedaan",
+        ats_systeem: "",
+        status: "bericht_gestuurd",
         notities,
-        bron: "Quick Scan",
-        email: lead.email,
+        bron: "Training registratie",
+        email: reg.email,
       }),
     });
     if (res.ok) {
@@ -298,11 +292,13 @@ export default function CRM() {
         body: JSON.stringify({
           prospect_id: prospect.id,
           naam: contactNaam,
-          email: lead.email,
+          email: reg.email,
+          functie: rolLabel !== "—" ? rolLabel : "",
+          telefoon: reg.telefoon || "",
         }),
       });
-      await loadProspects();
-      setTab("alle");
+      await loadData();
+      setTab("opportunities");
     }
   }
 
@@ -321,14 +317,11 @@ export default function CRM() {
     return sortDir === "asc" ? " ↑" : " ↓";
   }
 
-  // Filter + sort
+  // Filter + sort for opportunities
   const filtered = prospects
     .filter((p) => {
-      // Tab filter
-      if (tab === "opportunities" && !OPPORTUNITY_STATUSSEN.includes(p.status)) return false;
-      // ATS filter
+      if (!OPPORTUNITY_STATUSSEN.includes(p.status)) return false;
       if (filter !== "alle" && p.ats_systeem !== filter) return false;
-      // Search
       if (search) {
         const q = search.toLowerCase();
         const contactMatch = (p.prospect_contacten || []).some(
@@ -357,6 +350,17 @@ export default function CRM() {
     });
 
   const opportunityCount = prospects.filter((p) => OPPORTUNITY_STATUSSEN.includes(p.status)).length;
+
+  // Filter registraties by search
+  const filteredRegistraties = registraties.filter((r) => {
+    if (!search) return true;
+    const q = search.toLowerCase();
+    return (
+      r.email.toLowerCase().includes(q) ||
+      (r.naam || "").toLowerCase().includes(q) ||
+      (r.organisatie || "").toLowerCase().includes(q)
+    );
+  });
 
   // Login screen
   if (!authenticated) {
@@ -392,27 +396,40 @@ export default function CRM() {
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <h1 className="text-lg font-bold text-gray-900">Normelo CRM</h1>
-            <span className="text-sm text-gray-400">{prospects.length} bedrijven</span>
+            <span className="text-sm text-gray-400">
+              {tab === "registraties"
+                ? `${registraties.length} registraties`
+                : `${opportunityCount} opportunities`}
+            </span>
           </div>
-          <button
-            onClick={() => { resetForm(); setShowAdd(true); }}
-            className="px-4 py-2 bg-gray-900 text-white text-sm rounded-lg font-medium hover:bg-gray-800 transition-colors cursor-pointer"
-          >
-            + Bedrijf
-          </button>
+          {tab === "opportunities" && (
+            <button
+              onClick={() => { resetForm(); setShowAdd(true); }}
+              className="px-4 py-2 bg-gray-900 text-white text-sm rounded-lg font-medium hover:bg-gray-800 transition-colors cursor-pointer"
+            >
+              + Bedrijf
+            </button>
+          )}
         </div>
 
         {/* Tabs */}
         <div className="max-w-7xl mx-auto px-4 flex items-center gap-0 border-b border-gray-100">
           <button
-            onClick={() => setTab("alle")}
-            className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-colors cursor-pointer ${
-              tab === "alle"
+            onClick={() => setTab("registraties")}
+            className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-colors cursor-pointer flex items-center gap-2 ${
+              tab === "registraties"
                 ? "border-gray-900 text-gray-900"
                 : "border-transparent text-gray-400 hover:text-gray-600"
             }`}
           >
-            Alle prospects
+            Registraties
+            {registraties.length > 0 && (
+              <span className={`text-xs px-1.5 py-0.5 rounded-full ${
+                tab === "registraties" ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-500"
+              }`}>
+                {registraties.length}
+              </span>
+            )}
           </button>
           <button
             onClick={() => setTab("opportunities")}
@@ -431,23 +448,6 @@ export default function CRM() {
               </span>
             )}
           </button>
-          <button
-            onClick={() => setTab("leads")}
-            className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-colors cursor-pointer flex items-center gap-2 ${
-              tab === "leads"
-                ? "border-gray-900 text-gray-900"
-                : "border-transparent text-gray-400 hover:text-gray-600"
-            }`}
-          >
-            Leads
-            {leads.filter(l => l.email !== "ringenaldus@gmail.com").length > 0 && (
-              <span className={`text-xs px-1.5 py-0.5 rounded-full ${
-                tab === "leads" ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-500"
-              }`}>
-                {leads.filter(l => l.email !== "ringenaldus@gmail.com").length}
-              </span>
-            )}
-          </button>
         </div>
 
         {/* Filters */}
@@ -456,32 +456,36 @@ export default function CRM() {
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Zoek op bedrijf, contact of notities..."
+            placeholder={tab === "registraties" ? "Zoek op naam, e-mail of organisatie..." : "Zoek op bedrijf, contact of notities..."}
             className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-orange-400 w-64"
           />
-          <select
-            value={filter}
-            onChange={(e) => setFilter(e.target.value)}
-            className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-orange-400 cursor-pointer"
-          >
-            <option value="alle">Alle ATS</option>
-            <option value="carerix">Carerix</option>
-            <option value="mysolution">Mysolution</option>
-            <option value="bullhorn">Bullhorn</option>
-            <option value="byner">Byner</option>
-          </select>
-          <div className="flex items-center gap-1 ml-auto text-xs text-gray-400">
-            <span>Sorteer:</span>
-            <button onClick={() => toggleSort("bedrijf")} className={`px-2 py-1 rounded cursor-pointer ${sortField === "bedrijf" ? "bg-gray-200 text-gray-700 font-medium" : "hover:bg-gray-100"}`}>
-              Bedrijf{sortIndicator("bedrijf")}
-            </button>
-            <button onClick={() => toggleSort("status")} className={`px-2 py-1 rounded cursor-pointer ${sortField === "status" ? "bg-gray-200 text-gray-700 font-medium" : "hover:bg-gray-100"}`}>
-              Status{sortIndicator("status")}
-            </button>
-            <button onClick={() => toggleSort("updated_at")} className={`px-2 py-1 rounded cursor-pointer ${sortField === "updated_at" ? "bg-gray-200 text-gray-700 font-medium" : "hover:bg-gray-100"}`}>
-              Datum{sortIndicator("updated_at")}
-            </button>
-          </div>
+          {tab === "opportunities" && (
+            <>
+              <select
+                value={filter}
+                onChange={(e) => setFilter(e.target.value)}
+                className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-orange-400 cursor-pointer"
+              >
+                <option value="alle">Alle ATS</option>
+                <option value="carerix">Carerix</option>
+                <option value="mysolution">Mysolution</option>
+                <option value="bullhorn">Bullhorn</option>
+                <option value="byner">Byner</option>
+              </select>
+              <div className="flex items-center gap-1 ml-auto text-xs text-gray-400">
+                <span>Sorteer:</span>
+                <button onClick={() => toggleSort("bedrijf")} className={`px-2 py-1 rounded cursor-pointer ${sortField === "bedrijf" ? "bg-gray-200 text-gray-700 font-medium" : "hover:bg-gray-100"}`}>
+                  Bedrijf{sortIndicator("bedrijf")}
+                </button>
+                <button onClick={() => toggleSort("status")} className={`px-2 py-1 rounded cursor-pointer ${sortField === "status" ? "bg-gray-200 text-gray-700 font-medium" : "hover:bg-gray-100"}`}>
+                  Status{sortIndicator("status")}
+                </button>
+                <button onClick={() => toggleSort("updated_at")} className={`px-2 py-1 rounded cursor-pointer ${sortField === "updated_at" ? "bg-gray-200 text-gray-700 font-medium" : "hover:bg-gray-100"}`}>
+                  Datum{sortIndicator("updated_at")}
+                </button>
+              </div>
+            </>
+          )}
         </div>
       </div>
 
@@ -696,170 +700,142 @@ export default function CRM() {
         </div>
       )}
 
-      {/* Leads View */}
-      {tab === "leads" && (
+      {/* Registraties View */}
+      {tab === "registraties" && (
         <div className="max-w-7xl mx-auto p-4">
           <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
             <table className="w-full text-sm">
               <thead>
                 <tr className="bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-4 py-3">Naam</th>
                   <th className="px-4 py-3">E-mail</th>
-                  <th className="px-4 py-3">Risico</th>
-                  <th className="px-4 py-3">ATS</th>
-                  <th className="px-4 py-3">Hoog-risico systemen</th>
-                  <th className="px-4 py-3">Shadow AI</th>
-                  <th className="px-4 py-3">Toezicht</th>
+                  <th className="px-4 py-3">Organisatie</th>
+                  <th className="px-4 py-3">Rol</th>
                   <th className="px-4 py-3">Datum</th>
-                  <th className="px-4 py-3 w-28"></th>
+                  <th className="px-4 py-3 w-32"></th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {leads
-                  .filter(l => l.email !== "ringenaldus@gmail.com")
-                  .map((l) => {
-                    const risicoKleur = l.risico_niveau === "hoog" ? "text-red-600 bg-red-50" : l.risico_niveau === "middel" ? "text-amber-600 bg-amber-50" : "text-green-600 bg-green-50";
-                    const risicoLabel = l.risico_niveau === "hoog" ? "Hoog" : l.risico_niveau === "middel" ? "Middel" : "Laag";
-                    const systemenLabels: Record<string, string> = {
-                      "cv-screening": "CV-screening",
-                      matching: "Matching",
-                      "chatbot-hr": "Chatbot",
-                      monitoring: "Monitoring",
-                      planning: "Planning",
-                    };
-                    const atsLabels: Record<string, string> = {
-                      carerix: "Carerix", mysolution: "Mysolution", bullhorn: "Bullhorn", byner: "Byner",
-                      anders: "Anders", "weet-niet": "Onbekend", "geen-ats": "Geen",
-                    };
-                    return (
-                      <tr key={l.id} className="hover:bg-gray-50 transition-colors">
-                        <td className="px-4 py-3 font-medium text-gray-900">{l.email}</td>
-                        <td className="px-4 py-3">
-                          <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${risicoKleur}`}>{risicoLabel}</span>
-                        </td>
-                        <td className="px-4 py-3 text-xs">{l.ats_systeem ? (atsLabels[l.ats_systeem] || l.ats_systeem) : "—"}</td>
-                        <td className="px-4 py-3 text-xs">
-                          {l.hoog_risico_systemen && l.hoog_risico_systemen.length > 0
-                            ? l.hoog_risico_systemen.map(s => systemenLabels[s] || s).join(", ")
-                            : "—"}
-                        </td>
-                        <td className="px-4 py-3 text-xs">
-                          {l.antwoorden?.shadow === "ja" ? (
-                            <span className="text-red-500 font-medium">Ja</span>
-                          ) : l.antwoorden?.shadow === "weet-niet" ? (
-                            <span className="text-amber-500">Weet niet</span>
-                          ) : "Nee"}
-                        </td>
-                        <td className="px-4 py-3 text-xs">
-                          {l.antwoorden?.toezicht === "nee" ? (
-                            <span className="text-red-500 font-medium">Nee</span>
-                          ) : l.antwoorden?.toezicht === "weet-niet" ? (
-                            <span className="text-amber-500">Weet niet</span>
-                          ) : l.antwoorden?.toezicht === "ja" ? "Ja" : "—"}
-                        </td>
-                        <td className="px-4 py-3 text-xs text-gray-400">
-                          {new Date(l.created_at).toLocaleDateString("nl-NL", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}
-                        </td>
-                        <td className="px-4 py-3 text-right">
-                          {prospects.some(p => p.email === l.email || p.bedrijf.toLowerCase() === (l.email.split("@")[1]?.replace(/\.\w+$/, "") || "").toLowerCase()) ? (
-                            <span className="text-xs text-green-600 font-medium">✓ Prospect</span>
-                          ) : (
-                            <button
-                              onClick={() => convertLead(l)}
-                              className="text-xs px-3 py-1.5 bg-gray-900 text-white rounded-lg font-medium hover:bg-gray-800 transition-colors cursor-pointer"
-                            >
-                              → Prospect
-                            </button>
-                          )}
-                        </td>
-                      </tr>
-                    );
-                  })}
+                {filteredRegistraties.map((r) => {
+                  const isAlreadyProspect = prospects.some(
+                    (p) => p.email === r.email || (r.organisatie && p.bedrijf.toLowerCase() === r.organisatie.toLowerCase())
+                  );
+                  return (
+                    <tr key={r.id || r.email} className="hover:bg-gray-50 transition-colors">
+                      <td className="px-4 py-3 font-medium text-gray-900">{r.naam || "—"}</td>
+                      <td className="px-4 py-3 text-gray-700">
+                        <a href={`mailto:${r.email}`} className="hover:text-orange-600 hover:underline">{r.email}</a>
+                      </td>
+                      <td className="px-4 py-3 text-gray-600">{r.organisatie || "—"}</td>
+                      <td className="px-4 py-3">
+                        {r.rol ? (
+                          <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-blue-50 text-blue-700">
+                            {ROL_LABELS[r.rol] || r.rol}
+                          </span>
+                        ) : "—"}
+                      </td>
+                      <td className="px-4 py-3 text-xs text-gray-400">
+                        {new Date(r.created_at).toLocaleDateString("nl-NL", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" })}
+                      </td>
+                      <td className="px-4 py-3 text-right">
+                        {isAlreadyProspect ? (
+                          <span className="text-xs text-green-600 font-medium">✓ Opportunity</span>
+                        ) : (
+                          <button
+                            onClick={() => convertRegistratie(r)}
+                            className="text-xs px-3 py-1.5 bg-gray-900 text-white rounded-lg font-medium hover:bg-gray-800 transition-colors cursor-pointer"
+                          >
+                            → Opportunity
+                          </button>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
-            {leads.filter(l => l.email !== "ringenaldus@gmail.com").length === 0 && (
-              <div className="text-center py-12 text-gray-400 text-sm">Nog geen Quick Scan leads</div>
+            {filteredRegistraties.length === 0 && (
+              <div className="text-center py-12 text-gray-400 text-sm">Nog geen registraties</div>
             )}
           </div>
         </div>
       )}
 
-      {/* List View */}
-      {tab !== "leads" && (
-      <div className="max-w-7xl mx-auto p-4">
-        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                <th className="px-4 py-3 cursor-pointer hover:text-gray-700 select-none" onClick={() => toggleSort("bedrijf")}>
-                  Bedrijf{sortIndicator("bedrijf")}
-                </th>
-                <th className="px-4 py-3">Contacten</th>
-                <th className="px-4 py-3">ATS</th>
-                <th className="px-4 py-3 cursor-pointer hover:text-gray-700 select-none" onClick={() => toggleSort("status")}>
-                  Status{sortIndicator("status")}
-                </th>
-                <th className="px-4 py-3">Notities</th>
-                <th className="px-4 py-3 w-28"></th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-100">
-              {filtered.map((p) => (
-                <tr key={p.id} className="hover:bg-gray-50 transition-colors">
-                  <td className="px-4 py-3">
-                    <span className="font-medium text-gray-900">{p.bedrijf}</span>
-                  </td>
-                  <td className="px-4 py-3">
-                    {(p.prospect_contacten || []).length > 0 ? (
-                      <div className="space-y-0.5">
-                        {p.prospect_contacten.map((c) => (
-                          <div key={c.id} className="flex items-center gap-1">
-                            <span className="text-xs text-gray-700">{c.naam}</span>
-                            {c.functie && <span className="text-xs text-gray-400">({c.functie})</span>}
-                            {c.linkedin_url && (
-                              <a href={c.linkedin_url} target="_blank" rel="noopener noreferrer" className="text-blue-500 text-xs hover:underline">LI</a>
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                    ) : (
-                      <span className="text-xs text-gray-300">—</span>
-                    )}
-                  </td>
-                  <td className="px-4 py-3">
-                    {p.ats_systeem ? (
-                      <span className="px-1.5 py-0.5 bg-gray-100 rounded text-xs">{ATS_LABELS[p.ats_systeem] || p.ats_systeem}</span>
-                    ) : "—"}
-                  </td>
-                  <td className="px-4 py-3">
-                    <select
-                      value={p.status}
-                      onChange={(e) => updateStatus(p.id, e.target.value)}
-                      className="text-xs px-2 py-1 border border-gray-200 rounded cursor-pointer focus:outline-none focus:border-orange-400"
-                    >
-                      {STATUSSEN.map((s) => (
-                        <option key={s.id} value={s.id}>{s.label}</option>
-                      ))}
-                    </select>
-                  </td>
-                  <td className="px-4 py-3 text-xs text-gray-400 max-w-xs truncate">{p.notities || "—"}</td>
-                  <td className="px-4 py-3">
-                    <div className="flex gap-2">
-                      <button onClick={() => startEdit(p)} className="text-xs text-gray-400 hover:text-gray-700 cursor-pointer">Bewerk</button>
-                      <button onClick={() => startAddContact(p.id)} className="text-xs text-gray-400 hover:text-blue-600 cursor-pointer">+Contact</button>
-                      <button onClick={() => deleteProspect(p.id)} className="text-xs text-gray-300 hover:text-red-600 cursor-pointer">Verwijder</button>
-                    </div>
-                  </td>
+      {/* Opportunities View */}
+      {tab === "opportunities" && (
+        <div className="max-w-7xl mx-auto p-4">
+          <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-4 py-3 cursor-pointer hover:text-gray-700 select-none" onClick={() => toggleSort("bedrijf")}>
+                    Bedrijf{sortIndicator("bedrijf")}
+                  </th>
+                  <th className="px-4 py-3">Contacten</th>
+                  <th className="px-4 py-3">ATS</th>
+                  <th className="px-4 py-3 cursor-pointer hover:text-gray-700 select-none" onClick={() => toggleSort("status")}>
+                    Status{sortIndicator("status")}
+                  </th>
+                  <th className="px-4 py-3">Notities</th>
+                  <th className="px-4 py-3 w-28"></th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-          {filtered.length === 0 && (
-            <div className="text-center py-12 text-gray-400 text-sm">
-              {tab === "opportunities" ? "Geen actieve opportunities" : "Geen prospects gevonden"}
-            </div>
-          )}
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {filtered.map((p) => (
+                  <tr key={p.id} className="hover:bg-gray-50 transition-colors">
+                    <td className="px-4 py-3">
+                      <span className="font-medium text-gray-900">{p.bedrijf}</span>
+                    </td>
+                    <td className="px-4 py-3">
+                      {(p.prospect_contacten || []).length > 0 ? (
+                        <div className="space-y-0.5">
+                          {p.prospect_contacten.map((c) => (
+                            <div key={c.id} className="flex items-center gap-1">
+                              <span className="text-xs text-gray-700">{c.naam}</span>
+                              {c.functie && <span className="text-xs text-gray-400">({c.functie})</span>}
+                              {c.linkedin_url && (
+                                <a href={c.linkedin_url} target="_blank" rel="noopener noreferrer" className="text-blue-500 text-xs hover:underline">LI</a>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <span className="text-xs text-gray-300">—</span>
+                      )}
+                    </td>
+                    <td className="px-4 py-3">
+                      {p.ats_systeem ? (
+                        <span className="px-1.5 py-0.5 bg-gray-100 rounded text-xs">{ATS_LABELS[p.ats_systeem] || p.ats_systeem}</span>
+                      ) : "—"}
+                    </td>
+                    <td className="px-4 py-3">
+                      <select
+                        value={p.status}
+                        onChange={(e) => updateStatus(p.id, e.target.value)}
+                        className="text-xs px-2 py-1 border border-gray-200 rounded cursor-pointer focus:outline-none focus:border-orange-400"
+                      >
+                        {STATUSSEN.map((s) => (
+                          <option key={s.id} value={s.id}>{s.label}</option>
+                        ))}
+                      </select>
+                    </td>
+                    <td className="px-4 py-3 text-xs text-gray-400 max-w-xs truncate">{p.notities || "—"}</td>
+                    <td className="px-4 py-3">
+                      <div className="flex gap-2">
+                        <button onClick={() => startEdit(p)} className="text-xs text-gray-400 hover:text-gray-700 cursor-pointer">Bewerk</button>
+                        <button onClick={() => startAddContact(p.id)} className="text-xs text-gray-400 hover:text-blue-600 cursor-pointer">+Contact</button>
+                        <button onClick={() => deleteProspect(p.id)} className="text-xs text-gray-300 hover:text-red-600 cursor-pointer">Verwijder</button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            {filtered.length === 0 && (
+              <div className="text-center py-12 text-gray-400 text-sm">Geen actieve opportunities</div>
+            )}
+          </div>
         </div>
-      </div>
       )}
     </div>
   );
