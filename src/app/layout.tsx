@@ -6,11 +6,11 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "Normelo — Klaar voor de EU AI Act",
+    default: "Normelo — Gratis EU AI Act training voor uitzendbureaus",
     template: "%s | Normelo",
   },
   description:
-    "Normelo bereidt uitzendbureaus voor op de EU AI Act. Register, beleid, training en dossier in één pakket.",
+    "Leer gratis wat de EU AI Act voor jouw uitzendbureau betekent. Gebruik daarna het Normelo AI-register om je compliance te regelen.",
   metadataBase: new URL("https://normelo.com"),
   openGraph: {
     type: "website",
@@ -28,17 +28,17 @@ function Header() {
           Normelo
         </Link>
         <nav className="flex gap-6 text-sm items-center">
+          <Link href="/aanvragen" className="text-accent hover:text-primary transition-colors no-underline hover:no-underline font-medium">
+            Gratis training
+          </Link>
+          <Link href="/ai-register" className="text-muted hover:text-primary transition-colors no-underline hover:no-underline">
+            AI-register
+          </Link>
           <Link href="/uitzendbranche" className="text-muted hover:text-primary transition-colors no-underline hover:no-underline">
             Uitzendbranche
           </Link>
           <Link href="/hoog-risico" className="text-muted hover:text-primary transition-colors no-underline hover:no-underline">
             Hoog-risico AI
-          </Link>
-          <Link href="/tijdlijn" className="text-muted hover:text-primary transition-colors no-underline hover:no-underline">
-            Tijdlijn
-          </Link>
-          <Link href="/aanvragen" className="text-accent hover:text-primary transition-colors no-underline hover:no-underline font-medium">
-            Compliance-pakket
           </Link>
           <Link href="/quick-scan" className="text-muted hover:text-primary transition-colors no-underline hover:no-underline">
             Quick Scan
@@ -57,13 +57,12 @@ function Footer() {
     <footer className="bg-dark mt-auto">
       <div className="max-w-4xl mx-auto px-6 py-10 text-sm">
         <p className="mb-6 text-gray-300 italic">
-          Normelo bereidt uitzendbureaus voor op de EU AI Act — AI-register, AI-beleid, teamtraining en deelnamebewijs AI-geletterdheid in één pakket. <a href="/aanvragen" className="text-accent hover:underline">Plan een kennismaking →</a>
+          Normelo helpt uitzendbureaus met de EU AI Act — gratis training voor AI-geletterdheid, en het AI-register om compliance concreet te regelen. <a href="/aanvragen" className="text-accent hover:underline">Start de gratis training →</a>
         </p>
-        <p className="mb-4 text-gray-400">Vragen of opmerkingen over deze website? <a href="mailto:info@normelo.com" className="text-accent hover:underline">info@normelo.com</a></p>
+        <p className="mb-4 text-gray-400">Vragen of opmerkingen? <a href="mailto:info@normelo.com" className="text-accent hover:underline">info@normelo.com</a></p>
         <p className="mb-4 text-xs text-gray-500 leading-relaxed max-w-3xl">
-          Disclaimer: Normelo is geen aangemelde instantie (notified body) onder de EU AI Act. Onze dienstverlening
-          is een inspanningsverbintenis gericht op voorbereiding en dossieropbouw; de uiteindelijke beoordeling van
-          compliance ligt bij de bevoegde toezichthouder. Informatie op deze website is geen juridisch advies.
+          Disclaimer: Normelo is geen aangemelde instantie (notified body) onder de EU AI Act.
+          Informatie op deze website is geen juridisch advies.
         </p>
         <p className="mb-2 text-xs text-gray-500">
           <Link href="/privacy" className="hover:text-gray-300 hover:underline">Privacyverklaring</Link>
