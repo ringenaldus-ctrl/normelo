@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Analytics } from "@vercel/analytics/next";
+import NavLink from "./components/NavLink";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -28,24 +29,12 @@ function Header() {
           Normelo
         </Link>
         <nav className="flex gap-6 text-sm items-center">
-          <Link href="/quick-scan" className="text-muted hover:text-primary transition-colors no-underline hover:no-underline">
-            Quick Scan
-          </Link>
-          <Link href="/ai-register" className="text-muted hover:text-primary transition-colors no-underline hover:no-underline">
-            AI-register
-          </Link>
-          <Link href="/aanvragen" className="text-muted hover:text-primary transition-colors no-underline hover:no-underline">
-            Gratis training
-          </Link>
-          <Link href="/uitzendbranche" className="text-muted hover:text-primary transition-colors no-underline hover:no-underline">
-            Uitzendbranche
-          </Link>
-          <Link href="/hoog-risico" className="text-muted hover:text-primary transition-colors no-underline hover:no-underline">
-            Hoog-risico AI
-          </Link>
-          <Link href="/faq" className="text-muted hover:text-primary transition-colors no-underline hover:no-underline">
-            FAQ
-          </Link>
+          <NavLink href="/quick-scan">Quick Scan</NavLink>
+          <NavLink href="/ai-register">AI-register</NavLink>
+          <NavLink href="/aanvragen">Gratis training</NavLink>
+          <NavLink href="/uitzendbranche">Uitzendbranche</NavLink>
+          <NavLink href="/hoog-risico">Hoog-risico AI</NavLink>
+          <NavLink href="/faq">FAQ</NavLink>
         </nav>
       </div>
     </header>
