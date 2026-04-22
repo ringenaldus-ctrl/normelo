@@ -28,7 +28,7 @@ function Header() {
           Normelo
         </Link>
         <nav className="flex gap-6 text-sm items-center">
-          <Link href="/quick-scan" className="text-accent hover:text-primary transition-colors no-underline hover:no-underline font-medium">
+          <Link href="/quick-scan" className="text-muted hover:text-primary transition-colors no-underline hover:no-underline">
             Quick Scan
           </Link>
           <Link href="/ai-register" className="text-muted hover:text-primary transition-colors no-underline hover:no-underline">
