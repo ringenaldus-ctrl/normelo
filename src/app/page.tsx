@@ -43,22 +43,25 @@ export default function Home() {
     {/* Hero — Quick Scan als primaire CTA */}
     <section className="bg-dark">
       <div className="max-w-4xl mx-auto px-6 py-20">
-        <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6 text-white">
-          Gebruikt jouw bureau hoog-risico AI?<br className="hidden md:block" />
-          Ontdek het in 2 minuten.
+        <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4 text-white">
+          Gebruikt jouw bureau hoog-risico AI — zonder het te weten?
         </h1>
-        <p className="text-lg text-gray-300 max-w-2xl leading-relaxed mb-8">
-          De meeste uitzendbureaus werken dagelijks met AI die onder de EU AI Act als
-          hoog-risico wordt geclassificeerd — zonder het te weten. De Quick Scan laat
-          zien waar jouw bureau staat.
+        <p className="text-lg text-gray-300 max-w-2xl leading-relaxed mb-3">
+          Je ATS, je matching-tool, misschien ChatGPT — allemaal onder de EU AI Act.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4">
-          <Link
-            href="/quick-scan"
-            className="inline-block px-8 py-4 bg-accent hover:bg-accent-hover rounded-lg font-semibold text-lg no-underline transition-colors text-center text-white"
-          >
-            Start de Quick Scan →
-          </Link>
+        <p className="text-sm text-orange-300 font-medium mb-8">
+          Sinds februari 2025 verplicht. Vanaf augustus 2026 handhaving.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 items-start">
+          <div>
+            <Link
+              href="/quick-scan"
+              className="inline-block px-8 py-4 bg-accent hover:bg-accent-hover rounded-lg font-semibold text-lg no-underline transition-colors text-center text-white"
+            >
+              Start de 2-minuten Quick Scan →
+            </Link>
+            <p className="text-xs text-gray-400 mt-2 ml-1">Geen e-mail nodig. Direct resultaat.</p>
+          </div>
           <Link
             href="/ai-register"
             className="inline-block px-8 py-4 border border-gray-500 text-gray-300 hover:border-gray-300 hover:text-white rounded-lg font-medium text-lg no-underline transition-colors text-center"
