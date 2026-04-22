@@ -28,20 +28,20 @@ function Header() {
           Normelo
         </Link>
         <nav className="flex gap-6 text-sm items-center">
-          <Link href="/aanvragen" className="text-accent hover:text-primary transition-colors no-underline hover:no-underline font-medium">
-            Gratis training
+          <Link href="/quick-scan" className="text-accent hover:text-primary transition-colors no-underline hover:no-underline font-medium">
+            Quick Scan
           </Link>
           <Link href="/ai-register" className="text-muted hover:text-primary transition-colors no-underline hover:no-underline">
             AI-register
+          </Link>
+          <Link href="/aanvragen" className="text-muted hover:text-primary transition-colors no-underline hover:no-underline">
+            Gratis training
           </Link>
           <Link href="/uitzendbranche" className="text-muted hover:text-primary transition-colors no-underline hover:no-underline">
             Uitzendbranche
           </Link>
           <Link href="/hoog-risico" className="text-muted hover:text-primary transition-colors no-underline hover:no-underline">
             Hoog-risico AI
-          </Link>
-          <Link href="/quick-scan" className="text-muted hover:text-primary transition-colors no-underline hover:no-underline">
-            Quick Scan
           </Link>
           <Link href="/faq" className="text-muted hover:text-primary transition-colors no-underline hover:no-underline">
             FAQ
@@ -57,7 +57,7 @@ function Footer() {
     <footer className="bg-dark mt-auto">
       <div className="max-w-4xl mx-auto px-6 py-10 text-sm">
         <p className="mb-6 text-gray-300 italic">
-          Normelo helpt uitzendbureaus met de EU AI Act — gratis training voor AI-geletterdheid, en het AI-register om compliance concreet te regelen. <a href="/aanvragen" className="text-accent hover:underline">Start de gratis training →</a>
+          Normelo helpt uitzendbureaus met de EU AI Act — Quick Scan, gratis training en het AI-register om compliance concreet te regelen. <a href="/quick-scan" className="text-accent hover:underline">Doe de Quick Scan →</a>
         </p>
         <p className="mb-4 text-gray-400">Vragen of opmerkingen? <a href="mailto:info@normelo.com" className="text-accent hover:underline">info@normelo.com</a></p>
         <p className="mb-4 text-xs text-gray-500 leading-relaxed max-w-3xl">

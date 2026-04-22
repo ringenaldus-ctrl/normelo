@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Script from "next/script";
-import RegistratieForm from "./components/RegistratieForm";
 
 export const metadata: Metadata = {
-  title: "Normelo — Gratis EU AI Act training voor uitzendbureaus",
+  title: "Normelo — EU AI Act compliance voor uitzendbureaus",
   description:
-    "Leer gratis wat de EU AI Act voor jouw uitzendbureau betekent. Gebruik daarna het Normelo AI-register om je compliance concreet te regelen.",
+    "Ontdek in 2 minuten of jouw uitzendbureau werkt met hoog-risico AI. Gratis Quick Scan, gratis training, en het Normelo AI-register om compliance concreet te regelen.",
 };
 
 const organizationSchema = {
@@ -15,7 +14,7 @@ const organizationSchema = {
   name: "Normelo",
   url: "https://normelo.com",
   description:
-    "Normelo helpt uitzendbureaus met de EU AI Act: gratis training voor AI-geletterdheid en een AI-register om compliance te regelen.",
+    "Normelo helpt uitzendbureaus met de EU AI Act: Quick Scan, gratis training en een AI-register om compliance te regelen.",
 };
 
 const websiteSchema = {
@@ -24,7 +23,7 @@ const websiteSchema = {
   name: "Normelo",
   url: "https://normelo.com",
   description:
-    "Gratis EU AI Act training voor uitzendbureaus. Na de training: het Normelo AI-register voor compliance.",
+    "EU AI Act compliance voor uitzendbureaus. Quick Scan, gratis training en het Normelo AI-register.",
 };
 
 export default function Home() {
@@ -41,84 +40,88 @@ export default function Home() {
       dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
     />
 
-    {/* Hero met registratieformulier */}
+    {/* Hero — Quick Scan als primaire CTA */}
     <section className="bg-dark">
-      <div className="max-w-5xl mx-auto px-6 py-20">
-        <div className="grid gap-12 md:grid-cols-2 items-center">
-          <div>
-            <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6 text-white">
-              Word AI-geletterd.<br className="hidden md:block" />
-              Gratis. In je eigen tempo.
-            </h1>
-            <p className="text-lg text-gray-300 leading-relaxed">
-              Sinds februari 2025 moeten medewerkers die met AI werken aantoonbaar
-              AI-geletterd zijn. Met de Normelo training voldoe je aan artikel 4 van
-              de EU AI Act — specifiek gemaakt voor recruiters en intercedenten in
-              de uitzendbranche.
-            </p>
-          </div>
-          <div>
-            <RegistratieForm />
-          </div>
+      <div className="max-w-4xl mx-auto px-6 py-20">
+        <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6 text-white">
+          Gebruikt jouw bureau hoog-risico AI?<br className="hidden md:block" />
+          Ontdek het in 2 minuten.
+        </h1>
+        <p className="text-lg text-gray-300 max-w-2xl leading-relaxed mb-8">
+          De meeste uitzendbureaus werken dagelijks met AI die onder de EU AI Act als
+          hoog-risico wordt geclassificeerd — zonder het te weten. De Quick Scan laat
+          zien waar jouw bureau staat.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4">
+          <Link
+            href="/quick-scan"
+            className="inline-block px-8 py-4 bg-accent hover:bg-accent-hover rounded-lg font-semibold text-lg no-underline transition-colors text-center text-white"
+          >
+            Start de Quick Scan →
+          </Link>
+          <Link
+            href="/ai-register"
+            className="inline-block px-8 py-4 border border-gray-500 text-gray-300 hover:border-gray-300 hover:text-white rounded-lg font-medium text-lg no-underline transition-colors text-center"
+          >
+            Bekijk het AI-register
+          </Link>
         </div>
       </div>
     </section>
 
     <div className="max-w-4xl mx-auto px-6">
 
-      {/* Wat je leert */}
+      {/* Weten ≠ geregeld — de commerciële bridge */}
       <section className="py-12 border-b border-border">
-        <h2 className="text-2xl font-bold mb-4">Wat je leert in de training</h2>
-        <p className="text-foreground leading-relaxed mb-6">
-          De training is specifiek gemaakt voor de uitzendbranche. Geen juridische taal,
-          maar concrete kennis die je direct kunt toepassen.
+        <h2 className="text-2xl font-bold mb-4">Weten wat je moet doen is niet hetzelfde als het geregeld hebben.</h2>
+        <p className="text-foreground leading-relaxed mb-4">
+          De meeste bureaus weten inmiddels dat de EU AI Act eraan komt. Sommige hebben een
+          training gevolgd, een webinar gekeken, of een artikel gelezen. Maar weten dat je een
+          AI-register nodig hebt is niet hetzelfde als er een hebben. Weten dat je team
+          AI-geletterd moet zijn is niet hetzelfde als het kunnen aantonen.
         </p>
-        <div className="grid gap-4 md:grid-cols-2">
+        <p className="text-foreground leading-relaxed">
+          Normelo overbrugt dat gat. De Quick Scan laat zien waar je staat. De gratis training
+          maakt je team AI-geletterd. En het AI-register zorgt dat je compliance concreet geregeld
+          en aantoonbaar is.
+        </p>
+      </section>
+
+      {/* AI-register — het betaalde product */}
+      <section className="py-12 border-b border-border">
+        <h2 className="text-2xl font-bold mb-2">Het Normelo AI-register</h2>
+        <p className="text-muted mb-6">Compliance regelen en bijhouden — op één plek.</p>
+
+        <div className="grid gap-4 md:grid-cols-2 mb-6">
           <div className="p-5 border border-border rounded-lg">
-            <p className="font-semibold mb-2">Welke AI je al gebruikt</p>
+            <p className="font-semibold mb-2">AI-systemen registreren</p>
             <p className="text-sm text-muted leading-relaxed">
-              ATS-systemen, matchingtools, ChatGPT, Copilot — je leert welke tools
-              onder de EU AI Act vallen en waarom.
+              Carerix, Bullhorn, ChatGPT, Copilot — elk systeem vastgelegd met leverancier,
+              doel, risiconiveau en wie toezicht houdt.
             </p>
           </div>
           <div className="p-5 border border-border rounded-lg">
-            <p className="font-semibold mb-2">Wat de wet van jou vraagt</p>
+            <p className="font-semibold mb-2">Risicobeoordeling per tool</p>
             <p className="text-sm text-muted leading-relaxed">
-              Hoog-risico classificatie, menselijk toezicht, transparantie naar kandidaten.
-              Concreet uitgelegd voor jouw dagelijkse praktijk.
+              Per systeem beoordeel je het risiconiveau. Het register helpt bepalen wat
+              hoog-risico is en welke verplichtingen daarbij horen.
             </p>
           </div>
           <div className="p-5 border border-border rounded-lg">
-            <p className="font-semibold mb-2">Waar de risico&apos;s zitten</p>
+            <p className="font-semibold mb-2">Documentatie genereren</p>
             <p className="text-sm text-muted leading-relaxed">
-              Shadow AI, onbewuste discriminatie door ranking-algoritmes, en waarom
-              je softwareleverancier het niet voor je oplost.
+              AI-beleid, transparantieteksten, toezichtprocedures — klaar om te
+              delen met opdrachtgevers en toezichthouders.
             </p>
           </div>
           <div className="p-5 border border-border rounded-lg">
-            <p className="font-semibold mb-2">Wat je concreet moet doen</p>
+            <p className="font-semibold mb-2">Actueel houden</p>
             <p className="text-sm text-muted leading-relaxed">
-              Na de training weet je precies welke documenten je nodig hebt en welke
-              stappen je bureau moet zetten.
+              Compliance is geen eenmalig project. Het register houdt wijzigingen bij
+              en zorgt dat je documentatie up-to-date blijft.
             </p>
           </div>
         </div>
-      </section>
-
-      {/* Van kennis naar actie — AI-register */}
-      <section className="py-12 border-b border-border">
-        <h2 className="text-2xl font-bold mb-4">Kennis opgedaan. En nu?</h2>
-        <p className="text-foreground leading-relaxed mb-4">
-          Na de training weet je wat je moet doen. Maar weten is niet hetzelfde als geregeld
-          hebben. Je hebt een AI-register nodig waar je al je systemen registreert, een
-          risicobeoordeling per tool, documentatie die je kunt overleggen aan opdrachtgevers
-          en toezichthouders.
-        </p>
-        <p className="text-foreground leading-relaxed mb-6">
-          Daar bouwt Normelo de tooling voor. Het Normelo AI-register helpt je om je
-          compliance concreet te regelen en bij te houden — geen Excels, geen losse
-          documenten, maar één plek waar alles samenkomt.
-        </p>
         <Link
           href="/ai-register"
           className="inline-block px-6 py-3 bg-accent text-white rounded-lg font-semibold hover:bg-accent-hover transition-colors no-underline"
@@ -127,52 +130,58 @@ export default function Home() {
         </Link>
       </section>
 
-      {/* Leverancier vs. gebruiker */}
+      {/* Leverancier vs. gebruiker vs. Normelo — drie kolommen */}
       <section className="py-12 border-b border-border">
         <h2 className="text-2xl font-bold mb-4">&ldquo;Maar mijn softwareleverancier regelt dit toch?&rdquo;</h2>
-        <p className="text-foreground leading-relaxed mb-4">
-          Dat is de meest gehoorde misvatting. Je leverancier — Carerix, Bullhorn, Mysolution —
-          zorgt dat het product voldoet aan de technische eisen. CE-markering, conformiteitsverklaring,
-          productdocumentatie. Dat is hun verantwoordelijkheid.
-        </p>
         <p className="text-foreground leading-relaxed mb-6">
-          Maar als gebruiker van die software heb je eigen verplichtingen. Vergelijk het met een
-          auto: de fabrikant levert een veilig voertuig, maar jij moet nog steeds een rijbewijs
-          hebben. Zonder getrainde medewerkers is de CE-markering van je leverancier niet genoeg.
+          Je leverancier — Carerix, Bullhorn, Mysolution — zorgt dat het product voldoet aan
+          de technische eisen. Maar als gebruiker heb je eigen verplichtingen. Vergelijk het
+          met een auto: de fabrikant levert een veilig voertuig, maar jij moet nog steeds een
+          rijbewijs hebben.
         </p>
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-4 md:grid-cols-3">
           <div className="p-5 border border-border rounded-lg bg-surface">
-            <p className="text-sm font-medium text-muted mb-2 tracking-wide uppercase">De leverancier regelt</p>
-            <p className="font-semibold mb-2">Het product</p>
+            <p className="text-sm font-medium text-muted mb-2 tracking-wide uppercase">De leverancier</p>
+            <p className="font-semibold mb-2">Regelt het product</p>
             <p className="text-sm text-muted leading-relaxed">
               Technische documentatie, risicomanagement van het systeem, CE-markering
               en conformiteitsverklaring.
             </p>
           </div>
-          <div className="p-5 border-2 border-accent rounded-lg bg-surface">
-            <p className="text-sm font-medium text-accent mb-2 tracking-wide uppercase">Jij regelt</p>
-            <p className="font-semibold mb-2">Het gebruik</p>
+          <div className="p-5 border border-border rounded-lg bg-surface">
+            <p className="text-sm font-medium text-muted mb-2 tracking-wide uppercase">Jouw bureau</p>
+            <p className="font-semibold mb-2">Moet het gebruik regelen</p>
             <p className="text-sm text-muted leading-relaxed">
               AI-register, AI-beleid, getraind team, menselijk toezicht en transparantie
-              naar kandidaten. De training en het AI-register helpen je daarbij.
+              naar kandidaten.
+            </p>
+          </div>
+          <div className="p-5 border-2 border-accent rounded-lg bg-surface">
+            <p className="text-sm font-medium text-accent mb-2 tracking-wide uppercase">Normelo</p>
+            <p className="font-semibold mb-2">Regelt het voor je</p>
+            <p className="text-sm text-muted leading-relaxed">
+              Gratis training voor AI-geletterdheid. Het AI-register voor documentatie,
+              risicobeoordeling en een auditklaar dossier.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Quick Scan CTA */}
+      {/* Training als fallback */}
       <section className="py-12 border-b border-border">
-        <div className="rounded-lg p-8 bg-surface">
-          <h2 className="text-2xl font-bold mb-3">Niet zeker of dit voor jou geldt?</h2>
-          <p className="text-foreground leading-relaxed mb-5 max-w-2xl">
-            Doe de Quick Scan en ontdek in 2 minuten of jouw bureau werkt met
-            hoog-risico AI volgens de EU AI Act.
+        <div className="rounded-xl p-8 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
+          <p className="text-sm font-medium text-orange-300 mb-2 tracking-wide uppercase">Nog niet klaar om te starten?</p>
+          <h3 className="text-xl font-bold mb-3">Begin met de gratis training</h3>
+          <p className="text-sm text-gray-300 leading-relaxed mb-5 max-w-xl">
+            Wil je eerst begrijpen wat de EU AI Act precies van jouw bureau vraagt?
+            De Normelo training maakt je team AI-geletterd — gratis, in eigen tempo,
+            specifiek voor recruiters en intercedenten.
           </p>
           <Link
-            href="/quick-scan"
-            className="btn-accent inline-block px-6 py-3 bg-accent hover:bg-accent-hover rounded-lg font-medium no-underline transition-colors"
+            href="/aanvragen"
+            className="inline-block px-6 py-3 bg-accent text-white rounded-lg font-semibold hover:bg-orange-600 transition-colors no-underline"
           >
-            Start de Quick Scan →
+            Start de gratis training →
           </Link>
         </div>
       </section>
