@@ -70,24 +70,30 @@ export async function POST(request: Request) {
     let employeeId: string | null = null;
 
     // Check if employee already exists
-    const { data: existingEmployee } = await supabase
+    const { data: existingEmployee, error: empLookupError } = await supabase
       .from("employees")
       .select("id")
       .eq("email", cleanEmail)
       .maybeSingle();
 
+    if (empLookupError) console.error("Employee lookup error:", JSON.stringify(empLookupError));
+
     if (existingEmployee) {
       employeeId = existingEmployee.id;
+      console.log("Existing employee found:", employeeId);
     } else {
+      console.log("No existing employee, creating new one for:", cleanEmail);
       // Ensure self-registration org exists
-      const { data: existingOrg } = await supabase
+      const { data: existingOrg, error: orgLookupError } = await supabase
         .from("organizations")
         .select("id")
         .eq("id", SELF_REG_ORG_ID)
         .maybeSingle();
 
+      if (orgLookupError) console.error("Org lookup error:", JSON.stringify(orgLookupError));
+
       if (!existingOrg) {
-        await supabase.from("organizations").insert({
+        const { error: orgInsertError } = await supabase.from("organizations").insert({
           id: SELF_REG_ORG_ID,
           name: "Normelo — Zelfregistratie",
           type: "Zelfregistratie",
@@ -95,6 +101,7 @@ export async function POST(request: Request) {
           contactRole: null,
           updatedAt: new Date().toISOString(),
         });
+        if (orgInsertError) console.error("Org insert error:", JSON.stringify(orgInsertError));
       }
 
       // Determine organization
@@ -122,7 +129,7 @@ export async function POST(request: Request) {
 
       // Create employee
       employeeId = `normelo-${randomUUID().slice(0, 12)}`;
-      await supabase.from("employees").insert({
+      const { error: empError } = await supabase.from("employees").insert({
         id: employeeId,
         name: naam || cleanEmail.split("@")[0],
         email: cleanEmail,
@@ -132,6 +139,10 @@ export async function POST(request: Request) {
         assignedOn: new Date().toISOString(),
         actief: true,
       });
+      if (empError) {
+        console.error("Employee insert error:", JSON.stringify(empError));
+        employeeId = null;
+      }
     }
 
     // 3. Create magic link token and send to user
@@ -152,12 +163,13 @@ export async function POST(request: Request) {
       const expiresAt = new Date();
       expiresAt.setDate(expiresAt.getDate() + 7); // 7 days expiry
 
-      await supabase.from("magic_link_tokens").insert({
+      const { error: tokenError } = await supabase.from("magic_link_tokens").insert({
         id: tokenId,
         token,
         employeeId,
         expiresAt: expiresAt.toISOString(),
       });
+      if (tokenError) console.error("Magic link token insert error:", JSON.stringify(tokenError));
 
       const magicLinkUrl = `${TRAINING_APP_URL}/api/auth/magic-link/verify?token=${encodeURIComponent(token)}`;
       const displayName = naam || cleanEmail.split("@")[0];
