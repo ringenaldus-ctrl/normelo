@@ -35,9 +35,9 @@ export async function GET(request: NextRequest) {
     return Response.json(data);
   }
 
-  // Return training registrations
+  // Return training registrations with magic link info
   if (type === "registraties") {
-    const { data, error } = await supabase
+    const { data: registraties, error } = await supabase
       .from("training_wachtlijst")
       .select("*")
       .order("created_at", { ascending: false });
@@ -45,7 +45,48 @@ export async function GET(request: NextRequest) {
     if (error)
       return Response.json({ error: error.message }, { status: 500 });
 
-    return Response.json(data);
+    // Enrich with magic link data via employee email
+    const emails = (registraties || []).map((r: { email: string }) => r.email);
+    const { data: employees } = await supabase
+      .from("employees")
+      .select("id, email")
+      .in("email", emails);
+
+    const employeeMap = new Map((employees || []).map((e: { email: string; id: string }) => [e.email, e.id]));
+    const employeeIds = Array.from(employeeMap.values());
+
+    let tokenMap = new Map<string, { id: string; token: string; expiresAt: string; usedAt: string | null }>();
+    if (employeeIds.length > 0) {
+      const { data: tokens } = await supabase
+        .from("magic_link_tokens")
+        .select("id, token, employeeId, expiresAt, usedAt")
+        .in("employeeId", employeeIds)
+        .order("expiresAt", { ascending: false });
+
+      // Keep only the latest token per employee
+      for (const t of (tokens || [])) {
+        const typedToken = t as { id: string; token: string; employeeId: string; expiresAt: string; usedAt: string | null };
+        if (!tokenMap.has(typedToken.employeeId)) {
+          tokenMap.set(typedToken.employeeId, { id: typedToken.id, token: typedToken.token, expiresAt: typedToken.expiresAt, usedAt: typedToken.usedAt });
+        }
+      }
+    }
+
+    const enriched = (registraties || []).map((r: { email: string }) => {
+      const empId = employeeMap.get(r.email);
+      const magicLink = empId ? tokenMap.get(empId) : null;
+      return {
+        ...r,
+        magicLink: magicLink ? {
+          id: magicLink.id,
+          url: `https://hireai-certified.vercel.app/api/auth/magic-link/verify?token=${encodeURIComponent(magicLink.token)}`,
+          expiresAt: magicLink.expiresAt,
+          usedAt: magicLink.usedAt,
+        } : null,
+      };
+    });
+
+    return Response.json(enriched);
   }
 
   // Default: return prospects
@@ -117,7 +158,7 @@ export async function PUT(request: NextRequest) {
   return Response.json(data);
 }
 
-// DELETE: prospect verwijderen
+// DELETE: prospect of magic link verwijderen
 export async function DELETE(request: NextRequest) {
   if (!authorized(request))
     return Response.json({ error: "Niet geautoriseerd" }, { status: 401 });
@@ -125,9 +166,17 @@ export async function DELETE(request: NextRequest) {
   const supabase = getSupabase();
   const { searchParams } = new URL(request.url);
   const id = searchParams.get("id");
+  const type = searchParams.get("type");
 
   if (!id)
     return Response.json({ error: "ID is verplicht" }, { status: 400 });
+
+  if (type === "magic_link") {
+    const { error } = await supabase.from("magic_link_tokens").delete().eq("id", id);
+    if (error)
+      return Response.json({ error: error.message }, { status: 500 });
+    return Response.json({ success: true });
+  }
 
   const { error } = await supabase.from("prospects").delete().eq("id", id);
 

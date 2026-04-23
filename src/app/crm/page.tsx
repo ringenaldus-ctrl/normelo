@@ -31,6 +31,13 @@ interface Prospect {
   prospect_contacten: Contact[];
 }
 
+interface MagicLink {
+  id: string;
+  url: string;
+  expiresAt: string;
+  usedAt: string | null;
+}
+
 interface Registratie {
   id: number;
   email: string;
@@ -40,6 +47,7 @@ interface Registratie {
   bron: string | null;
   telefoon: string | null;
   created_at: string;
+  magicLink: MagicLink | null;
 }
 
 const ROL_LABELS: Record<string, string> = {
@@ -300,6 +308,13 @@ export default function CRM() {
       await loadData();
       setTab("opportunities");
     }
+  }
+
+  // Delete magic link
+  async function deleteMagicLink(magicLinkId: string) {
+    if (!confirm("Magic link verwijderen? De gebruiker kan dan niet meer inloggen via deze link.")) return;
+    await fetch(`/api/crm?id=${magicLinkId}&type=magic_link`, { method: "DELETE", headers: headers() });
+    loadData();
   }
 
   // Sorting
@@ -711,6 +726,7 @@ export default function CRM() {
                   <th className="px-4 py-3">E-mail</th>
                   <th className="px-4 py-3">Organisatie</th>
                   <th className="px-4 py-3">Rol</th>
+                  <th className="px-4 py-3">Magic link</th>
                   <th className="px-4 py-3">Datum</th>
                   <th className="px-4 py-3 w-32"></th>
                 </tr>
@@ -720,6 +736,9 @@ export default function CRM() {
                   const isAlreadyProspect = prospects.some(
                     (p) => p.email === r.email || (r.organisatie && p.bedrijf.toLowerCase() === r.organisatie.toLowerCase())
                   );
+                  const ml = r.magicLink;
+                  const isExpired = ml ? new Date(ml.expiresAt) < new Date() : false;
+                  const isUsed = ml ? !!ml.usedAt : false;
                   return (
                     <tr key={r.id || r.email} className="hover:bg-gray-50 transition-colors">
                       <td className="px-4 py-3 font-medium text-gray-900">{r.naam || "—"}</td>
@@ -733,6 +752,30 @@ export default function CRM() {
                             {ROL_LABELS[r.rol] || r.rol}
                           </span>
                         ) : "—"}
+                      </td>
+                      <td className="px-4 py-3">
+                        {ml ? (
+                          <div className="flex items-center gap-2">
+                            {isUsed ? (
+                              <span className="text-xs font-medium text-green-600">✓ Gebruikt</span>
+                            ) : isExpired ? (
+                              <span className="text-xs font-medium text-red-500">Verlopen</span>
+                            ) : (
+                              <a href={ml.url} target="_blank" rel="noopener noreferrer" className="text-xs text-blue-600 hover:underline truncate max-w-[120px] inline-block">
+                                Actief
+                              </a>
+                            )}
+                            <button
+                              onClick={() => deleteMagicLink(ml.id)}
+                              className="text-xs text-gray-300 hover:text-red-600 cursor-pointer"
+                              title="Magic link verwijderen"
+                            >
+                              ×
+                            </button>
+                          </div>
+                        ) : (
+                          <span className="text-xs text-gray-300">—</span>
+                        )}
                       </td>
                       <td className="px-4 py-3 text-xs text-gray-400">
                         {new Date(r.created_at).toLocaleDateString("nl-NL", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" })}
