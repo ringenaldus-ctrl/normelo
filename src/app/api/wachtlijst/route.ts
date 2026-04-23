@@ -60,27 +60,35 @@ export async function POST(request: Request) {
       rol: rol || null,
     });
 
+    console.log("Wachtlijst insert result - error:", error ? JSON.stringify(error) : "none");
+
     if (error && error.code !== "23505") {
-      console.error("Supabase insert error:", error);
+      console.error("Supabase insert error:", JSON.stringify(error));
       return Response.json(
         { error: "Er ging iets mis." },
         { status: 500 }
       );
     }
 
+    console.log("Proceeding to employee check");
+
     // 2. Create employee in training-app (if not exists)
     const trainingRoleId = rol ? (ROL_TO_TRAINING_ROLE[rol as string] || "recruiter") : "recruiter";
 
     let employeeId: string | null = null;
+    let debugInfo = "";
 
-    // Check if employee already exists (use admin client to bypass RLS)
+    // Check if employee already exists
     const { data: existingEmployee, error: empLookupError } = await supabase
       .from("employees")
       .select("id")
       .eq("email", cleanEmail)
       .maybeSingle();
 
-    if (empLookupError) console.error("Employee lookup error:", JSON.stringify(empLookupError));
+    if (empLookupError) {
+      debugInfo += `Lookup error: ${JSON.stringify(empLookupError)}. `;
+      console.error("Employee lookup error:", JSON.stringify(empLookupError));
+    }
 
     if (existingEmployee) {
       employeeId = existingEmployee.id;
@@ -144,6 +152,7 @@ export async function POST(request: Request) {
         actief: true,
       });
       if (empError) {
+        debugInfo += `Insert error: ${JSON.stringify(empError)}. `;
         console.error("Employee insert error:", JSON.stringify(empError));
         employeeId = null;
       }
@@ -233,6 +242,7 @@ export async function POST(request: Request) {
     <tr><td style="padding:8px 12px 8px 0;font-weight:600;font-size:14px;vertical-align:top;">Rol</td><td style="padding:8px 0;font-size:14px;">${rolLabel}</td></tr>
     <tr><td style="padding:8px 12px 8px 0;font-weight:600;font-size:14px;vertical-align:top;">Bron</td><td style="padding:8px 0;font-size:14px;">${bron || "website"}</td></tr>
     <tr><td style="padding:8px 12px 8px 0;font-weight:600;font-size:14px;vertical-align:top;">Employee</td><td style="padding:8px 0;font-size:14px;">${employeeId || "NIET AANGEMAAKT"}</td></tr>
+    <tr><td style="padding:8px 12px 8px 0;font-weight:600;font-size:14px;vertical-align:top;">Debug</td><td style="padding:8px 0;font-size:12px;color:#9ca3af;word-break:break-all;">${debugInfo || "geen errors"}</td></tr>
   </table>
 </body></html>`,
         });
