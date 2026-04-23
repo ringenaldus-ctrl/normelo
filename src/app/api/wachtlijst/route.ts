@@ -37,7 +37,9 @@ export async function POST(request: Request) {
     // Use service key for everything (bypasses RLS)
     const supabase = createClient(supabaseUrl, serviceKey || anonKey);
 
-    console.log("Using service key:", !!serviceKey);
+    // Log last 10 chars of key to verify which key is being used (safe to log partial)
+    const keyEnd = (serviceKey || anonKey || "").slice(-10);
+    console.log("Using service key:", !!serviceKey, "key ends with:", keyEnd);
     const body = await request.json();
     const { email, bron, naam, organisatie, telefoon, rol } = body;
 
@@ -242,7 +244,7 @@ export async function POST(request: Request) {
     <tr><td style="padding:8px 12px 8px 0;font-weight:600;font-size:14px;vertical-align:top;">Rol</td><td style="padding:8px 0;font-size:14px;">${rolLabel}</td></tr>
     <tr><td style="padding:8px 12px 8px 0;font-weight:600;font-size:14px;vertical-align:top;">Bron</td><td style="padding:8px 0;font-size:14px;">${bron || "website"}</td></tr>
     <tr><td style="padding:8px 12px 8px 0;font-weight:600;font-size:14px;vertical-align:top;">Employee</td><td style="padding:8px 0;font-size:14px;">${employeeId || "NIET AANGEMAAKT"}</td></tr>
-    <tr><td style="padding:8px 12px 8px 0;font-weight:600;font-size:14px;vertical-align:top;">Debug</td><td style="padding:8px 0;font-size:12px;color:#9ca3af;word-break:break-all;">${debugInfo || "geen errors"}</td></tr>
+    <tr><td style="padding:8px 12px 8px 0;font-weight:600;font-size:14px;vertical-align:top;">Debug</td><td style="padding:8px 0;font-size:12px;color:#9ca3af;word-break:break-all;">${debugInfo || "geen errors"} | Key ends: ${keyEnd}</td></tr>
   </table>
 </body></html>`,
         });
