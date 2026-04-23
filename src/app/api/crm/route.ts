@@ -191,6 +191,30 @@ export async function DELETE(request: NextRequest) {
   }
 
   if (type === "registratie") {
+    // Get email from registratie to find related employee
+    const { data: reg } = await supabase
+      .from("training_wachtlijst")
+      .select("email")
+      .eq("id", id)
+      .single();
+
+    if (reg?.email) {
+      const { data: emp } = await supabase
+        .from("employees")
+        .select("id")
+        .eq("email", reg.email)
+        .maybeSingle();
+
+      if (emp) {
+        // Delete in order: certificates, completed_modules, magic_link_tokens, then employee
+        await supabase.from("certificates").delete().eq("employeeId", emp.id);
+        await supabase.from("completed_modules").delete().eq("employeeId", emp.id);
+        await supabase.from("magic_link_tokens").delete().eq("employeeId", emp.id);
+        await supabase.from("employees").delete().eq("id", emp.id);
+      }
+    }
+
+    // Delete all wachtlijst entries for this email (AVG: volledig verwijderen)
     const { error } = await supabase.from("training_wachtlijst").delete().eq("id", id);
     if (error)
       return Response.json({ error: error.message }, { status: 500 });

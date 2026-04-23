@@ -263,7 +263,7 @@ export default function CRM() {
 
   // Delete registratie
   async function deleteRegistratie(id: string) {
-    if (!confirm("Registratie verwijderen?")) return;
+    if (!confirm("Registratie verwijderen? Dit verwijdert ook het training-account, magic links, voortgang en certificaten (AVG).")) return;
     await fetch(`/api/crm?id=${id}&type=registratie`, { method: "DELETE", headers: headers() });
     loadData();
   }
