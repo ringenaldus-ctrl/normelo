@@ -212,6 +212,18 @@ export async function DELETE(request: NextRequest) {
         await supabase.from("magic_link_tokens").delete().eq("employeeId", emp.id);
         await supabase.from("employees").delete().eq("id", emp.id);
       }
+
+      // Delete linked prospects and their contacts
+      const { data: prospects } = await supabase
+        .from("prospects")
+        .select("id")
+        .eq("email", reg.email);
+
+      if (prospects && prospects.length > 0) {
+        const prospectIds = prospects.map((p: { id: string }) => p.id);
+        await supabase.from("prospect_contacten").delete().in("prospect_id", prospectIds);
+        await supabase.from("prospects").delete().in("id", prospectIds);
+      }
     }
 
     // Delete all wachtlijst entries for this email (AVG: volledig verwijderen)
