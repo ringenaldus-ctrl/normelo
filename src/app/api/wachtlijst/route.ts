@@ -151,7 +151,9 @@ export async function POST(request: Request) {
     }
 
     // 3. Create magic link token and send to user
+    console.log("Step 3 - resendApiKey:", !!resendApiKey, "employeeId:", employeeId);
     if (resendApiKey && employeeId) {
+      console.log("Creating magic link for employee:", employeeId);
       const resend = new Resend(resendApiKey);
 
       // Clean up expired unused tokens for this employee
@@ -180,8 +182,9 @@ export async function POST(request: Request) {
       const displayName = naam || cleanEmail.split("@")[0];
 
       // Send magic link email to user
+      console.log("Sending magic link email to:", cleanEmail);
       try {
-        await resend.emails.send({
+        const magicEmailResult = await resend.emails.send({
           from: "Normelo <scan@normelo.com>",
           to: [cleanEmail],
           subject: "Start je EU AI Act training — Normelo",
@@ -202,6 +205,7 @@ export async function POST(request: Request) {
   <p style="font-size:12px;color:#d1d5db;margin:24px 0 0;">Normelo — EU AI Act compliance voor uitzendbureaus</p>
 </body></html>`,
         });
+        console.log("Magic link email sent:", JSON.stringify(magicEmailResult));
       } catch (emailError) {
         console.error("Magic link email error:", emailError);
       }
