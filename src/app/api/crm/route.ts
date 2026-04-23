@@ -146,6 +146,13 @@ export async function PUT(request: NextRequest) {
   const { id, type, ...updates } = body;
 
   if (type === "registratie") {
+    // Get email before update to sync related records
+    const { data: reg } = await supabase
+      .from("training_wachtlijst")
+      .select("email")
+      .eq("id", id)
+      .single();
+
     const { data, error } = await supabase
       .from("training_wachtlijst")
       .update(updates)
@@ -154,6 +161,20 @@ export async function PUT(request: NextRequest) {
       .single();
     if (error)
       return Response.json({ error: error.message }, { status: 500 });
+
+    // Sync naam to employee and prospect_contacten
+    if (reg?.email && updates.naam) {
+      await supabase.from("employees").update({ name: updates.naam }).eq("email", reg.email);
+      const { data: prospects } = await supabase
+        .from("prospects")
+        .select("id")
+        .eq("email", reg.email);
+      if (prospects && prospects.length > 0) {
+        const prospectIds = prospects.map((p: { id: string }) => p.id);
+        await supabase.from("prospect_contacten").update({ naam: updates.naam }).in("prospect_id", prospectIds);
+      }
+    }
+
     return Response.json(data);
   }
 
