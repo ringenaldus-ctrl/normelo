@@ -23,7 +23,6 @@ export default function RegistratieForm() {
       });
       if (res.ok) {
         setStatus("sent");
-        window.location.href = `https://hireai-certified.vercel.app/?rol=${rol || "intercedent"}`;
       } else {
         setStatus("error");
       }
@@ -35,12 +34,16 @@ export default function RegistratieForm() {
   if (status === "sent") {
     return (
       <div className="rounded-xl p-6 border border-border text-center">
-        <p className="font-semibold mb-2">Je wordt doorgestuurd naar de training...</p>
+        <p className="text-2xl mb-2">📬</p>
+        <p className="font-semibold mb-2">Check je inbox</p>
+        <p className="text-sm text-muted mb-1">
+          We hebben een link gestuurd naar <strong>{email}</strong>.
+        </p>
         <p className="text-sm text-muted">
-          Niet automatisch doorgestuurd?{" "}
-          <a href={`https://hireai-certified.vercel.app/?rol=${rol || "intercedent"}`} className="text-accent underline">
-            Klik hier
-          </a>
+          Klik op de link in de e-mail om direct te starten met de training.
+        </p>
+        <p className="text-xs text-gray-400 mt-4">
+          Geen e-mail? Check je spam-folder of <button onClick={() => setStatus("idle")} className="text-accent underline cursor-pointer">probeer opnieuw</button>.
         </p>
       </div>
     );

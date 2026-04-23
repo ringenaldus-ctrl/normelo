@@ -1,6 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import { Resend } from "resend";
-import { randomUUID } from "crypto";
+import { randomUUID, randomBytes } from "crypto";
 
 const ROL_LABELS: Record<string, string> = {
   intercedent: "Recruiter / Intercedent",
@@ -18,6 +18,7 @@ const ROL_TO_TRAINING_ROLE: Record<string, string> = {
 };
 
 const SELF_REG_ORG_ID = "normelo-self-reg";
+const TRAINING_APP_URL = "https://hireai-certified.vercel.app";
 
 export async function POST(request: Request) {
   try {
@@ -66,6 +67,8 @@ export async function POST(request: Request) {
     // 2. Create employee in training-app (if not exists)
     const trainingRoleId = rol ? (ROL_TO_TRAINING_ROLE[rol as string] || "recruiter") : "recruiter";
 
+    let employeeId: string | null = null;
+
     // Check if employee already exists
     const { data: existingEmployee } = await supabase
       .from("employees")
@@ -73,7 +76,9 @@ export async function POST(request: Request) {
       .eq("email", cleanEmail)
       .maybeSingle();
 
-    if (!existingEmployee) {
+    if (existingEmployee) {
+      employeeId = existingEmployee.id;
+    } else {
       // Ensure self-registration org exists
       const { data: existingOrg } = await supabase
         .from("organizations")
@@ -92,7 +97,7 @@ export async function POST(request: Request) {
         });
       }
 
-      // Determine organization: use self-reg org, or create named org if provided
+      // Determine organization
       let orgId = SELF_REG_ORG_ID;
       if (organisatie && organisatie.trim()) {
         const customOrgId = `normelo-${organisatie.trim().toLowerCase().replace(/[^a-z0-9]/g, "-").slice(0, 40)}`;
@@ -116,7 +121,7 @@ export async function POST(request: Request) {
       }
 
       // Create employee
-      const employeeId = `normelo-${randomUUID().slice(0, 12)}`;
+      employeeId = `normelo-${randomUUID().slice(0, 12)}`;
       await supabase.from("employees").insert({
         id: employeeId,
         name: naam || cleanEmail.split("@")[0],
@@ -129,9 +134,62 @@ export async function POST(request: Request) {
       });
     }
 
-    // 3. Send notification email
-    if (resendApiKey) {
+    // 3. Create magic link token and send to user
+    if (resendApiKey && employeeId) {
       const resend = new Resend(resendApiKey);
+
+      // Clean up expired unused tokens for this employee
+      await supabase
+        .from("magic_link_tokens")
+        .delete()
+        .eq("employeeId", employeeId)
+        .is("usedAt", null)
+        .lt("expiresAt", new Date().toISOString());
+
+      // Generate magic link token (32 bytes = 64 hex chars, same as training app)
+      const token = randomBytes(32).toString("hex");
+      const tokenId = randomUUID();
+      const expiresAt = new Date();
+      expiresAt.setDate(expiresAt.getDate() + 7); // 7 days expiry
+
+      await supabase.from("magic_link_tokens").insert({
+        id: tokenId,
+        token,
+        employeeId,
+        expiresAt: expiresAt.toISOString(),
+      });
+
+      const magicLinkUrl = `${TRAINING_APP_URL}/api/auth/magic-link/verify?token=${encodeURIComponent(token)}`;
+      const displayName = naam || cleanEmail.split("@")[0];
+
+      // Send magic link email to user
+      try {
+        await resend.emails.send({
+          from: "Normelo <scan@normelo.com>",
+          to: [cleanEmail],
+          subject: "Start je EU AI Act training — Normelo",
+          html: `
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"></head>
+<body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;max-width:500px;margin:0 auto;padding:40px 20px;color:#1e2a3a;">
+  <p style="font-size:16px;margin:0 0 24px;">Hoi ${displayName},</p>
+  <p style="font-size:15px;line-height:1.6;margin:0 0 24px;">
+    Je hebt je aangemeld voor de gratis EU AI Act training. Klik op de knop hieronder om direct te starten.
+  </p>
+  <a href="${magicLinkUrl}" style="display:inline-block;padding:14px 28px;background:#e8590c;color:#ffffff;text-decoration:none;border-radius:8px;font-weight:600;font-size:15px;">
+    Start de training →
+  </a>
+  <p style="font-size:13px;color:#9ca3af;margin:32px 0 0;line-height:1.5;">
+    Deze link is 7 dagen geldig. Als je de link niet meer kunt gebruiken, kun je een nieuwe aanvragen op <a href="https://normelo.com/aanvragen" style="color:#e8590c;">normelo.com/aanvragen</a>.
+  </p>
+  <p style="font-size:12px;color:#d1d5db;margin:24px 0 0;">Normelo — EU AI Act compliance voor uitzendbureaus</p>
+</body></html>`,
+        });
+      } catch (emailError) {
+        console.error("Magic link email error:", emailError);
+      }
+
+      // 4. Send notification email to Normelo
       const rolLabel = rol ? (ROL_LABELS[rol as string] || rol) : "—";
       try {
         await resend.emails.send({
@@ -150,7 +208,7 @@ export async function POST(request: Request) {
     <tr><td style="padding:8px 12px 8px 0;font-weight:600;font-size:14px;vertical-align:top;">Rol</td><td style="padding:8px 0;font-size:14px;">${rolLabel}</td></tr>
     <tr><td style="padding:8px 12px 8px 0;font-weight:600;font-size:14px;vertical-align:top;">Bron</td><td style="padding:8px 0;font-size:14px;">${bron || "website"}</td></tr>
   </table>
-  <p style="font-size:12px;color:#9ca3af;margin:24px 0 0;">Deze persoon is doorgestuurd naar de training.</p>
+  <p style="font-size:12px;color:#9ca3af;margin:24px 0 0;">Magic link is verstuurd naar ${cleanEmail}.</p>
 </body></html>`,
         });
       } catch (emailError) {
