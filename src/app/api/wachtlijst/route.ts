@@ -209,10 +209,15 @@ export async function POST(request: Request) {
         console.error("Magic link email error:", emailError);
       }
 
-      // 4. Send notification email to Normelo
+    }
+
+    // 4. Send notification email to Normelo (always, regardless of employee/magic link status)
+    if (resendApiKey) {
+      const resendNotify = new Resend(resendApiKey);
       const rolLabel = rol ? (ROL_LABELS[rol as string] || rol) : "—";
+      console.log("Sending notification email to info@normelo.com");
       try {
-        await resend.emails.send({
+        await resendNotify.emails.send({
           from: "Normelo <scan@normelo.com>",
           to: ["info@normelo.com"],
           subject: `Nieuwe registratie: ${naam || email} — ${organisatie || "onbekend bureau"}`,
@@ -227,10 +232,11 @@ export async function POST(request: Request) {
     <tr><td style="padding:8px 12px 8px 0;font-weight:600;font-size:14px;vertical-align:top;">Organisatie</td><td style="padding:8px 0;font-size:14px;">${organisatie || "—"}</td></tr>
     <tr><td style="padding:8px 12px 8px 0;font-weight:600;font-size:14px;vertical-align:top;">Rol</td><td style="padding:8px 0;font-size:14px;">${rolLabel}</td></tr>
     <tr><td style="padding:8px 12px 8px 0;font-weight:600;font-size:14px;vertical-align:top;">Bron</td><td style="padding:8px 0;font-size:14px;">${bron || "website"}</td></tr>
+    <tr><td style="padding:8px 12px 8px 0;font-weight:600;font-size:14px;vertical-align:top;">Employee</td><td style="padding:8px 0;font-size:14px;">${employeeId || "NIET AANGEMAAKT"}</td></tr>
   </table>
-  <p style="font-size:12px;color:#9ca3af;margin:24px 0 0;">Magic link is verstuurd naar ${cleanEmail}.</p>
 </body></html>`,
         });
+        console.log("Notification email sent");
       } catch (emailError) {
         console.error("Notification email error:", emailError);
       }
