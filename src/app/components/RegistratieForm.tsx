@@ -80,7 +80,7 @@ export default function RegistratieForm() {
           {status === "sending" ? "Even geduld..." : "Start de training →"}
         </button>
         <p className="text-xs text-center text-muted">
-          4 modules, ~10 minuten per module. In je eigen tempo.
+          6–9 modules afgestemd op jouw rol. In je eigen tempo.
         </p>
         <p className="text-xs text-center text-gray-400">
           Je e-mail gebruiken we alleen voor deze training. Geen spam.
