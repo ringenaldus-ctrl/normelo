@@ -3,13 +3,14 @@
 import { useState } from "react";
 
 export default function RegistratieForm() {
+  const [naam, setNaam] = useState("");
   const [email, setEmail] = useState("");
   const [rol, setRol] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!email || !email.includes("@")) return;
+    if (!email || !email.includes("@") || !naam.trim()) return;
     setStatus("sending");
     try {
       const res = await fetch("/api/wachtlijst", {
@@ -17,6 +18,7 @@ export default function RegistratieForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email,
+          naam: naam.trim(),
           bron: "training-registratie",
           rol: rol || null,
         }),
@@ -53,10 +55,18 @@ export default function RegistratieForm() {
     <div className="rounded-xl p-6 border border-border">
       <form onSubmit={handleSubmit} className="space-y-3">
         <input
+          type="text"
+          value={naam}
+          onChange={(e) => setNaam(e.target.value)}
+          placeholder="Jouw naam"
+          required
+          className="w-full px-4 py-3 rounded-lg text-sm border border-border text-foreground placeholder-gray-400 focus:outline-none focus:border-accent"
+        />
+        <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="Jouw e-mailadres"
+          placeholder="E-mailadres"
           required
           className="w-full px-4 py-3 rounded-lg text-sm border border-border text-foreground placeholder-gray-400 focus:outline-none focus:border-accent"
         />
@@ -74,7 +84,7 @@ export default function RegistratieForm() {
         </select>
         <button
           type="submit"
-          disabled={status === "sending" || !rol}
+          disabled={status === "sending" || !rol || !naam.trim()}
           className="w-full px-5 py-3 bg-accent text-white rounded-lg font-semibold hover:bg-accent-hover transition-colors disabled:opacity-60 cursor-pointer"
         >
           {status === "sending" ? "Even geduld..." : "Start de training →"}
