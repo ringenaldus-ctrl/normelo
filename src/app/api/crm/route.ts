@@ -132,7 +132,7 @@ export async function POST(request: NextRequest) {
   return Response.json(data);
 }
 
-// PUT: prospect bijwerken
+// PUT: prospect of registratie bijwerken
 export async function PUT(request: NextRequest) {
   if (!authorized(request))
     return Response.json({ error: "Niet geautoriseerd" }, { status: 401 });
@@ -143,7 +143,19 @@ export async function PUT(request: NextRequest) {
   if (!body.id)
     return Response.json({ error: "ID is verplicht" }, { status: 400 });
 
-  const { id, ...updates } = body;
+  const { id, type, ...updates } = body;
+
+  if (type === "registratie") {
+    const { data, error } = await supabase
+      .from("training_wachtlijst")
+      .update(updates)
+      .eq("id", id)
+      .select()
+      .single();
+    if (error)
+      return Response.json({ error: error.message }, { status: 500 });
+    return Response.json(data);
+  }
 
   const { data, error } = await supabase
     .from("prospects")
@@ -173,6 +185,13 @@ export async function DELETE(request: NextRequest) {
 
   if (type === "magic_link") {
     const { error } = await supabase.from("magic_link_tokens").delete().eq("id", id);
+    if (error)
+      return Response.json({ error: error.message }, { status: 500 });
+    return Response.json({ success: true });
+  }
+
+  if (type === "registratie") {
+    const { error } = await supabase.from("training_wachtlijst").delete().eq("id", id);
     if (error)
       return Response.json({ error: error.message }, { status: 500 });
     return Response.json({ success: true });

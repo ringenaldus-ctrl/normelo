@@ -261,6 +261,23 @@ export default function CRM() {
     setShowContactModal(false);
   }
 
+  // Delete registratie
+  async function deleteRegistratie(id: string) {
+    if (!confirm("Registratie verwijderen?")) return;
+    await fetch(`/api/crm?id=${id}&type=registratie`, { method: "DELETE", headers: headers() });
+    loadData();
+  }
+
+  // Update registratie
+  async function updateRegistratie(id: string, updates: { naam?: string; email?: string; rol?: string }) {
+    await fetch("/api/crm", {
+      method: "PUT",
+      headers: headers(),
+      body: JSON.stringify({ id, type: "registratie", ...updates }),
+    });
+    loadData();
+  }
+
   // Convert registratie to opportunity (prospect with bericht_gestuurd status)
   async function convertRegistratie(reg: Registratie) {
     const contactNaam = reg.naam || reg.email.split("@")[0]
@@ -476,17 +493,6 @@ export default function CRM() {
           />
           {tab === "opportunities" && (
             <>
-              <select
-                value={filter}
-                onChange={(e) => setFilter(e.target.value)}
-                className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-orange-400 cursor-pointer"
-              >
-                <option value="alle">Alle ATS</option>
-                <option value="carerix">Carerix</option>
-                <option value="mysolution">Mysolution</option>
-                <option value="bullhorn">Bullhorn</option>
-                <option value="byner">Byner</option>
-              </select>
               <div className="flex items-center gap-1 ml-auto text-xs text-gray-400">
                 <span>Sorteer:</span>
                 <button onClick={() => toggleSort("bedrijf")} className={`px-2 py-1 rounded cursor-pointer ${sortField === "bedrijf" ? "bg-gray-200 text-gray-700 font-medium" : "hover:bg-gray-100"}`}>
@@ -778,17 +784,34 @@ export default function CRM() {
                       <td className="px-4 py-3 text-xs text-gray-400">
                         {new Date(r.created_at).toLocaleDateString("nl-NL", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" })}
                       </td>
-                      <td className="px-4 py-3 text-right">
-                        {isAlreadyProspect ? (
-                          <span className="text-xs text-green-600 font-medium">✓ Opportunity</span>
-                        ) : (
+                      <td className="px-4 py-3">
+                        <div className="flex gap-2 items-center justify-end">
+                          {isAlreadyProspect ? (
+                            <span className="text-xs text-green-600 font-medium">✓ Opportunity</span>
+                          ) : (
+                            <button
+                              onClick={() => convertRegistratie(r)}
+                              className="text-xs px-3 py-1.5 bg-gray-900 text-white rounded-lg font-medium hover:bg-gray-800 transition-colors cursor-pointer"
+                            >
+                              → Opportunity
+                            </button>
+                          )}
                           <button
-                            onClick={() => convertRegistratie(r)}
-                            className="text-xs px-3 py-1.5 bg-gray-900 text-white rounded-lg font-medium hover:bg-gray-800 transition-colors cursor-pointer"
+                            onClick={() => {
+                              const nieuwNaam = prompt("Naam:", r.naam || "");
+                              if (nieuwNaam !== null) updateRegistratie(String(r.id), { naam: nieuwNaam });
+                            }}
+                            className="text-xs text-gray-400 hover:text-gray-700 cursor-pointer"
                           >
-                            → Opportunity
+                            Bewerk
                           </button>
-                        )}
+                          <button
+                            onClick={() => deleteRegistratie(String(r.id))}
+                            className="text-xs text-gray-300 hover:text-red-600 cursor-pointer"
+                          >
+                            Verwijder
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   );
