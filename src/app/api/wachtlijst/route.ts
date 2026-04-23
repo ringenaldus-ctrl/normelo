@@ -23,23 +23,17 @@ const TRAINING_APP_URL = "https://hireai-certified.vercel.app";
 export async function POST(request: Request) {
   try {
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-    const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
     const resendApiKey = process.env.RESEND_API_KEY;
 
-    if (!supabaseUrl || !anonKey) {
+    if (!supabaseUrl || !supabaseKey) {
       return Response.json(
         { error: "Server configuratie onvolledig." },
         { status: 500 }
       );
     }
 
-    // Anon key for wachtlijst (public table), service key for employees/tokens
-    const supabase = createClient(supabaseUrl, anonKey);
-    const supabaseAdmin = serviceKey ? createClient(supabaseUrl, serviceKey) : supabase;
-
-    const keyEnd = (serviceKey || "none").slice(-10);
-    console.log("Service key available:", !!serviceKey, "ends:", keyEnd);
+    const supabase = createClient(supabaseUrl, supabaseKey);
     const body = await request.json();
     const { email, bron, naam, organisatie, telefoon, rol } = body;
 
@@ -79,7 +73,7 @@ export async function POST(request: Request) {
     let debugInfo = "";
 
     // Check if employee already exists
-    const { data: existingEmployee, error: empLookupError } = await supabaseAdmin
+    const { data: existingEmployee, error: empLookupError } = await supabase
       .from("employees")
       .select("id")
       .eq("email", cleanEmail)
@@ -93,7 +87,7 @@ export async function POST(request: Request) {
     if (existingEmployee) {
       employeeId = existingEmployee.id;
       // Update name and role if changed
-      await supabaseAdmin.from("employees").update({
+      await supabase.from("employees").update({
         name: naam || cleanEmail.split("@")[0],
         roleId: trainingRoleId,
       }).eq("id", employeeId);
@@ -101,7 +95,7 @@ export async function POST(request: Request) {
     } else {
       console.log("No existing employee, creating new one for:", cleanEmail);
       // Ensure self-registration org exists
-      const { data: existingOrg, error: orgLookupError } = await supabaseAdmin
+      const { data: existingOrg, error: orgLookupError } = await supabase
         .from("organizations")
         .select("id")
         .eq("id", SELF_REG_ORG_ID)
@@ -110,7 +104,7 @@ export async function POST(request: Request) {
       if (orgLookupError) console.error("Org lookup error:", JSON.stringify(orgLookupError));
 
       if (!existingOrg) {
-        const { error: orgInsertError } = await supabaseAdmin.from("organizations").insert({
+        const { error: orgInsertError } = await supabase.from("organizations").insert({
           id: SELF_REG_ORG_ID,
           name: "Normelo — Zelfregistratie",
           type: "Zelfregistratie",
@@ -125,14 +119,14 @@ export async function POST(request: Request) {
       let orgId = SELF_REG_ORG_ID;
       if (organisatie && organisatie.trim()) {
         const customOrgId = `normelo-${organisatie.trim().toLowerCase().replace(/[^a-z0-9]/g, "-").slice(0, 40)}`;
-        const { data: namedOrg } = await supabaseAdmin
+        const { data: namedOrg } = await supabase
           .from("organizations")
           .select("id")
           .eq("id", customOrgId)
           .maybeSingle();
 
         if (!namedOrg) {
-          await supabaseAdmin.from("organizations").insert({
+          await supabase.from("organizations").insert({
             id: customOrgId,
             name: organisatie.trim(),
             type: "Uitzendbureau",
@@ -146,7 +140,7 @@ export async function POST(request: Request) {
 
       // Create employee
       employeeId = `normelo-${randomUUID().slice(0, 12)}`;
-      const { error: empError } = await supabaseAdmin.from("employees").insert({
+      const { error: empError } = await supabase.from("employees").insert({
         id: employeeId,
         name: naam || cleanEmail.split("@")[0],
         email: cleanEmail,
@@ -170,7 +164,7 @@ export async function POST(request: Request) {
       const resend = new Resend(resendApiKey);
 
       // Clean up expired unused tokens for this employee
-      await supabaseAdmin
+      await supabase
         .from("magic_link_tokens")
         .delete()
         .eq("employeeId", employeeId)
@@ -183,7 +177,7 @@ export async function POST(request: Request) {
       const expiresAt = new Date();
       expiresAt.setDate(expiresAt.getDate() + 7); // 7 days expiry
 
-      const { error: tokenError } = await supabaseAdmin.from("magic_link_tokens").insert({
+      const { error: tokenError } = await supabase.from("magic_link_tokens").insert({
         id: tokenId,
         token,
         employeeId,
