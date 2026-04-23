@@ -77,10 +77,10 @@ export default function RegistratieForm() {
           className={`w-full px-4 py-3 rounded-lg text-sm border border-border focus:outline-none focus:border-accent cursor-pointer ${rol ? "text-foreground" : "text-muted"}`}
         >
           <option value="" disabled>Wat is je rol?</option>
-          <option value="intercedent">Recruiter / Intercedent</option>
           <option value="hiringManager">Accountmanager</option>
-          <option value="hrCompliance">HR / Compliance</option>
           <option value="directie">Directie / Eigenaar</option>
+          <option value="hrCompliance">HR / Compliance</option>
+          <option value="intercedent">Recruiter / Intercedent</option>
         </select>
         <button
           type="submit"

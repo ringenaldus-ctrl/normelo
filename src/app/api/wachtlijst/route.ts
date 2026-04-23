@@ -94,7 +94,12 @@ export async function POST(request: Request) {
 
     if (existingEmployee) {
       employeeId = existingEmployee.id;
-      console.log("Existing employee found:", employeeId);
+      // Update name and role if changed
+      await supabaseAdmin.from("employees").update({
+        name: naam || cleanEmail.split("@")[0],
+        roleId: trainingRoleId,
+      }).eq("id", employeeId);
+      console.log("Existing employee updated:", employeeId);
     } else {
       console.log("No existing employee, creating new one for:", cleanEmail);
       // Ensure self-registration org exists
@@ -231,7 +236,7 @@ export async function POST(request: Request) {
         await resendNotify.emails.send({
           from: "Normelo <scan@normelo.com>",
           to: ["info@normelo.com"],
-          subject: `Nieuwe registratie: ${naam || email} — ${organisatie || "onbekend bureau"}`,
+          subject: `Nieuwe registratie: ${naam || email}`,
           html: `
 <!DOCTYPE html>
 <html><head><meta charset="utf-8"></head>
@@ -240,11 +245,7 @@ export async function POST(request: Request) {
   <table style="border-collapse:collapse;width:100%;">
     <tr><td style="padding:8px 12px 8px 0;font-weight:600;font-size:14px;vertical-align:top;width:120px;">Naam</td><td style="padding:8px 0;font-size:14px;">${naam || "—"}</td></tr>
     <tr><td style="padding:8px 12px 8px 0;font-weight:600;font-size:14px;vertical-align:top;">E-mail</td><td style="padding:8px 0;font-size:14px;"><a href="mailto:${email}">${email}</a></td></tr>
-    <tr><td style="padding:8px 12px 8px 0;font-weight:600;font-size:14px;vertical-align:top;">Organisatie</td><td style="padding:8px 0;font-size:14px;">${organisatie || "—"}</td></tr>
     <tr><td style="padding:8px 12px 8px 0;font-weight:600;font-size:14px;vertical-align:top;">Rol</td><td style="padding:8px 0;font-size:14px;">${rolLabel}</td></tr>
-    <tr><td style="padding:8px 12px 8px 0;font-weight:600;font-size:14px;vertical-align:top;">Bron</td><td style="padding:8px 0;font-size:14px;">${bron || "website"}</td></tr>
-    <tr><td style="padding:8px 12px 8px 0;font-weight:600;font-size:14px;vertical-align:top;">Employee</td><td style="padding:8px 0;font-size:14px;">${employeeId || "NIET AANGEMAAKT"}</td></tr>
-    <tr><td style="padding:8px 12px 8px 0;font-weight:600;font-size:14px;vertical-align:top;">Debug</td><td style="padding:8px 0;font-size:12px;color:#9ca3af;word-break:break-all;">${debugInfo || "geen errors"} | Key ends: ${keyEnd}</td></tr>
   </table>
 </body></html>`,
         });
