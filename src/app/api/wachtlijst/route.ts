@@ -46,18 +46,16 @@ export async function POST(request: Request) {
 
     const cleanEmail = email.trim().toLowerCase();
 
-    // 1. Save to wachtlijst (lead tracking) — upsert: update naam/rol bij herregistratie
-    const { error } = await supabase.from("training_wachtlijst").upsert({
+    // 1. Save to wachtlijst (lead tracking) — elke registratie wordt opgeslagen
+    const { error } = await supabase.from("training_wachtlijst").insert({
       email: cleanEmail,
       bron: bron || "website",
       naam: naam || null,
-      organisatie: organisatie || null,
-      telefoon: telefoon || null,
       rol: rol || null,
-    }, { onConflict: "email" });
+    });
 
     if (error) {
-      console.error("Supabase upsert error:", JSON.stringify(error));
+      console.error("Supabase insert error:", JSON.stringify(error));
       return Response.json(
         { error: "Er ging iets mis." },
         { status: 500 }
