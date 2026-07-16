@@ -1,0 +1,6 @@
+.DS_Store
+clients/*/
+!clients/pipeline.md
+!clients/.gitkeep
+.env
+*.log
