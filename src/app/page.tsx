@@ -14,7 +14,7 @@ const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "Normelo",
-  url: "https://normelo.com",
+  url: "https://normelo.nl",
   description:
     "Normelo helpt uitzendbureaus met de EU AI Act: Quick Scan, gratis training en een AI-register om compliance te regelen.",
 };
@@ -23,7 +23,7 @@ const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: "Normelo",
-  url: "https://normelo.com",
+  url: "https://normelo.nl",
   description:
     "EU AI Act compliance voor uitzendbureaus. Quick Scan, gratis training en het Normelo AI-register.",
 };

@@ -32,11 +32,11 @@ const articleSchema = {
   headline: "Hoog-risico AI-systemen volgens de EU AI Act",
   description:
     "Welke AI-systemen zijn hoog-risico onder de EU AI Act? Volledig overzicht van alle categorieën, verplichtingen en voorbeelden.",
-  author: { "@type": "Organization", name: "Normelo", url: "https://normelo.com" },
-  publisher: { "@type": "Organization", name: "Normelo", url: "https://normelo.com" },
+  author: { "@type": "Organization", name: "Normelo", url: "https://normelo.nl" },
+  publisher: { "@type": "Organization", name: "Normelo", url: "https://normelo.nl" },
   datePublished: "2026-04-01",
   dateModified: "2026-04-01",
-  mainEntityOfPage: "https://normelo.com/hoog-risico",
+  mainEntityOfPage: "https://normelo.nl/hoog-risico",
 };
 
 const faqSchema = {

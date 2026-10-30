@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { aanmelden } from "@/content/aanbod";
 
 type Props = {
@@ -17,9 +16,9 @@ export default function AanmeldenCta({
 }: Props) {
   return (
     <div>
-      <Link href={aanmelden.href} className={className}>
+      <a href={aanmelden.href} className={className}>
         {label ?? aanmelden.label}
-      </Link>
+      </a>
       {toelichting ? <p className={noteClassName}>{aanmelden.toelichting}</p> : null}
     </div>
   );

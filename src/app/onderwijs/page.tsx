@@ -14,11 +14,11 @@ const articleSchema = {
   headline: "EU AI Act & Onderwijs",
   description:
     "Wat betekent de EU AI Act voor scholen, universiteiten en onderwijsinstellingen? AI voor toelating en examenbeoordeling onder de EU AI Act.",
-  author: { "@type": "Organization", name: "Normelo", url: "https://normelo.com" },
-  publisher: { "@type": "Organization", name: "Normelo", url: "https://normelo.com" },
+  author: { "@type": "Organization", name: "Normelo", url: "https://normelo.nl" },
+  publisher: { "@type": "Organization", name: "Normelo", url: "https://normelo.nl" },
   datePublished: "2026-04-01",
   dateModified: "2026-04-01",
-  mainEntityOfPage: "https://normelo.com/onderwijs",
+  mainEntityOfPage: "https://normelo.nl/onderwijs",
 };
 
 const faqItems = [

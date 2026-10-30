@@ -21,8 +21,9 @@ export type BetaaldPlan = {
   uitgelicht?: boolean;
 };
 
+/** Enige aanmeldroute: het platform op normelo.nl. */
 export const aanmelden = {
-  href: "/aanvragen",
+  href: "https://normelo.nl/aanmelden",
   label: "Gratis aanmelden",
   toelichting:
     "Je meldt je organisatie aan met bedrijfsnaam, aantal medewerkers en een contactpersoon.",

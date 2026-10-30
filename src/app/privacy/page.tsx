@@ -19,7 +19,7 @@ export default function Privacy() {
           <p>
             Normelo respecteert je privacy en verwerkt persoonsgegevens in overeenstemming met
             de Algemene verordening gegevensbescherming (AVG). Deze verklaring beschrijft welke
-            gegevens we verzamelen via normelo.com, waarom we dat doen, hoe lang we ze bewaren,
+            gegevens we verzamelen via normelo.nl, waarom we dat doen, hoe lang we ze bewaren,
             met wie we ze delen en welke rechten je hebt.
           </p>
         </section>
@@ -27,9 +27,8 @@ export default function Privacy() {
         <section>
           <h2 className="text-xl font-bold mb-3">1. Wie is verantwoordelijk?</h2>
           <p className="mb-2">
-            Verwerkingsverantwoordelijke voor de gegevens die via deze website worden verzameld
-            is Normelo, gevestigd in Nederland. Voor privacyvragen, inzageverzoeken of klachten
-            kun je contact opnemen via{" "}
+            Verwerkingsverantwoordelijke is Gerard Ringenaldus, handelend onder de naam Normelo.
+            Voor privacyvragen, inzageverzoeken of klachten kun je contact opnemen via{" "}
             <a href="mailto:info@normelo.com" className="text-accent hover:underline">
               info@normelo.com
             </a>
@@ -50,10 +49,11 @@ export default function Privacy() {
           </p>
           <div className="space-y-4">
             <div>
-              <p className="font-semibold mb-1">Via het aanmeldformulier</p>
+              <p className="font-semibold mb-1">Via het aanmeldformulier op normelo.nl/aanmelden</p>
               <p className="text-sm text-muted">
                 Bedrijfsnaam, aantal medewerkers, naam van de contactpersoon en het
-                e-mailadres van die contactpersoon.
+                e-mailadres van die contactpersoon. Dat formulier staat op het platform,
+                niet op deze uitlegsite. Dezelfde verwerkingsverantwoordelijke ontvangt die gegevens.
               </p>
             </div>
             <div>
@@ -79,23 +79,19 @@ export default function Privacy() {
           <h2 className="text-xl font-bold mb-3">3. Waarom verwerken we ze?</h2>
           <div className="space-y-3">
             <p>
-              <span className="font-semibold">Je gratis aanmelding verwerken en toegang tot het platform geven.</span>{" "}
-              Grondslag: de dienst die je zelf aanvraagt (art. 6 lid 1 sub b AVG).
+              <span className="font-semibold">Je gratis account aanmaken en de gevraagde dienst leveren.</span>{" "}
+              Grondslag: uitvoering van de dienst die je zelf aanvraagt (art. 6 lid 1 sub b AVG).
+              Dit geldt voor de aanmelding op normelo.nl/aanmelden.
             </p>
             <p>
-              <span className="font-semibold">Je Quick Scan-resultaat toesturen.</span>{" "}
-              Grondslag: jouw toestemming, door bewust je e-mailadres in te voeren (art. 6 lid 1 sub a AVG).
-              Je kunt deze toestemming op elk moment intrekken.
+              <span className="font-semibold">Je Quick Scan-resultaat toesturen en daar zo nodig op volgen.</span>{" "}
+              Grondslag: jouw toestemming, via het verplichte keuzevak bij het formulier (art. 6 lid 1 sub a AVG).
+              Je kunt deze toestemming op elk moment intrekken via info@normelo.com.
             </p>
             <p>
               <span className="font-semibold">Inzicht in websitegebruik en beveiliging.</span>{" "}
               Grondslag: ons gerechtvaardigd belang om de site te laten werken en misbruik
               tegen te gaan (art. 6 lid 1 sub f AVG).
-            </p>
-            <p>
-              <span className="font-semibold">Wettelijke verplichtingen.</span> Zoals een
-              administratie voeren voor de Belastingdienst als er een overeenkomst tot stand
-              komt (art. 6 lid 1 sub c AVG).
             </p>
           </div>
           <p className="mt-4 text-sm text-muted">
@@ -110,11 +106,10 @@ export default function Privacy() {
             We bewaren gegevens niet langer dan nodig voor het doel waarvoor ze zijn verzameld.
           </p>
           <p className="mb-2">
-            Aanmeld- en Quick Scan-gegevens bewaren we zolang het account bestaat, en anders
-            uiterlijk 24 maanden na het laatste contactmoment. Ontstaat er later een betaalde
-            opdracht, dan bewaren we de bijbehorende administratie zolang die loopt en daarna
-            tot 7 jaar — voor zover de Belastingdienst dat vereist.
-            Technische logs worden doorgaans binnen 30 dagen overschreven.
+            Accountgegevens bewaren we zolang het account bestaat. Vraag je verwijdering of
+            sluit je het account, dan wissen we ze. Quick Scan-gegevens wissen we als je
+            je toestemming intrekt, en in elk geval uiterlijk 24 maanden na het laatste
+            contactmoment. Technische logs worden doorgaans binnen 30 dagen overschreven.
           </p>
           <p>
             Je kunt altijd vragen om eerdere verwijdering; zie verderop &ldquo;Jouw rechten&rdquo;.

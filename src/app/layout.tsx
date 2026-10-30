@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Analytics } from "@vercel/analytics/next";
 import NavLink from "./components/NavLink";
-import { gerardRegel } from "@/content/aanbod";
+import { aanmelden, gerardRegel } from "@/content/aanbod";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   },
   description:
     "Normelo is gratis: rolgerichte AI-geletterdheid, toets, certificaat en een AI-register. Meld je organisatie aan en start direct.",
-  metadataBase: new URL("https://normelo.com"),
+  metadataBase: new URL("https://normelo.nl"),
   openGraph: {
     type: "website",
     locale: "nl_NL",
@@ -32,7 +32,9 @@ function Header() {
         <nav className="flex gap-6 text-sm items-center">
           <NavLink href="/quick-scan">Quick Scan</NavLink>
           <NavLink href="/ai-register">AI-register</NavLink>
-          <NavLink href="/aanvragen">Gratis aanmelden</NavLink>
+          <a href={aanmelden.href} className="text-muted hover:text-primary no-underline">
+            Gratis aanmelden
+          </a>
           <NavLink href="/uitzendbranche">Uitzendbranche</NavLink>
           <NavLink href="/hoog-risico">Hoog-risico AI</NavLink>
           <NavLink href="/faq">FAQ</NavLink>

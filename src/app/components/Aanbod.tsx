@@ -1,5 +1,22 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { aanbod, type BetaaldPlan } from "@/content/aanbod";
+import AanmeldenCta from "./AanmeldenCta";
+
+function PlanLink({ href, className, children }: { href: string; className: string; children: ReactNode }) {
+  if (href.startsWith("http")) {
+    return (
+      <a href={href} className={className}>
+        {children}
+      </a>
+    );
+  }
+  return (
+    <Link href={href} className={className}>
+      {children}
+    </Link>
+  );
+}
 
 function PlanKaart({ plan }: { plan: BetaaldPlan }) {
   return (
@@ -29,7 +46,7 @@ function PlanKaart({ plan }: { plan: BetaaldPlan }) {
           </li>
         ))}
       </ul>
-      <Link
+      <PlanLink
         href={plan.href}
         className={`block text-center px-5 py-3 rounded-lg font-semibold no-underline transition-colors ${
           plan.uitgelicht
@@ -38,7 +55,7 @@ function PlanKaart({ plan }: { plan: BetaaldPlan }) {
         }`}
       >
         {plan.cta}
-      </Link>
+      </PlanLink>
     </div>
   );
 }
@@ -67,13 +84,10 @@ export default function AanbodSectie() {
         <p className="text-sm font-medium text-accent mb-1 tracking-wide uppercase">{aanbod.label}</p>
         <p className="text-3xl font-bold mb-3">Gratis</p>
         <p className="text-foreground leading-relaxed mb-5">{aanbod.tekst}</p>
-        <Link
-          href={aanbod.href}
+        <AanmeldenCta
+          label={aanbod.cta}
           className="inline-block px-6 py-3 bg-accent text-white rounded-lg font-semibold hover:bg-accent-hover transition-colors no-underline"
-        >
-          {aanbod.cta}
-        </Link>
-        <p className="text-sm text-muted mt-3">{aanbod.toelichting}</p>
+        />
       </div>
     </section>
   );

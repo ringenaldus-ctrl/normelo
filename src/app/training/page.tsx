@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import RegistratieForm from "../components/RegistratieForm";
+import AanmeldenCta from "../components/AanmeldenCta";
 
 export const metadata: Metadata = {
   title: "Gratis EU AI Act training voor uitzendbureaus",
@@ -28,7 +28,10 @@ export default function Training() {
             </p>
           </div>
           <div className="md:mt-8">
-            <RegistratieForm />
+            <AanmeldenCta
+              label="Start gratis"
+              className="inline-block px-6 py-3 bg-accent text-white rounded-lg font-semibold hover:bg-accent-hover transition-colors no-underline"
+            />
           </div>
         </div>
       </section>

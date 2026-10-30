@@ -14,11 +14,11 @@ const articleSchema = {
   headline: "EU AI Act & Industrie en Manufacturing",
   description:
     "Wat betekent de EU AI Act voor fabrikanten en industriële bedrijven? AI in machines, robotica en productveiligheid onder de EU AI Act.",
-  author: { "@type": "Organization", name: "Normelo", url: "https://normelo.com" },
-  publisher: { "@type": "Organization", name: "Normelo", url: "https://normelo.com" },
+  author: { "@type": "Organization", name: "Normelo", url: "https://normelo.nl" },
+  publisher: { "@type": "Organization", name: "Normelo", url: "https://normelo.nl" },
   datePublished: "2026-04-01",
   dateModified: "2026-04-01",
-  mainEntityOfPage: "https://normelo.com/industrie",
+  mainEntityOfPage: "https://normelo.nl/industrie",
 };
 
 const faqItems = [

@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://normelo.com";
+  const baseUrl = "https://normelo.nl";
 
   return [
     {
@@ -45,12 +45,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/aanvragen`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9,
     },
     {
       url: `${baseUrl}/training`,

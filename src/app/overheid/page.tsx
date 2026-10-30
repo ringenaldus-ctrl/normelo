@@ -14,11 +14,11 @@ const articleSchema = {
   headline: "EU AI Act & de Overheid",
   description:
     "Wat betekent de EU AI Act voor gemeenten, provincies en rijksoverheid? AI voor uitkeringen, handhaving en publieke dienstverlening onder de EU AI Act.",
-  author: { "@type": "Organization", name: "Normelo", url: "https://normelo.com" },
-  publisher: { "@type": "Organization", name: "Normelo", url: "https://normelo.com" },
+  author: { "@type": "Organization", name: "Normelo", url: "https://normelo.nl" },
+  publisher: { "@type": "Organization", name: "Normelo", url: "https://normelo.nl" },
   datePublished: "2026-04-01",
   dateModified: "2026-04-01",
-  mainEntityOfPage: "https://normelo.com/overheid",
+  mainEntityOfPage: "https://normelo.nl/overheid",
 };
 
 const faqItems = [

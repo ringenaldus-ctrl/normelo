@@ -67,11 +67,11 @@ const articleSchema = {
   headline: "EU AI Act tijdlijn — alle deadlines op een rij",
   description:
     "Wanneer gaat de EU AI Act in? Overzicht van de data tot en met 2028, inclusief het uitstel van de hoog-risico-verplichtingen.",
-  author: { "@type": "Organization", name: "Normelo", url: "https://normelo.com" },
-  publisher: { "@type": "Organization", name: "Normelo", url: "https://normelo.com" },
+  author: { "@type": "Organization", name: "Normelo", url: "https://normelo.nl" },
+  publisher: { "@type": "Organization", name: "Normelo", url: "https://normelo.nl" },
   datePublished: "2026-04-01",
   dateModified: "2026-10-30",
-  mainEntityOfPage: "https://normelo.com/tijdlijn",
+  mainEntityOfPage: "https://normelo.nl/tijdlijn",
 };
 
 const faqSchema = {

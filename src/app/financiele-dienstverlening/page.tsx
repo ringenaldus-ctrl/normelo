@@ -14,11 +14,11 @@ const articleSchema = {
   headline: "EU AI Act & Financiële Dienstverlening",
   description:
     "Wat betekent de EU AI Act voor banken en financiële instellingen? AI voor kredietbeoordeling en fraude-detectie onder de EU AI Act.",
-  author: { "@type": "Organization", name: "Normelo", url: "https://normelo.com" },
-  publisher: { "@type": "Organization", name: "Normelo", url: "https://normelo.com" },
+  author: { "@type": "Organization", name: "Normelo", url: "https://normelo.nl" },
+  publisher: { "@type": "Organization", name: "Normelo", url: "https://normelo.nl" },
   datePublished: "2026-04-01",
   dateModified: "2026-04-01",
-  mainEntityOfPage: "https://normelo.com/financiele-dienstverlening",
+  mainEntityOfPage: "https://normelo.nl/financiele-dienstverlening",
 };
 
 const faqItems = [

@@ -2,6 +2,8 @@
 
 import { useState, useRef } from "react";
 import Link from "next/link";
+import { aanmelden } from "@/content/aanbod";
+import Toestemming from "../components/Toestemming";
 
 type Step = "systemen" | "ats" | "shadow" | "beslissingen" | "toezicht" | "transparantie" | "resultaat";
 
@@ -46,6 +48,7 @@ export default function QuickScan() {
   });
 
   const [email, setEmail] = useState("");
+  const [toestemming, setToestemming] = useState(false);
   const [emailStatus, setEmailStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const emailInputRef = useRef<HTMLInputElement>(null);
 
@@ -108,13 +111,14 @@ export default function QuickScan() {
   function restart() {
     setAnswers({ systemen: [], ats: "", shadow: "", beslissingen: "", toezicht: "", transparantie: "" });
     setEmail("");
+    setToestemming(false);
     setEmailStatus("idle");
     setStep("systemen");
   }
 
   async function submitEmail(e: React.FormEvent) {
     e.preventDefault();
-    if (!email || !email.includes("@")) return;
+    if (!email || !email.includes("@") || !toestemming) return;
     setEmailStatus("sending");
     try {
       const res = await fetch("/api/quickscan-lead", {
@@ -122,6 +126,7 @@ export default function QuickScan() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email,
+          toestemming: true,
           sector: "uitzendbranche",
           risico_niveau: risicoNiveau,
           hoog_risico_systemen: hoogRisicoSystemen,
@@ -532,17 +537,17 @@ export default function QuickScan() {
                 </p>
 
                 <div className="grid gap-4 md:grid-cols-2">
-                  <Link href="/aanvragen" className="block p-6 rounded-xl bg-gradient-to-br from-gray-900 to-gray-800 text-white no-underline hover:from-gray-800 hover:to-gray-700 transition-all group">
+                  <a href={aanmelden.href} className="block p-6 rounded-xl bg-gradient-to-br from-gray-900 to-gray-800 text-white no-underline hover:from-gray-800 hover:to-gray-700 transition-all group">
                     <p className="text-sm font-medium text-orange-300 mb-2 tracking-wide uppercase">Stap 1</p>
-                    <p className="font-semibold text-lg mb-2">Start de gratis training</p>
+                    <p className="font-semibold text-lg mb-2">Start gratis</p>
                     <p className="text-sm text-gray-300 leading-relaxed mb-4">
-                      Maatregelen voor AI-geletterdheid — artikel 4 geldt sinds februari 2025, zonder een vast niveau per persoon.
-                      Gratis, in eigen tempo, specifiek voor jouw rol in de uitzendbranche.
+                      Training, toets en certificaat zitten in het gratis platform.
                     </p>
                     <span className="inline-block px-5 py-2.5 bg-accent text-white rounded-lg text-sm font-medium group-hover:bg-orange-600 transition-colors">
-                      Start de training →
+                      Gratis aanmelden
                     </span>
-                  </Link>
+                    <p className="text-xs text-gray-400 mt-3">{aanmelden.toelichting}</p>
+                  </a>
 
                   <Link href="/ai-register" className="block p-6 rounded-xl border-2 border-accent no-underline hover:shadow-lg transition-all group bg-surface">
                     <p className="text-sm font-medium text-accent mb-2 tracking-wide uppercase">Stap 2</p>
@@ -583,11 +588,18 @@ export default function QuickScan() {
                     />
                     <button
                       type="submit"
-                      disabled={emailStatus === "sending"}
+                      disabled={emailStatus === "sending" || !toestemming}
                       className="px-5 py-3 bg-accent text-white rounded-lg font-medium hover:bg-accent-hover transition-colors disabled:opacity-60 cursor-pointer whitespace-nowrap"
                     >
                       {emailStatus === "sending" ? "Versturen..." : "Verstuur resultaat"}
                     </button>
+                  </div>
+                  <div className="mt-3">
+                    <Toestemming
+                      checked={toestemming}
+                      onChange={setToestemming}
+                      doel="mij het Quick Scan-resultaat toe te sturen en daar zo nodig op te volgen"
+                    />
                   </div>
                   {emailStatus === "error" && (
                     <p className="text-sm text-red-600 mt-2">

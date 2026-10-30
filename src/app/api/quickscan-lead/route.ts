@@ -3,6 +3,25 @@ import { Resend } from "resend";
 
 export async function POST(request: Request) {
   try {
+    const body = await request.json();
+
+    const { email, sector, risico_niveau, hoog_risico_systemen, ats_systeem, antwoorden, toestemming } =
+      body;
+
+    if (toestemming !== true) {
+      return Response.json(
+        { error: "Toestemming is verplicht." },
+        { status: 400 }
+      );
+    }
+
+    if (!email || typeof email !== "string" || !email.includes("@")) {
+      return Response.json(
+        { error: "Ongeldig e-mailadres" },
+        { status: 400 }
+      );
+    }
+
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
     const resendApiKey = process.env.RESEND_API_KEY;
@@ -15,18 +34,6 @@ export async function POST(request: Request) {
     }
 
     const supabase = createClient(supabaseUrl, supabaseKey);
-
-    const body = await request.json();
-
-    const { email, sector, risico_niveau, hoog_risico_systemen, ats_systeem, antwoorden } =
-      body;
-
-    if (!email || typeof email !== "string" || !email.includes("@")) {
-      return Response.json(
-        { error: "Ongeldig e-mailadres" },
-        { status: 400 }
-      );
-    }
 
     // Save to Supabase
     const { error } = await supabase.from("quickscan_leads").insert({
@@ -273,12 +280,12 @@ export async function POST(request: Request) {
     <div style="background:#1e2a3a;border-radius:8px;padding:24px;text-align:center;">
       <p style="font-size:16px;font-weight:bold;color:white;margin:0 0 8px;">Normelo is gratis</p>
       <p style="font-size:13px;color:#94a3b8;margin:0 0 16px;">Meld je organisatie aan met bedrijfsnaam, aantal medewerkers en een contactpersoon. Daarna open je training, toets en het AI-register.</p>
-      <a href="https://normelo.com/aanvragen" style="display:inline-block;background:#e8612d;color:white;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:600;font-size:14px;">Gratis aanmelden →</a>
+      <a href="https://normelo.nl/aanmelden" style="display:inline-block;background:#e8612d;color:white;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:600;font-size:14px;">Gratis aanmelden →</a>
     </div>
   </div>
 
   <div style="padding:20px 0;border-top:1px solid #f0f0f0;text-align:center;">
-    <p style="font-size:12px;color:#9ca3af;margin:0;">Je ontvangt deze e-mail omdat je de EU AI Act Quick Scan hebt ingevuld op normelo.com. We sturen je geen verdere e-mails.</p>
+    <p style="font-size:12px;color:#9ca3af;margin:0;">Je ontvangt deze e-mail omdat je de EU AI Act Quick Scan hebt ingevuld op normelo.nl en toestemming gaf om het resultaat toe te sturen. We sturen je geen verdere e-mails.</p>
     <p style="font-size:12px;color:#9ca3af;margin:8px 0 0;">© ${new Date().getFullYear()} Normelo</p>
   </div>
 
