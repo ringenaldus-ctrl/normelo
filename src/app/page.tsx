@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Script from "next/script";
 import AanmeldenCta from "./components/AanmeldenCta";
-import { ARTIKEL_4_KORT, HOOG_RISICO_ZIN } from "@/content/ai-act";
+import { HOOG_RISICO_BIJLAGE_III } from "@/content/ai-act";
 
 export const metadata: Metadata = {
   title: "Normelo — EU AI Act compliance voor uitzendbureaus",
@@ -52,9 +52,11 @@ export default function Home() {
           Je ATS, je matching-tool, misschien ChatGPT — allemaal onder de EU AI Act.
         </p>
         <p className="text-sm text-orange-300 font-medium mb-2">
-          {ARTIKEL_4_KORT}
+          Artikel 4 geldt sinds februari 2025: maatregelen voor AI-geletterdheid, zonder een vast niveau per persoon.
         </p>
-        <p className="text-sm text-gray-400 mb-8">{HOOG_RISICO_ZIN}</p>
+        <p className="text-sm text-gray-400 mb-8">
+          Hoog-risico-eisen (Bijlage III) gelden vanaf {HOOG_RISICO_BIJLAGE_III}.
+        </p>
         <div className="flex flex-col sm:flex-row gap-4 items-start">
           <AanmeldenCta
             label="Start gratis"
