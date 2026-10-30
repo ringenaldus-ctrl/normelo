@@ -50,7 +50,7 @@ const faqItems = [
   {
     question: "Wanneer moet de financiële sector EU AI Act compliant zijn?",
     answer:
-      "De verplichtingen voor hoog-risico AI-systemen uit Bijlage III, waaronder AI voor kredietbeoordeling, worden van toepassing in augustus 2026. Financiële instellingen moeten vanaf dat moment aantoonbaar voldoen aan alle eisen rond risicobeheer, data governance, menselijk toezicht en transparantie. Gegeven de complexiteit van financiële AI-systemen en de overlap met bestaande regelgeving is het aan te raden om nu al met de voorbereiding te beginnen.",
+      "De verplichtingen voor hoog-risico AI-systemen uit Bijlage III, waaronder AI voor kredietbeoordeling, gelden vanaf 2 december 2027. De Digital Omnibus (Verordening (EU) 2026/1744) heeft de eerdere datum van 2 augustus 2026 verschoven. Financiële instellingen moeten vanaf 2 december 2027 aantoonbaar voldoen aan de eisen rond risicobeheer, data governance, menselijk toezicht en transparantie. Gegeven de complexiteit van financiële AI-systemen en de overlap met bestaande regelgeving is het verstandig om nu al te beginnen met de voorbereiding.",
   },
 ];
 

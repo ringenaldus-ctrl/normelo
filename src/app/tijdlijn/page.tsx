@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Script from "next/script";
+import { BIJLAGE_I_ZIN, HOOG_RISICO_ZIN } from "@/content/ai-act";
 
 export const metadata: Metadata = {
   title: "EU AI Act tijdlijn — alle deadlines op een rij",
   description:
-    "Wanneer gaat de EU AI Act in? Overzicht van alle belangrijke deadlines: van de inwerkingtreding in 2024 tot de volledige toepassing in 2027.",
+    "Wanneer gaat de EU AI Act in? Overzicht van de data, inclusief het uitstel van de hoog-risico-verplichtingen tot 2 december 2027.",
 };
 
 const events = [
@@ -39,16 +40,23 @@ const events = [
   },
   {
     date: "2 augustus 2026",
-    label: "Hoog-risico AI-systemen (Bijlage III)",
+    label: "Algemene toepassing",
     description:
-      "Dit is de belangrijkste deadline voor de meeste organisaties. De volledige verplichtingen voor hoog-risico AI-systemen uit Bijlage III worden van toepassing. Dit betreft AI voor werving en selectie, kredietbeoordeling, onderwijs, rechtshandhaving, migratie en meer. Zowel providers als deployers moeten vanaf dit moment aan alle eisen voldoen: risicobeheer, data governance, technische documentatie, menselijk toezicht, transparantie, conformiteitsbeoordeling en registratie in de EU-database.",
-    status: "critical" as const,
+      "De AI-verordening is in het algemeen van toepassing. De verplichtingen voor hoog-risico AI-systemen uit hoofdstuk III vallen hier niet onder. Die zijn uitgesteld door de Digital Omnibus, Verordening (EU) 2026/1744.",
+    status: "passed" as const,
   },
   {
-    date: "2 augustus 2027",
+    date: "2 december 2027",
+    label: "Hoog-risico AI-systemen (Bijlage III)",
+    description:
+      "Vanaf deze datum gelden de verplichtingen voor hoog-risico AI-systemen uit Bijlage III, zoals AI voor werving en selectie, kredietbeoordeling, onderwijs, rechtshandhaving en migratie. Zowel providers als deployers moeten dan voldoen aan de eisen voor risicobeheer, data governance, technische documentatie, menselijk toezicht, transparantie, conformiteitsbeoordeling en registratie in de EU-database. De oorspronkelijke datum was 2 augustus 2026.",
+    status: "upcoming" as const,
+  },
+  {
+    date: "2 augustus 2028",
     label: "Hoog-risico AI in gereguleerde producten (Bijlage I)",
     description:
-      "De verplichtingen voor hoog-risico AI-systemen die als veiligheidscomponent in gereguleerde producten worden ingebouwd (Bijlage I) worden van toepassing. Dit betreft producten die al onder bestaande EU-wetgeving vallen, zoals medische hulpmiddelen, machines, speelgoed, liften, auto's en luchtvaartapparatuur. Deze langere overgangstermijn geeft fabrikanten extra tijd om hun producten en conformiteitsprocessen aan te passen.",
+      "De verplichtingen voor hoog-risico AI die als veiligheidscomponent in gereguleerde producten zit (Bijlage I) worden van toepassing. Dit betreft producten die al onder bestaande EU-wetgeving vallen, zoals medische hulpmiddelen, machines, speelgoed, liften en luchtvaartapparatuur. De oorspronkelijke datum was 2 augustus 2027.",
     status: "upcoming" as const,
   },
 ];
@@ -58,11 +66,11 @@ const articleSchema = {
   "@type": "Article",
   headline: "EU AI Act tijdlijn — alle deadlines op een rij",
   description:
-    "Wanneer gaat de EU AI Act in? Overzicht van alle belangrijke deadlines van 2024 tot 2027.",
+    "Wanneer gaat de EU AI Act in? Overzicht van de data tot en met 2028, inclusief het uitstel van de hoog-risico-verplichtingen.",
   author: { "@type": "Organization", name: "Normelo", url: "https://normelo.com" },
   publisher: { "@type": "Organization", name: "Normelo", url: "https://normelo.com" },
   datePublished: "2026-04-01",
-  dateModified: "2026-04-01",
+  dateModified: "2026-10-30",
   mainEntityOfPage: "https://normelo.com/tijdlijn",
 };
 
@@ -75,7 +83,7 @@ const faqSchema = {
       name: "Wanneer gaat de EU AI Act in?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "De EU AI Act is op 1 augustus 2024 in werking getreden. De verplichtingen worden stapsgewijs van toepassing: verboden AI-praktijken sinds februari 2025, general-purpose AI vanaf augustus 2025, hoog-risico AI-systemen (Bijlage III) vanaf augustus 2026, en hoog-risico AI in gereguleerde producten (Bijlage I) vanaf augustus 2027.",
+        text: "De EU AI Act is op 1 augustus 2024 in werking getreden. De verplichtingen worden stapsgewijs van toepassing: verboden AI-praktijken en artikel 4 sinds februari 2025, general-purpose AI vanaf augustus 2025, algemene toepassing vanaf 2 augustus 2026. Hoog-risico AI-systemen (Bijlage III) gelden vanaf 2 december 2027, en hoog-risico AI in gereguleerde producten (Bijlage I) vanaf 2 augustus 2028.",
       },
     },
     {
@@ -83,7 +91,7 @@ const faqSchema = {
       name: "Wanneer moet mijn organisatie EU AI Act compliant zijn?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Voor de meeste organisaties die AI-systemen gebruiken voor werving, selectie, kredietbeoordeling of vergelijkbare toepassingen is de deadline augustus 2026. Vanaf dat moment moeten alle verplichtingen voor hoog-risico AI-systemen uit Bijlage III zijn geïmplementeerd, inclusief menselijk toezicht, transparantie en risicobeheer.",
+        text: "Voor organisaties die AI-systemen gebruiken voor werving, selectie, kredietbeoordeling of vergelijkbare toepassingen geldt Bijlage III vanaf 2 december 2027. Vanaf dat moment moeten de verplichtingen voor die hoog-risico AI-systemen zijn geïmplementeerd, inclusief menselijk toezicht, transparantie en risicobeheer. Artikel 4 over AI-geletterdheid geldt al sinds 2 februari 2025, in de versoepelde tekst van 27 juli 2026.",
       },
     },
     {
@@ -91,22 +99,20 @@ const faqSchema = {
       name: "Wat zijn de EU AI Act deadlines voor 2026?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "In 2026 zijn er twee belangrijke deadlines. Op 2 februari 2026 moet de governance-structuur operationeel zijn, inclusief nationale toezichthouders. Op 2 augustus 2026 worden de volledige verplichtingen voor hoog-risico AI-systemen (Bijlage III) van toepassing, waaronder AI voor werving en selectie, kredietbeoordeling en onderwijs.",
+        text: "Op 2 februari 2026 moest de governance-structuur operationeel zijn. Op 2 augustus 2026 werd de verordening in het algemeen van toepassing. De hoog-risico-verplichtingen voor Bijlage III, waaronder werving, selectie, kredietbeoordeling en onderwijs, gelden pas vanaf 2 december 2027.",
       },
     },
   ],
 };
 
-function StatusBadge({ status }: { status: "passed" | "upcoming" | "critical" }) {
+function StatusBadge({ status }: { status: "passed" | "upcoming" }) {
   const styles = {
     passed: "bg-gray-100 text-gray-600",
     upcoming: "bg-blue-50 text-blue-700",
-    critical: "bg-red-50 text-red-700 font-semibold",
   };
   const labels = {
     passed: "Verstreken",
     upcoming: "Aankomend",
-    critical: "Belangrijke deadline",
   };
   return (
     <span className={`text-xs px-2 py-1 rounded ${styles[status]}`}>
@@ -136,8 +142,8 @@ export default function Tijdlijn() {
           </h1>
           <p className="text-lg text-muted max-w-2xl leading-relaxed">
             De EU AI Act is op 1 augustus 2024 in werking getreden en wordt stapsgewijs van
-            toepassing. De belangrijkste deadline voor organisaties die AI-systemen inzetten
-            voor werving, selectie of beoordeling is augustus 2026. Hieronder alle data op een rij.
+            toepassing. Voor organisaties die AI inzetten voor werving, selectie of beoordeling
+            gelden de hoog-risico-verplichtingen vanaf 2 december 2027. Hieronder de data.
           </p>
         </section>
 
@@ -147,7 +153,7 @@ export default function Tijdlijn() {
             {events.map((event, index) => (
               <div
                 key={index}
-                className={`flex gap-6 items-start ${event.status === "critical" ? "bg-red-50/50 -mx-4 px-4 py-4 rounded-lg border border-red-100" : ""}`}
+                className="flex gap-6 items-start"
               >
                 <div className="flex-shrink-0 w-36">
                   <p className="text-sm font-mono text-accent">{event.date}</p>
@@ -166,12 +172,11 @@ export default function Tijdlijn() {
         <section className="py-12 border-b border-border">
           <h2 className="text-2xl font-bold mb-4">Wat betekent dit voor jou?</h2>
           <p className="text-foreground leading-relaxed mb-4">
-            Als je AI-systemen gebruikt voor werving en selectie, personeelsbeoordeling,
-            kredietbeoordeling of vergelijkbare toepassingen, is augustus 2026 jouw deadline.
-            Dat is over minder dan vijf maanden. De voorbereidingen kosten tijd:
-            inventarisatie van je AI-systemen, gesprekken met leveranciers, het opzetten
-            van interne processen voor menselijk toezicht, en het informeren van kandidaten
-            en medewerkers.
+            Gebruik je AI voor werving en selectie, personeelsbeoordeling, kredietbeoordeling
+            of een vergelijkbare toepassing, dan is 2 december 2027 de datum voor de
+            hoog-risico-verplichtingen uit Bijlage III. {HOOG_RISICO_ZIN} {BIJLAGE_I_ZIN}{" "}
+            De voorbereiding kost tijd: inventarisatie van je AI-systemen, gesprekken met
+            leveranciers, menselijk toezicht, en het informeren van de mensen die het raakt.
           </p>
           <p className="text-foreground leading-relaxed mb-4">
             Organisaties die nu beginnen met de voorbereiding hebben een duidelijk voordeel.

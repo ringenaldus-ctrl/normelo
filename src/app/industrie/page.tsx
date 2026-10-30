@@ -55,7 +55,7 @@ const faqItems = [
   {
     question: "Wanneer moet de industrie EU AI Act compliant zijn?",
     answer:
-      "AI-systemen die als veiligheidscomponent in gereguleerde producten zitten (Bijlage I, waaronder machines en robots) krijgen een overgangsperiode tot augustus 2027. AI-systemen voor personeelsbeoordeling en -monitoring (Bijlage III) moeten al in augustus 2026 compliant zijn. Fabrikanten die AI in hun producten inbouwen doen er goed aan nu al te beginnen, omdat de conformiteitsbeoordeling voor AI-componenten tijd kost en geïntegreerd moet worden in het bestaande CE-proces.",
+      "AI-systemen die als veiligheidscomponent in gereguleerde producten zitten (Bijlage I, waaronder machines) gelden vanaf 2 augustus 2028. AI-systemen voor personeelsbeoordeling en -monitoring (Bijlage III) gelden vanaf 2 december 2027. De Digital Omnibus (Verordening (EU) 2026/1744) heeft de eerdere data van augustus 2027 en augustus 2026 verschoven. Fabrikanten die AI in hun producten inbouwen doen er goed aan nu al te beginnen, omdat de conformiteitsbeoordeling voor AI-componenten tijd kost en geïntegreerd moet worden in het bestaande CE-proces.",
   },
 ];
 

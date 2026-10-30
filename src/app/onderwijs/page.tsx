@@ -50,7 +50,7 @@ const faqItems = [
   {
     question: "Wanneer moet het onderwijs EU AI Act compliant zijn?",
     answer:
-      "De verplichtingen voor hoog-risico AI-systemen uit Bijlage III worden van toepassing in augustus 2026. Onderwijsinstellingen die AI inzetten voor toelating, beoordeling of monitoring moeten vanaf dat moment aan alle eisen voldoen. Het is verstandig om nu al te inventariseren welke AI-tools worden gebruikt en te beoordelen of ze als hoog-risico kwalificeren.",
+      "De verplichtingen voor hoog-risico AI-systemen uit Bijlage III gelden vanaf 2 december 2027. De Digital Omnibus (Verordening (EU) 2026/1744) heeft de eerdere datum van 2 augustus 2026 verschoven. Onderwijsinstellingen die AI inzetten voor toelating, beoordeling of monitoring moeten vanaf 2 december 2027 aan de eisen voldoen. Het is verstandig om nu al te inventariseren welke AI-tools worden gebruikt en te beoordelen of ze als hoog-risico kwalificeren.",
   },
 ];
 

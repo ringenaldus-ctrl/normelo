@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "AI-geletterdheid training voor uitzendbureaus — Artikel 4 EU AI Act",
   description:
-    "Artikel 4 van de EU AI Act verplicht AI-geletterdheid sinds februari 2025. Normelo biedt een compleet traject voor uitzendbureaus: training, toets, certificering en compliance-documentatie.",
+    "Artikel 4 vraagt sinds februari 2025 om maatregelen voor AI-geletterdheid, zonder een vast niveau per persoon. Normelo is een gratis traject: training, toets, certificaat en documentatie.",
   openGraph: {
     title: "AI-geletterdheid training voor uitzendbureaus",
     description:

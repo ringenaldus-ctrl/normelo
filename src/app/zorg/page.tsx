@@ -45,7 +45,7 @@ const faqItems = [
   {
     question: "Wanneer moet de zorgsector EU AI Act compliant zijn?",
     answer:
-      "AI-systemen in medische hulpmiddelen (Bijlage I) krijgen een langere overgangsperiode: de volledige verplichtingen gelden vanaf augustus 2027. AI-systemen die onder Bijlage III vallen (zoals AI voor triage bij nooddiensten of toegang tot zorgverzekeringen) moeten al vanaf augustus 2026 compliant zijn. Het is aan te raden om nu al te inventariseren welke AI-systemen je gebruikt en onder welke categorie ze vallen.",
+      "AI-systemen in medische hulpmiddelen (Bijlage I) hebben een langere termijn: die verplichtingen gelden vanaf 2 augustus 2028. AI-systemen die onder Bijlage III vallen (zoals AI voor triage bij nooddiensten of toegang tot zorgverzekeringen) gelden vanaf 2 december 2027. Beide data zijn verschoven door de Digital Omnibus (Verordening (EU) 2026/1744), vanaf de eerdere data 2 augustus 2027 en 2 augustus 2026. Het is verstandig om nu al te inventariseren welke AI-systemen je gebruikt en onder welke categorie ze vallen.",
   },
   {
     question: "Hoe verhoudt de EU AI Act zich tot de Verordening Medische Hulpmiddelen (MDR)?",

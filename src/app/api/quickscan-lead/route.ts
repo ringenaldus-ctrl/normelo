@@ -94,7 +94,7 @@ export async function POST(request: Request) {
           <div style="padding:16px;border-left:3px solid #dc2626;background:#fef2f2;margin-bottom:16px;border-radius:0 6px 6px 0;">
             <p style="font-weight:600;font-size:15px;margin:0 0 8px;color:#1e2a3a;">Shadow AI: ongecontroleerd AI-gebruik</p>
             <p style="font-size:14px;color:#4a5568;margin:0 0 8px;">Medewerkers gebruiken eigen AI-tools (zoals ChatGPT of Copilot) voor recruitmenttaken. Dit valt ook onder de EU AI Act. Als een recruiter ChatGPT gebruikt om cv's te beoordelen of kandidaten te ranken, is dat in feite een ongeregistreerd hoog-risico AI-systeem.</p>
-            <p style="font-size:13px;color:#e8612d;font-weight:600;margin:0;">Wat te doen: Breng in kaart welke AI-tools medewerkers gebruiken. Stel een AI-beleid op. Artikel 4 van de EU AI Act verplicht AI-geletterdheid voor iedereen die AI inzet — dit geldt sinds februari 2025.</p>
+            <p style="font-size:13px;color:#e8612d;font-weight:600;margin:0;">Wat te doen: Breng in kaart welke AI-tools medewerkers gebruiken. Stel een AI-beleid op. Artikel 4 vraagt sinds februari 2025 om maatregelen die AI-geletterdheid ondersteunen. De wet eist geen vast niveau per persoon.</p>
           </div>`);
       } else if (antwoorden?.shadow === "weet-niet") {
         adviesBlokken.push(`
@@ -177,7 +177,7 @@ export async function POST(request: Request) {
         vervolgstappen.push("Inventariseer welke AI-tools medewerkers zelfstandig gebruiken");
         vervolgstappen.push("Stel een AI-beleid op: welke tools zijn toegestaan, welke niet");
       }
-      vervolgstappen.push("Zorg dat alle medewerkers die met AI werken een basistraining AI-geletterdheid volgen (Art. 4 — verplicht sinds feb 2025)");
+      vervolgstappen.push("Neem maatregelen zodat medewerkers die met AI werken die systemen beter begrijpen (art. 4, sinds feb 2025, zonder een vast niveau per persoon)");
 
       const vervolgstappenHtml = `
         <h3 style="font-size:18px;color:#1e2a3a;margin:24px 0 12px;">Concrete vervolgstappen</h3>
@@ -264,16 +264,16 @@ export async function POST(request: Request) {
 
     <div style="background:#f8f6f3;border-radius:8px;padding:20px;margin-top:24px;">
       <p style="font-size:14px;color:#4a5568;margin:0 0 4px;"><strong>Belangrijke deadlines:</strong></p>
-      <p style="font-size:13px;color:#6b7280;margin:0;">AI-geletterdheid (Art. 4): <strong>verplicht sinds 2 februari 2025</strong></p>
-      <p style="font-size:13px;color:#6b7280;margin:4px 0 0;">Hoog-risico verplichtingen: <strong>augustus 2026</strong></p>
+      <p style="font-size:13px;color:#6b7280;margin:0;">AI-geletterdheid (art. 4): <strong>maatregelen sinds 2 februari 2025, geen vast niveau per persoon</strong></p>
+      <p style="font-size:13px;color:#6b7280;margin:4px 0 0;">Hoog-risico verplichtingen (Bijlage III): <strong>2 december 2027</strong></p>
     </div>
   </div>
 
   <div style="border-top:2px solid #f0f0f0;padding:24px 0;">
     <div style="background:#1e2a3a;border-radius:8px;padding:24px;text-align:center;">
-      <p style="font-size:16px;font-weight:bold;color:white;margin:0 0 8px;">Artikel 4 verplicht AI-geletterdheid — sinds februari 2025</p>
-      <p style="font-size:13px;color:#94a3b8;margin:0 0 16px;">Normelo biedt een compleet compliance-traject voor uitzendbureaus: online training, toets, certificering en documentatie. Specifiek voor recruiters, intercedenten en hiring managers.</p>
-      <a href="https://normelo.com/training" style="display:inline-block;background:#e8612d;color:white;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:600;font-size:14px;">Bekijk het traject →</a>
+      <p style="font-size:16px;font-weight:bold;color:white;margin:0 0 8px;">Normelo is gratis</p>
+      <p style="font-size:13px;color:#94a3b8;margin:0 0 16px;">Meld je organisatie aan met bedrijfsnaam, aantal medewerkers en een contactpersoon. Daarna open je training, toets en het AI-register.</p>
+      <a href="https://normelo.com/aanvragen" style="display:inline-block;background:#e8612d;color:white;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:600;font-size:14px;">Gratis aanmelden →</a>
     </div>
   </div>
 

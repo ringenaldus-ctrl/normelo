@@ -22,7 +22,7 @@ const faqItems = [
   {
     question: "Wanneer gelden de verplichtingen voor hoog-risico AI?",
     answer:
-      "De volledige verplichtingen voor hoog-risico AI-systemen worden van toepassing in augustus 2026. Vanaf dat moment moeten zowel providers als deployers aan alle eisen voldoen.",
+      "De verplichtingen voor hoog-risico AI-systemen uit Bijlage III gelden vanaf 2 december 2027. De Digital Omnibus (Verordening (EU) 2026/1744) heeft de eerdere datum van 2 augustus 2026 verschoven. Voor AI in gereguleerde producten (Bijlage I) is de datum 2 augustus 2028. Vanaf die data moeten providers en deployers aan de bijbehorende eisen voldoen.",
   },
 ];
 

@@ -55,7 +55,7 @@ const faqItems = [
   {
     question: "Wanneer moet de overheid EU AI Act compliant zijn?",
     answer:
-      "De verplichtingen voor hoog-risico AI-systemen uit Bijlage III worden van toepassing in augustus 2026. Overheidsinstanties moeten vanaf dat moment aan alle eisen voldoen, inclusief de effectbeoordeling voor fundamentele rechten. Gezien de politieke gevoeligheid van AI bij de overheid (mede door het toeslagenschandaal) en de complexiteit van overheidsprocessen is het sterk aan te raden om nu al te beginnen met de voorbereiding.",
+      "De verplichtingen voor hoog-risico AI-systemen uit Bijlage III gelden vanaf 2 december 2027. De Digital Omnibus (Verordening (EU) 2026/1744) heeft de eerdere datum van 2 augustus 2026 verschoven. Overheidsinstanties moeten vanaf 2 december 2027 aan de eisen voldoen, inclusief de effectbeoordeling voor fundamentele rechten. Gezien de gevoeligheid van AI bij de overheid en de complexiteit van overheidsprocessen is het verstandig om nu al te beginnen met de voorbereiding.",
   },
 ];
 

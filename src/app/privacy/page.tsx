@@ -12,7 +12,7 @@ export default function Privacy() {
   return (
     <div className="max-w-3xl mx-auto px-6 py-16">
       <h1 className="text-3xl md:text-4xl font-bold leading-tight mb-3">Privacyverklaring</h1>
-      <p className="text-sm text-muted mb-10">Laatst bijgewerkt: 17 april 2026</p>
+      <p className="text-sm text-muted mb-10">Laatst bijgewerkt: 30 oktober 2026</p>
 
       <div className="space-y-10 text-foreground leading-relaxed">
         <section>
@@ -50,10 +50,10 @@ export default function Privacy() {
           </p>
           <div className="space-y-4">
             <div>
-              <p className="font-semibold mb-1">Via het aanvraagformulier (kennismaking)</p>
+              <p className="font-semibold mb-1">Via het aanmeldformulier</p>
               <p className="text-sm text-muted">
-                Naam, naam van de organisatie, e-mailadres, telefoonnummer, teamgrootte, welke
-                AI-tools je gebruikt en eventuele opmerkingen die je zelf toevoegt.
+                Bedrijfsnaam, aantal medewerkers, naam van de contactpersoon en het
+                e-mailadres van die contactpersoon.
               </p>
             </div>
             <div>
@@ -79,8 +79,8 @@ export default function Privacy() {
           <h2 className="text-xl font-bold mb-3">3. Waarom verwerken we ze?</h2>
           <div className="space-y-3">
             <p>
-              <span className="font-semibold">Contactverzoeken beantwoorden en offertes uitbrengen.</span>{" "}
-              Grondslag: uitvoering van of voorafgaand aan een overeenkomst (art. 6 lid 1 sub b AVG).
+              <span className="font-semibold">Je gratis aanmelding verwerken en toegang tot het platform geven.</span>{" "}
+              Grondslag: de dienst die je zelf aanvraagt (art. 6 lid 1 sub b AVG).
             </p>
             <p>
               <span className="font-semibold">Je Quick Scan-resultaat toesturen.</span>{" "}
@@ -110,10 +110,10 @@ export default function Privacy() {
             We bewaren gegevens niet langer dan nodig voor het doel waarvoor ze zijn verzameld.
           </p>
           <p className="mb-2">
-            Komt er geen overeenkomst tot stand, dan verwijderen we aanvragen en
-            Quick Scan-gegevens uiterlijk 24 maanden na het laatste contactmoment. Komt er wél
-            een overeenkomst tot stand, dan bewaren we de gegevens zolang de relatie loopt en
-            daarna tot 7 jaar na afloop — voor zover de Belastingdienst dat vereist.
+            Aanmeld- en Quick Scan-gegevens bewaren we zolang het account bestaat, en anders
+            uiterlijk 24 maanden na het laatste contactmoment. Ontstaat er later een betaalde
+            opdracht, dan bewaren we de bijbehorende administratie zolang die loopt en daarna
+            tot 7 jaar — voor zover de Belastingdienst dat vereist.
             Technische logs worden doorgaans binnen 30 dagen overschreven.
           </p>
           <p>

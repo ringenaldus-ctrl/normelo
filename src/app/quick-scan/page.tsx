@@ -446,8 +446,8 @@ export default function QuickScan() {
             <div className={`p-6 rounded-lg border-2 mb-6 ${risicoKleuren[risicoNiveau]}`}>
               <p className="text-2xl font-bold mb-2">{risicoLabels[risicoNiveau]}</p>
               <p className="leading-relaxed">
-                {risicoNiveau === "hoog" && <>Jouw organisatie loopt risico onder de EU AI Act. De deadline is <strong>augustus 2026</strong>.</>}
-                {risicoNiveau === "middel" && <>Er zijn aandachtspunten. De deadline is <strong>augustus 2026</strong>.</>}
+                {risicoNiveau === "hoog" && <>Jouw organisatie gebruikt systemen die onder de hoog-risico-regels kunnen vallen. Die verplichtingen gelden vanaf <strong>2 december 2027</strong>.</>}
+                {risicoNiveau === "middel" && <>Er zijn aandachtspunten. De hoog-risico-verplichtingen gelden vanaf <strong>2 december 2027</strong>.</>}
                 {risicoNiveau === "laag" && <>Op basis van je antwoorden lijkt jouw organisatie geen hoog-risico AI te gebruiken.</>}
               </p>
             </div>
@@ -496,18 +496,16 @@ export default function QuickScan() {
                   {risicoNiveau === "hoog" && (
                     <>
                       <p>
-                        Vanaf augustus 2026 moet jouw organisatie kunnen aantonen dat hoog-risico AI-systemen voldoen aan de EU AI Act.
-                        Dat betekent documentatie, menselijk toezicht en transparantie naar kandidaten.
-                      </p>
-                      <p>
-                        Zonder actie riskeer je boetes tot 3% van de jaaromzet — én reputatieschade als kandidaten of opdrachtgevers vragen stellen die je niet kunt beantwoorden.
+                        Vanaf 2 december 2027 gelden de verplichtingen voor hoog-risico AI-systemen uit Bijlage III.
+                        Dat gaat over documentatie, menselijk toezicht en transparantie naar kandidaten.
+                        De eerdere datum van 2 augustus 2026 is verschoven door de Digital Omnibus.
                       </p>
                     </>
                   )}
                   {risicoNiveau === "middel" && (
                     <>
                       <p>
-                        Je organisatie valt niet direct in de zwaarste categorie, maar er zijn risico's die aandacht vragen vóór augustus 2026.
+                        Je organisatie valt niet direct in de zwaarste categorie, maar er zijn aandachtspunten vóór 2 december 2027.
                       </p>
                       <p>
                         Opdrachtgevers en kandidaten verwachten steeds vaker dat je kunt uitleggen hoe AI in jouw processen wordt ingezet. Wie dat niet kan, verliest vertrouwen.
@@ -538,7 +536,7 @@ export default function QuickScan() {
                     <p className="text-sm font-medium text-orange-300 mb-2 tracking-wide uppercase">Stap 1</p>
                     <p className="font-semibold text-lg mb-2">Start de gratis training</p>
                     <p className="text-sm text-gray-300 leading-relaxed mb-4">
-                      Word AI-geletterd — verplicht sinds februari 2025.
+                      Maatregelen voor AI-geletterdheid — artikel 4 geldt sinds februari 2025, zonder een vast niveau per persoon.
                       Gratis, in eigen tempo, specifiek voor jouw rol in de uitzendbranche.
                     </p>
                     <span className="inline-block px-5 py-2.5 bg-accent text-white rounded-lg text-sm font-medium group-hover:bg-orange-600 transition-colors">

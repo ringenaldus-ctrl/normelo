@@ -132,9 +132,18 @@ export default function Module1() {
                 Al van kracht
               </div>
               <p className="text-sm">
-                <strong>2 februari 2025</strong> — Artikel 4: AI-geletterdheid. Alle
-                organisaties die AI inzetten moeten zorgen dat medewerkers voldoende
-                kennis hebben.
+                <strong>2 februari 2025</strong> — Artikel 4: maatregelen om AI-geletterdheid
+                te ondersteunen. De wet eist geen vast niveau per persoon. Op dezelfde datum
+                zijn ook de verboden AI-praktijken ingegaan.
+              </p>
+            </div>
+            <div className="flex gap-4 items-start">
+              <div className="bg-red-50 text-red-700 text-xs font-bold px-2 py-1 rounded whitespace-nowrap border border-red-200">
+                Al van kracht
+              </div>
+              <p className="text-sm">
+                <strong>2 augustus 2025</strong> — Verplichtingen voor aanbieders van
+                general-purpose AI-modellen.
               </p>
             </div>
             <div className="flex gap-4 items-start">
@@ -142,18 +151,9 @@ export default function Module1() {
                 Aankomend
               </div>
               <p className="text-sm">
-                <strong>2 augustus 2025</strong> — Verbod op AI-systemen met onaanvaardbaar
-                risico, zoals emotieherkenning op de werkvloer.
-              </p>
-            </div>
-            <div className="flex gap-4 items-start">
-              <div className="bg-orange-50 text-orange-700 text-xs font-bold px-2 py-1 rounded whitespace-nowrap border border-orange-200">
-                Aankomend
-              </div>
-              <p className="text-sm">
-                <strong>2 augustus 2026</strong> — Alle verplichtingen voor hoog-risico
-                AI-systemen treden in werking. Dit is de deadline waarop uitzendbureaus
-                volledig compliant moeten zijn.
+                <strong>2 december 2027</strong> — Verplichtingen voor hoog-risico
+                AI-systemen uit Bijlage III. De Digital Omnibus heeft de eerdere datum
+                van 2 augustus 2026 verschoven.
               </p>
             </div>
           </div>
@@ -166,9 +166,9 @@ export default function Module1() {
               van minimaal tot onaanvaardbaar.
             </p>
             <p className="text-sm leading-relaxed mb-3">
-              Uitzendbureaus zijn deployers van hoog-risico AI-systemen. De verplichting
-              voor AI-geletterdheid geldt al sinds februari 2025. De volledige
-              hoog-risico verplichtingen gelden vanaf augustus 2026.
+              Uitzendbureaus zijn deployers van hoog-risico AI-systemen. Artikel 4 vraagt
+              sinds februari 2025 om maatregelen voor AI-geletterdheid. De hoog-risico
+              verplichtingen uit Bijlage III gelden vanaf 2 december 2027.
             </p>
             <p className="text-sm leading-relaxed">
               De kernboodschap: je bent als uitzendbureau zelf verantwoordelijk voor het

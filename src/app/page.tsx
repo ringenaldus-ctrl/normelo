@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Script from "next/script";
+import AanmeldenCta from "./components/AanmeldenCta";
+import { ARTIKEL_4_KORT, HOOG_RISICO_ZIN } from "@/content/ai-act";
 
 export const metadata: Metadata = {
   title: "Normelo — EU AI Act compliance voor uitzendbureaus",
   description:
-    "Ontdek in 2 minuten of jouw uitzendbureau werkt met hoog-risico AI. Gratis Quick Scan, gratis training, en het Normelo AI-register om compliance concreet te regelen.",
+    "Normelo is gratis. Ontdek in 2 minuten of jouw organisatie werkt met hoog-risico AI, en meld je aan voor training, toets en het AI-register.",
 };
 
 const organizationSchema = {
@@ -49,25 +51,25 @@ export default function Home() {
         <p className="text-lg text-gray-300 max-w-2xl leading-relaxed mb-3">
           Je ATS, je matching-tool, misschien ChatGPT — allemaal onder de EU AI Act.
         </p>
-        <p className="text-sm text-orange-300 font-medium mb-8">
-          Sinds februari 2025 verplicht. Vanaf augustus 2026 handhaving.
+        <p className="text-sm text-orange-300 font-medium mb-2">
+          {ARTIKEL_4_KORT}
         </p>
+        <p className="text-sm text-gray-400 mb-8">{HOOG_RISICO_ZIN}</p>
         <div className="flex flex-col sm:flex-row gap-4 items-start">
+          <AanmeldenCta
+            label="Start gratis"
+            className="inline-block px-8 py-4 bg-accent hover:bg-accent-hover rounded-lg font-semibold text-lg no-underline transition-colors text-center text-white"
+            noteClassName="text-xs text-gray-400 mt-2 max-w-xs"
+          />
           <div>
             <Link
               href="/quick-scan"
-              className="inline-block px-8 py-4 bg-accent hover:bg-accent-hover rounded-lg font-semibold text-lg no-underline transition-colors text-center text-white"
+              className="inline-block px-8 py-4 border border-gray-500 text-gray-300 hover:border-gray-300 hover:text-white rounded-lg font-medium text-lg no-underline transition-colors text-center"
             >
-              Start de 2-minuten Quick Scan →
+              Of doe eerst de Quick Scan
             </Link>
             <p className="text-xs text-gray-400 mt-2 ml-1">Geen e-mail nodig. Direct resultaat.</p>
           </div>
-          <Link
-            href="/ai-register"
-            className="inline-block px-8 py-4 border border-gray-500 text-gray-300 hover:border-gray-300 hover:text-white rounded-lg font-medium text-lg no-underline transition-colors text-center"
-          >
-            Bekijk het AI-register
-          </Link>
         </div>
       </div>
     </section>
@@ -90,7 +92,7 @@ export default function Home() {
         </p>
       </section>
 
-      {/* AI-register — het betaalde product */}
+      {/* AI-register */}
       <section className="py-12 border-b border-border">
         <h2 className="text-2xl font-bold mb-2">Het Normelo AI-register</h2>
         <p className="text-muted mb-6">Compliance regelen en bijhouden — op één plek.</p>
@@ -173,19 +175,16 @@ export default function Home() {
       {/* Training als fallback */}
       <section className="py-12 border-b border-border">
         <div className="rounded-xl p-8 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
-          <p className="text-sm font-medium text-orange-300 mb-2 tracking-wide uppercase">Nog niet klaar om te starten?</p>
-          <h3 className="text-xl font-bold mb-3">Begin met de gratis training</h3>
+          <p className="text-sm font-medium text-orange-300 mb-2 tracking-wide uppercase">Gratis</p>
+          <h3 className="text-xl font-bold mb-3">Start gratis</h3>
           <p className="text-sm text-gray-300 leading-relaxed mb-5 max-w-xl">
-            Wil je eerst begrijpen wat de EU AI Act precies van jouw bureau vraagt?
-            De Normelo training maakt je team AI-geletterd — gratis, in eigen tempo,
-            specifiek voor recruiters en intercedenten.
+            Training, toets en het AI-register zitten in één gratis platform.
+            Meld je organisatie aan en je team kan in eigen tempo beginnen.
           </p>
-          <Link
-            href="/aanvragen"
+          <AanmeldenCta
             className="inline-block px-6 py-3 bg-accent text-white rounded-lg font-semibold hover:bg-orange-600 transition-colors no-underline"
-          >
-            Start de gratis training →
-          </Link>
+            noteClassName="text-xs text-gray-400 mt-2 max-w-md"
+          />
         </div>
       </section>
 
@@ -226,7 +225,7 @@ export default function Home() {
               Tijdlijn &amp; deadlines
             </h3>
             <p className="text-sm text-muted leading-relaxed">
-              Alle belangrijke data van 2024 tot 2027 op een rij.
+              Alle belangrijke data, inclusief de verschoven hoog-risico-termijn.
             </p>
           </Link>
           <Link
@@ -237,7 +236,7 @@ export default function Home() {
               Veelgestelde vragen
             </h3>
             <p className="text-sm text-muted leading-relaxed">
-              De 12 meest gestelde vragen over de EU AI Act, helder beantwoord.
+              De meest gestelde vragen over de EU AI Act, helder beantwoord.
             </p>
           </Link>
         </div>

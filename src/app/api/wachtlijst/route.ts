@@ -20,6 +20,14 @@ const ROL_TO_TRAINING_ROLE: Record<string, string> = {
 const SELF_REG_ORG_ID = "normelo-self-reg";
 const TRAINING_APP_URL = "https://hireai-certified.vercel.app";
 
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
 export async function POST(request: Request) {
   try {
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -35,7 +43,14 @@ export async function POST(request: Request) {
 
     const supabase = createClient(supabaseUrl, supabaseKey);
     const body = await request.json();
-    const { email, bron, naam, organisatie, telefoon, rol } = body;
+    const { email, bron, naam, organisatie, telefoon, rol, aantalMedewerkers } = body;
+    const aantal =
+      typeof aantalMedewerkers === "number"
+        ? aantalMedewerkers
+        : typeof aantalMedewerkers === "string" && aantalMedewerkers.trim()
+          ? Number(aantalMedewerkers)
+          : null;
+    const aantalGeldig = aantal !== null && Number.isInteger(aantal) && aantal > 0;
 
     if (!email || typeof email !== "string" || !email.includes("@")) {
       return Response.json(
@@ -47,12 +62,26 @@ export async function POST(request: Request) {
     const cleanEmail = email.trim().toLowerCase();
 
     // 1. Save to wachtlijst (lead tracking) — elke registratie wordt opgeslagen
-    const { error } = await supabase.from("training_wachtlijst").insert({
+    const wachtlijstRij = {
       email: cleanEmail,
       bron: bron || "website",
       naam: naam || null,
       rol: rol || null,
-    });
+      organisatie: typeof organisatie === "string" && organisatie.trim() ? organisatie.trim() : null,
+      telefoon: telefoon || null,
+    };
+    let { error } = await supabase.from("training_wachtlijst").insert(wachtlijstRij);
+
+    // Oudere schema's hebben geen organisatie- of telefoonkolom. Dan alsnog opslaan.
+    if (error && /column|schema cache/i.test(error.message || "")) {
+      const fallback = await supabase.from("training_wachtlijst").insert({
+        email: wachtlijstRij.email,
+        bron: wachtlijstRij.bron,
+        naam: wachtlijstRij.naam,
+        rol: wachtlijstRij.rol,
+      });
+      error = fallback.error;
+    }
 
     if (error) {
       console.error("Supabase insert error:", JSON.stringify(error));
@@ -65,7 +94,7 @@ export async function POST(request: Request) {
     console.log("Proceeding to employee check");
 
     // 2. Create employee in training-app (if not exists)
-    const trainingRoleId = rol ? (ROL_TO_TRAINING_ROLE[rol as string] || "recruiter") : "recruiter";
+    const trainingRoleId = rol ? (ROL_TO_TRAINING_ROLE[rol as string] || "directie") : "directie";
 
     let employeeId: string | null = null;
     let debugInfo = "";
@@ -82,17 +111,28 @@ export async function POST(request: Request) {
       console.error("Employee lookup error:", JSON.stringify(empLookupError));
     }
 
-    if (existingEmployee) {
-      employeeId = existingEmployee.id;
-      // Update name and role if changed
-      await supabase.from("employees").update({
-        name: naam || cleanEmail.split("@")[0],
-        roleId: trainingRoleId,
-      }).eq("id", employeeId);
-      console.log("Existing employee updated:", employeeId);
+    let orgId = SELF_REG_ORG_ID;
+    const bedrijfsnaam = typeof organisatie === "string" ? organisatie.trim() : "";
+    if (bedrijfsnaam) {
+      const customOrgId = `normelo-${bedrijfsnaam.toLowerCase().replace(/[^a-z0-9]/g, "-").slice(0, 40)}`;
+      const { data: namedOrg } = await supabase
+        .from("organizations")
+        .select("id")
+        .eq("id", customOrgId)
+        .maybeSingle();
+
+      if (!namedOrg) {
+        await supabase.from("organizations").insert({
+          id: customOrgId,
+          name: bedrijfsnaam,
+          type: "Organisatie",
+          contactName: naam || null,
+          contactRole: aantalGeldig ? `${aantal} medewerkers` : (ROL_LABELS[rol as string] || "Contactpersoon"),
+          updatedAt: new Date().toISOString(),
+        });
+      }
+      orgId = customOrgId;
     } else {
-      console.log("No existing employee, creating new one for:", cleanEmail);
-      // Ensure self-registration org exists
       const { data: existingOrg, error: orgLookupError } = await supabase
         .from("organizations")
         .select("id")
@@ -112,30 +152,18 @@ export async function POST(request: Request) {
         });
         if (orgInsertError) console.error("Org insert error:", JSON.stringify(orgInsertError));
       }
+    }
 
-      // Determine organization
-      let orgId = SELF_REG_ORG_ID;
-      if (organisatie && organisatie.trim()) {
-        const customOrgId = `normelo-${organisatie.trim().toLowerCase().replace(/[^a-z0-9]/g, "-").slice(0, 40)}`;
-        const { data: namedOrg } = await supabase
-          .from("organizations")
-          .select("id")
-          .eq("id", customOrgId)
-          .maybeSingle();
-
-        if (!namedOrg) {
-          await supabase.from("organizations").insert({
-            id: customOrgId,
-            name: organisatie.trim(),
-            type: "Uitzendbureau",
-            contactName: naam || null,
-            contactRole: ROL_LABELS[rol as string] || null,
-            updatedAt: new Date().toISOString(),
-          });
-        }
-        orgId = customOrgId;
-      }
-
+    if (existingEmployee) {
+      employeeId = existingEmployee.id;
+      await supabase.from("employees").update({
+        name: naam || cleanEmail.split("@")[0],
+        roleId: trainingRoleId,
+        organizationId: orgId,
+      }).eq("id", employeeId);
+      console.log("Existing employee updated:", employeeId);
+    } else {
+      console.log("No existing employee, creating new one for:", cleanEmail);
       // Create employee
       employeeId = `normelo-${randomUUID().slice(0, 12)}`;
       const { error: empError } = await supabase.from("employees").insert({
@@ -192,22 +220,22 @@ export async function POST(request: Request) {
         const magicEmailResult = await resend.emails.send({
           from: "Normelo <scan@normelo.com>",
           to: [cleanEmail],
-          subject: "Start je EU AI Act training — Normelo",
+          subject: "Je gratis Normelo-account staat klaar",
           html: `
 <!DOCTYPE html>
 <html><head><meta charset="utf-8"></head>
 <body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;max-width:500px;margin:0 auto;padding:40px 20px;color:#1e2a3a;">
-  <p style="font-size:16px;margin:0 0 24px;">Hoi ${displayName},</p>
+  <p style="font-size:16px;margin:0 0 24px;">Hoi ${escapeHtml(displayName)},</p>
   <p style="font-size:15px;line-height:1.6;margin:0 0 24px;">
-    Je hebt je aangemeld voor de gratis EU AI Act training. Klik op de knop hieronder om direct te starten.
+    ${escapeHtml(typeof organisatie === "string" && organisatie.trim() ? organisatie.trim() : "Je organisatie")} is gratis aangemeld bij Normelo. Klik op de knop hieronder om het platform te openen.
   </p>
   <a href="${magicLinkUrl}" style="display:inline-block;padding:14px 28px;background:#e8590c;color:#ffffff;text-decoration:none;border-radius:8px;font-weight:600;font-size:15px;">
-    Start de training →
+    Start gratis →
   </a>
   <p style="font-size:13px;color:#9ca3af;margin:32px 0 0;line-height:1.5;">
     Deze link is 7 dagen geldig. Als je de link niet meer kunt gebruiken, kun je een nieuwe aanvragen op <a href="https://normelo.com/aanvragen" style="color:#e8590c;">normelo.com/aanvragen</a>.
   </p>
-  <p style="font-size:12px;color:#d1d5db;margin:24px 0 0;">Normelo — EU AI Act compliance voor uitzendbureaus</p>
+  <p style="font-size:12px;color:#d1d5db;margin:24px 0 0;">Normelo is gratis. Welke onderdelen later betaald worden, staat nog niet vast.</p>
 </body></html>`,
         });
         console.log("Magic link email sent:", JSON.stringify(magicEmailResult));
@@ -220,22 +248,24 @@ export async function POST(request: Request) {
     // 4. Send notification email to Normelo (always, regardless of employee/magic link status)
     if (resendApiKey) {
       const resendNotify = new Resend(resendApiKey);
-      const rolLabel = rol ? (ROL_LABELS[rol as string] || rol) : "—";
+      const rolLabel = rol ? (ROL_LABELS[rol as string] || rol) : "Directie — contactpersoon, standaardrol";
       console.log("Sending notification email to info@normelo.com");
       try {
         await resendNotify.emails.send({
           from: "Normelo <scan@normelo.com>",
           to: ["info@normelo.com"],
-          subject: `Nieuwe registratie: ${naam || email}`,
+          subject: `Gratis aanmelding: ${typeof organisatie === "string" && organisatie.trim() ? organisatie.trim() : naam || email}`,
           html: `
 <!DOCTYPE html>
 <html><head><meta charset="utf-8"></head>
 <body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;max-width:500px;padding:20px;color:#1e2a3a;">
-  <h2 style="margin:0 0 16px;">Nieuwe training-registratie</h2>
+  <h2 style="margin:0 0 16px;">Gratis aanmelding</h2>
   <table style="border-collapse:collapse;width:100%;">
-    <tr><td style="padding:8px 12px 8px 0;font-weight:600;font-size:14px;vertical-align:top;width:120px;">Naam</td><td style="padding:8px 0;font-size:14px;">${naam || "—"}</td></tr>
-    <tr><td style="padding:8px 12px 8px 0;font-weight:600;font-size:14px;vertical-align:top;">E-mail</td><td style="padding:8px 0;font-size:14px;"><a href="mailto:${email}">${email}</a></td></tr>
-    <tr><td style="padding:8px 12px 8px 0;font-weight:600;font-size:14px;vertical-align:top;">Rol</td><td style="padding:8px 0;font-size:14px;">${rolLabel}</td></tr>
+    <tr><td style="padding:8px 12px 8px 0;font-weight:600;font-size:14px;vertical-align:top;width:160px;">Bedrijf</td><td style="padding:8px 0;font-size:14px;">${escapeHtml(typeof organisatie === "string" && organisatie.trim() ? organisatie.trim() : "—")}</td></tr>
+    <tr><td style="padding:8px 12px 8px 0;font-weight:600;font-size:14px;vertical-align:top;">Aantal medewerkers</td><td style="padding:8px 0;font-size:14px;">${aantalGeldig ? aantal : "—"}</td></tr>
+    <tr><td style="padding:8px 12px 8px 0;font-weight:600;font-size:14px;vertical-align:top;">Contactpersoon</td><td style="padding:8px 0;font-size:14px;">${escapeHtml(naam || "—")}</td></tr>
+    <tr><td style="padding:8px 12px 8px 0;font-weight:600;font-size:14px;vertical-align:top;">E-mail</td><td style="padding:8px 0;font-size:14px;"><a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></td></tr>
+    <tr><td style="padding:8px 12px 8px 0;font-weight:600;font-size:14px;vertical-align:top;">Rol in het platform</td><td style="padding:8px 0;font-size:14px;">${escapeHtml(rolLabel)}</td></tr>
   </table>
 </body></html>`,
         });

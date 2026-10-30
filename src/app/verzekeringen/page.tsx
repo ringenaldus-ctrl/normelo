@@ -50,7 +50,7 @@ const faqItems = [
   {
     question: "Wanneer moeten verzekeraars EU AI Act compliant zijn?",
     answer:
-      "De verplichtingen voor hoog-risico AI-systemen uit Bijlage III worden van toepassing in augustus 2026. Verzekeraars moeten vanaf dat moment aantoonbaar voldoen aan alle eisen. Gezien de complexiteit van actuariële AI-modellen en de gevoeligheid van gezondheidsdata is het sterk aan te raden om nu al te beginnen met de inventarisatie en voorbereiding.",
+      "De verplichtingen voor hoog-risico AI-systemen uit Bijlage III gelden vanaf 2 december 2027. De Digital Omnibus (Verordening (EU) 2026/1744) heeft de eerdere datum van 2 augustus 2026 verschoven. Verzekeraars moeten vanaf 2 december 2027 aantoonbaar aan de eisen voldoen. Gezien de complexiteit van actuariële AI-modellen en de gevoeligheid van gezondheidsdata is het verstandig om nu al te inventariseren.",
   },
 ];
 

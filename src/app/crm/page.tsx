@@ -729,6 +729,7 @@ export default function CRM() {
               <thead>
                 <tr className="bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   <th className="px-4 py-3">Naam</th>
+                  <th className="px-4 py-3">Organisatie</th>
                   <th className="px-4 py-3">E-mail</th>
                   <th className="px-4 py-3">Rol</th>
                   <th className="px-4 py-3">Magic link</th>
@@ -747,6 +748,7 @@ export default function CRM() {
                   return (
                     <tr key={r.id || r.email} className="hover:bg-gray-50 transition-colors">
                       <td className="px-4 py-3 font-medium text-gray-900">{r.naam || "—"}</td>
+                      <td className="px-4 py-3 text-gray-700">{r.organisatie || "—"}</td>
                       <td className="px-4 py-3 text-gray-700">
                         <a href={`mailto:${r.email}`} className="hover:text-orange-600 hover:underline">{r.email}</a>
                       </td>

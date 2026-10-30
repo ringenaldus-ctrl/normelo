@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import AanbodSectie from "../components/Aanbod";
+import AanmeldenCta from "../components/AanmeldenCta";
 
 export const metadata: Metadata = {
   title: "AI-register voor uitzendbureaus — Normelo",
   description:
-    "Het Normelo AI-register: registreer je AI-systemen, genereer compliance-documentatie en blijf automatisch actueel wanneer de EU AI Act verandert. Vanaf €99/maand.",
+    "Het Normelo AI-register is gratis: registreer je AI-systemen, genereer compliance-documentatie en blijf actueel wanneer de EU AI Act verandert.",
 };
 
 export default function AIRegister() {
@@ -80,138 +81,7 @@ export default function AIRegister() {
         </div>
       </section>
 
-      {/* Pricing */}
-      <section className="py-12 border-b border-border">
-        <h2 className="text-2xl font-bold mb-2">Wat kost het?</h2>
-        <p className="text-muted mb-8">Jaarabonnement. Gratis training inbegrepen bij elk plan.</p>
-
-        <div className="grid gap-6 md:grid-cols-3">
-          {/* Starter */}
-          <div className="p-6 border border-border rounded-xl flex flex-col">
-            <p className="text-sm font-medium text-muted mb-1 tracking-wide uppercase">Starter</p>
-            <p className="text-xs text-muted mb-4">Tot 25 medewerkers</p>
-            <div className="mb-4">
-              <span className="text-3xl font-bold">€99</span>
-              <span className="text-muted text-sm">/maand</span>
-            </div>
-            <p className="text-xs text-muted mb-6">€1.188 per jaar</p>
-            <ul className="space-y-2 text-sm mb-8 flex-1">
-              <li className="flex items-start gap-2">
-                <span className="text-green-600 mt-0.5">✓</span>
-                <span>AI-register voor al je systemen</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-green-600 mt-0.5">✓</span>
-                <span>Basis compliance-documenten</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-green-600 mt-0.5">✓</span>
-                <span>Gratis training voor heel je team</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-green-600 mt-0.5">✓</span>
-                <span>Levende wiki — altijd actueel</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-green-600 mt-0.5">✓</span>
-                <span>1–2 vestigingen</span>
-              </li>
-            </ul>
-            <Link
-              href="mailto:info@normelo.com?subject=AI-register%20Starter&body=Ik%20wil%20graag%20starten%20met%20het%20Starter-plan."
-              className="block text-center px-5 py-3 border-2 border-accent text-accent rounded-lg font-semibold hover:bg-accent hover:text-white transition-colors no-underline"
-            >
-              Neem contact op →
-            </Link>
-          </div>
-
-          {/* Groei */}
-          <div className="p-6 border-2 border-accent rounded-xl flex flex-col bg-surface">
-            <p className="text-sm font-medium text-accent mb-1 tracking-wide uppercase">Groei</p>
-            <p className="text-xs text-muted mb-4">Tot 100 medewerkers</p>
-            <div className="mb-4">
-              <span className="text-3xl font-bold">€249</span>
-              <span className="text-muted text-sm">/maand</span>
-            </div>
-            <p className="text-xs text-muted mb-6">€2.988 per jaar</p>
-            <ul className="space-y-2 text-sm mb-8 flex-1">
-              <li className="flex items-start gap-2">
-                <span className="text-green-600 mt-0.5">✓</span>
-                <span>Alles van Starter</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-green-600 mt-0.5">✓</span>
-                <span>Volledige document-generatie</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-green-600 mt-0.5">✓</span>
-                <span>Menselijk toezicht-logs</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-green-600 mt-0.5">✓</span>
-                <span>Incident-register</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-green-600 mt-0.5">✓</span>
-                <span>FRIA-templates en begeleiding</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-green-600 mt-0.5">✓</span>
-                <span>Kwartaal compliance-update</span>
-              </li>
-            </ul>
-            <Link
-              href="mailto:info@normelo.com?subject=AI-register%20Groei&body=Ik%20wil%20graag%20starten%20met%20het%20Groei-plan."
-              className="block text-center px-5 py-3 bg-accent text-white rounded-lg font-semibold hover:bg-accent-hover transition-colors no-underline"
-            >
-              Neem contact op →
-            </Link>
-          </div>
-
-          {/* Enterprise */}
-          <div className="p-6 border border-border rounded-xl flex flex-col">
-            <p className="text-sm font-medium text-muted mb-1 tracking-wide uppercase">Enterprise</p>
-            <p className="text-xs text-muted mb-4">100+ medewerkers, multi-vestiging</p>
-            <div className="mb-4">
-              <span className="text-3xl font-bold">€599</span>
-              <span className="text-muted text-sm">/maand</span>
-            </div>
-            <p className="text-xs text-muted mb-6">€7.188 per jaar</p>
-            <ul className="space-y-2 text-sm mb-8 flex-1">
-              <li className="flex items-start gap-2">
-                <span className="text-green-600 mt-0.5">✓</span>
-                <span>Alles van Groei</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-green-600 mt-0.5">✓</span>
-                <span>Concierge onboarding</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-green-600 mt-0.5">✓</span>
-                <span>Direct contact voor vragen</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-green-600 mt-0.5">✓</span>
-                <span>Audit-support</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-green-600 mt-0.5">✓</span>
-                <span>Onbeperkt vestigingen</span>
-              </li>
-            </ul>
-            <Link
-              href="mailto:info@normelo.com?subject=Enterprise%20AI-register"
-              className="block text-center px-5 py-3 border-2 border-accent text-accent rounded-lg font-semibold hover:bg-accent hover:text-white transition-colors no-underline"
-            >
-              Plan een gesprek →
-            </Link>
-          </div>
-        </div>
-
-        <p className="text-xs text-muted text-center mt-6">
-          Alle prijzen excl. btw. Jaarcontract, maandelijks factureerbaar.
-        </p>
-      </section>
+      <AanbodSectie />
 
       {/* Waarom geen Excel */}
       <section className="py-12 border-b border-border">
@@ -239,19 +109,16 @@ export default function AIRegister() {
       {/* Training als instap */}
       <section className="py-12">
         <div className="rounded-xl p-8 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
-          <p className="text-sm font-medium text-orange-300 mb-2 tracking-wide uppercase">Nog niet klaar om te starten?</p>
-          <h3 className="text-xl font-bold mb-3">Begin met de gratis training</h3>
+          <p className="text-sm font-medium text-orange-300 mb-2 tracking-wide uppercase">Gratis</p>
+          <h3 className="text-xl font-bold mb-3">Start gratis</h3>
           <p className="text-sm text-gray-300 leading-relaxed mb-5">
-            Voordat je het AI-register gaat gebruiken, is het slim om eerst te begrijpen wat
-            de EU AI Act precies van je vraagt. Doe de gratis training — daarna weet je
-            precies wat je moet registreren en waarom.
+            Het register en de training zitten in hetzelfde gratis platform. Meld je
+            organisatie aan en je kunt direct beginnen.
           </p>
-          <Link
-            href="/aanvragen"
+          <AanmeldenCta
             className="inline-block px-6 py-3 bg-accent text-white rounded-lg font-semibold hover:bg-orange-600 transition-colors no-underline"
-          >
-            Start de gratis training →
-          </Link>
+            noteClassName="text-xs text-gray-400 mt-2 max-w-md"
+          />
         </div>
       </section>
     </div>

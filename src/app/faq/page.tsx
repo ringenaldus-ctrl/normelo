@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Script from "next/script";
+import { ARTIKEL_4_FAQ, HOOG_RISICO_ZIN } from "@/content/ai-act";
 
 export const metadata: Metadata = {
   title: "Veelgestelde vragen over de EU AI Act",
@@ -17,7 +18,13 @@ const faqs = [
   {
     question: "Wanneer gaat de EU AI Act in?",
     answer:
-      "De EU AI Act is op 1 augustus 2024 in werking getreden, maar wordt stapsgewijs van toepassing. Sinds februari 2025 zijn AI-systemen met een onaanvaardbaar risico verboden, zoals sociale scoring. Vanaf augustus 2025 gelden verplichtingen voor aanbieders van general-purpose AI-modellen. De belangrijkste deadline voor de meeste organisaties is augustus 2026: dan worden de volledige verplichtingen voor hoog-risico AI-systemen van toepassing, inclusief de eisen rond menselijk toezicht, transparantie en risicobeheer.",
+      "De EU AI Act is op 1 augustus 2024 in werking getreden en wordt stapsgewijs van toepassing. Sinds februari 2025 zijn AI-systemen met een onaanvaardbaar risico verboden, zoals sociale scoring, en geldt artikel 4 over AI-geletterdheid. Vanaf augustus 2025 gelden verplichtingen voor aanbieders van general-purpose AI-modellen. De verordening is in het algemeen van toepassing sinds 2 augustus 2026. " +
+      HOOG_RISICO_ZIN +
+      " Voor AI in gereguleerde producten (Bijlage I) is dat 2 augustus 2028.",
+  },
+  {
+    question: "Wat zegt artikel 4 over AI-geletterdheid?",
+    answer: ARTIKEL_4_FAQ,
   },
   {
     question: "Geldt de EU AI Act ook voor mijn organisatie?",
@@ -67,7 +74,8 @@ const faqs = [
   {
     question: "Wat moet ik nu al doen om me voor te bereiden?",
     answer:
-      "Begin met een inventarisatie. Breng in kaart welke software in je organisatie AI-componenten bevat, vooral in processen die mensen raken: werving, beoordeling, krediet, verzekeringen. Vraag je leveranciers expliciet of hun systemen als hoog-risico kwalificeren onder de EU AI Act. Beoordeel per systeem of er menselijk toezicht is en of betrokkenen geïnformeerd worden. Ga het gesprek aan met je leveranciers over hun planning voor EU AI Act-compliance, zij zijn als provider verantwoordelijk voor de technische kant. En begin met het opzetten van interne processen zodat recruiters en managers weten hoe ze met AI-beslissingen moeten omgaan. De deadline voor hoog-risico verplichtingen is augustus 2026.",
+      "Begin met een inventarisatie. Breng in kaart welke software in je organisatie AI-componenten bevat, vooral in processen die mensen raken: werving, beoordeling, krediet, verzekeringen. Vraag je leveranciers expliciet of hun systemen als hoog-risico kwalificeren onder de EU AI Act. Beoordeel per systeem of er menselijk toezicht is en of betrokkenen geïnformeerd worden. Ga het gesprek aan met je leveranciers over hun planning voor EU AI Act-compliance, zij zijn als provider verantwoordelijk voor de technische kant. En neem maatregelen zodat mensen die met AI werken die systemen beter begrijpen. " +
+      HOOG_RISICO_ZIN,
   },
 ];
 
