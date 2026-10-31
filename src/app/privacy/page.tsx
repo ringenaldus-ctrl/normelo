@@ -26,17 +26,13 @@ export default function Privacy() {
 
         <section>
           <h2 className="text-xl font-bold mb-3">1. Wie is verantwoordelijk?</h2>
-          <p className="mb-2">
+          <p>
             Verwerkingsverantwoordelijke is Gerard Ringenaldus, handelend onder de naam Normelo.
             Voor privacyvragen, inzageverzoeken of klachten kun je contact opnemen via{" "}
             <a href="mailto:info@normelo.com" className="text-accent hover:underline">
               info@normelo.com
             </a>
             .
-          </p>
-          <p className="text-sm text-muted italic">
-            KvK-nummer, vestigingsadres en exacte rechtsvorm volgen zodra de onderneming formeel
-            is ingeschreven. Tot die tijd kun je ons rechtstreeks per e-mail bereiken.
           </p>
         </section>
 
