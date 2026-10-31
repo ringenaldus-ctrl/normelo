@@ -51,7 +51,12 @@ function Footer() {
         <p className="mb-6 text-gray-300 italic">
           Normelo helpt uitzendbureaus met de EU AI Act — Quick Scan, gratis training en het AI-register om compliance concreet te regelen. <a href="/quick-scan" className="text-accent hover:underline">Doe de Quick Scan →</a>
         </p>
-        <p className="mb-4 text-gray-400">Vragen of opmerkingen? <a href="mailto:info@normelo.com" className="text-accent hover:underline">info@normelo.com</a></p>
+        <p className="mb-4 text-gray-400">
+          Vragen of opmerkingen?{" "}
+          <a href="https://normelo.nl/#contact" className="text-accent hover:underline">
+            Gebruik het contactformulier
+          </a>
+        </p>
         <p className="mb-4 text-xs text-gray-500 leading-relaxed max-w-3xl">{gerardRegel}</p>
         <p className="mb-4 text-xs text-gray-500 leading-relaxed max-w-3xl">
           Disclaimer: Normelo is geen aangemelde instantie (notified body) onder de EU AI Act.

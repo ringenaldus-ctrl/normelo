@@ -12,7 +12,7 @@ export default function Privacy() {
   return (
     <div className="max-w-3xl mx-auto px-6 py-16">
       <h1 className="text-3xl md:text-4xl font-bold leading-tight mb-3">Privacyverklaring</h1>
-      <p className="text-sm text-muted mb-10">Laatst bijgewerkt: 30 oktober 2026</p>
+      <p className="text-sm text-muted mb-10">Laatst bijgewerkt: 31 oktober 2026</p>
 
       <div className="space-y-10 text-foreground leading-relaxed">
         <section>
@@ -28,9 +28,9 @@ export default function Privacy() {
           <h2 className="text-xl font-bold mb-3">1. Wie is verantwoordelijk?</h2>
           <p>
             Verwerkingsverantwoordelijke is Gerard Ringenaldus, handelend onder de naam Normelo.
-            Voor privacyvragen, inzageverzoeken of klachten kun je contact opnemen via{" "}
-            <a href="mailto:info@normelo.com" className="text-accent hover:underline">
-              info@normelo.com
+            Voor privacyvragen, inzageverzoeken of klachten gebruik je het{" "}
+            <a href="https://normelo.nl/#contact" className="text-accent hover:underline">
+              contactformulier op normelo.nl
             </a>
             .
           </p>
@@ -82,7 +82,11 @@ export default function Privacy() {
             <p>
               <span className="font-semibold">Je Quick Scan-resultaat toesturen en daar zo nodig op volgen.</span>{" "}
               Grondslag: jouw toestemming, via het verplichte keuzevak bij het formulier (art. 6 lid 1 sub a AVG).
-              Je kunt deze toestemming op elk moment intrekken via info@normelo.com.
+              Je kunt deze toestemming op elk moment intrekken via het{" "}
+              <a href="https://normelo.nl/#contact" className="text-accent hover:underline">
+                contactformulier op normelo.nl
+              </a>
+              .
             </p>
             <p>
               <span className="font-semibold">Inzicht in websitegebruik en beveiliging.</span>{" "}
@@ -138,8 +142,8 @@ export default function Privacy() {
             <div>
               <p className="font-semibold">Resend Inc.</p>
               <p className="text-sm text-muted">
-                Versturen van transactionele e-mails (bevestiging Quick Scan-resultaat,
-                notificatie van een aanvraag).
+                Versturen van transactionele e-mails, zoals het Quick Scan-resultaat,
+                een melding van een formulier, een magic link of een certificaat.
               </p>
             </div>
             <div>
@@ -184,9 +188,9 @@ export default function Privacy() {
             doet geen afbreuk aan de rechtmatigheid van verwerking vóór de intrekking.
           </p>
           <p className="mb-3">
-            Stuur je verzoek naar{" "}
-            <a href="mailto:info@normelo.com" className="text-accent hover:underline">
-              info@normelo.com
+            Gebruik daarvoor het{" "}
+            <a href="https://normelo.nl/#contact" className="text-accent hover:underline">
+              contactformulier op normelo.nl
             </a>
             . We reageren uiterlijk binnen vier weken. Om je identiteit te verifiëren kunnen we
             om aanvullende gegevens vragen.

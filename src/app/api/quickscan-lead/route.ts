@@ -1,5 +1,13 @@
 import { createClient } from "@supabase/supabase-js";
-import { Resend } from "resend";
+import { mailTo, sendMail } from "@/lib/mail";
+
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
 
 export async function POST(request: Request) {
   try {
@@ -24,7 +32,6 @@ export async function POST(request: Request) {
 
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-    const resendApiKey = process.env.RESEND_API_KEY;
 
     if (!supabaseUrl || !supabaseKey) {
       return Response.json(
@@ -53,9 +60,8 @@ export async function POST(request: Request) {
       );
     }
 
-    // Send email via Resend
-    if (resendApiKey) {
-      const resend = new Resend(resendApiKey);
+    // E-mail via Resend. Ontbreekt de sleutel, dan blijft de lead opgeslagen.
+    {
 
       const risicoLabel =
         risico_niveau === "hoog"
@@ -215,18 +221,19 @@ export async function POST(request: Request) {
           ? (atsLookup[ats_systeem as string] || ats_systeem)
           : "-";
 
-        await resend.emails.send({
-          from: "Normelo <scan@normelo.com>",
-          to: ["ringenaldus@gmail.com"],
-          subject: `Nieuwe Quick Scan lead: ${email.trim().toLowerCase()} (${risicoLabel})`,
+        const safeEmail = escapeHtml(email.trim().toLowerCase());
+        await sendMail({
+          to: mailTo(),
+          replyTo: email.trim().toLowerCase(),
+          subject: `Nieuwe Quick Scan: ${email.trim().toLowerCase()} (${risicoLabel})`,
           html: `
 <div style="font-family:sans-serif;max-width:500px;padding:20px;">
   <h2 style="margin:0 0 16px;">Nieuwe Quick Scan lead</h2>
   <table style="border-collapse:collapse;width:100%;">
-    <tr><td style="padding:6px 12px 6px 0;font-weight:bold;font-size:14px;">E-mail</td><td style="padding:6px 0;font-size:14px;">${email.trim().toLowerCase()}</td></tr>
+    <tr><td style="padding:6px 12px 6px 0;font-weight:bold;font-size:14px;">E-mail</td><td style="padding:6px 0;font-size:14px;">${safeEmail}</td></tr>
     <tr><td style="padding:6px 12px 6px 0;font-weight:bold;font-size:14px;">Resultaat</td><td style="padding:6px 0;font-size:14px;color:${risicoKleur};font-weight:bold;">${risicoLabel}</td></tr>
-    <tr><td style="padding:6px 12px 6px 0;font-weight:bold;font-size:14px;">ATS-systeem</td><td style="padding:6px 0;font-size:14px;">${atsLabel}</td></tr>
-    <tr><td style="padding:6px 12px 6px 0;font-weight:bold;font-size:14px;">Hoog-risico systemen</td><td style="padding:6px 0;font-size:14px;">${systemenTekst}</td></tr>
+    <tr><td style="padding:6px 12px 6px 0;font-weight:bold;font-size:14px;">ATS-systeem</td><td style="padding:6px 0;font-size:14px;">${escapeHtml(String(atsLabel))}</td></tr>
+    <tr><td style="padding:6px 12px 6px 0;font-weight:bold;font-size:14px;">Hoog-risico systemen</td><td style="padding:6px 0;font-size:14px;">${escapeHtml(systemenTekst)}</td></tr>
     <tr><td style="padding:6px 12px 6px 0;font-weight:bold;font-size:14px;">Shadow AI</td><td style="padding:6px 0;font-size:14px;">${shadowLabel}</td></tr>
     <tr><td style="padding:6px 12px 6px 0;font-weight:bold;font-size:14px;">Beslissingen</td><td style="padding:6px 0;font-size:14px;">${beslissingenLabel}</td></tr>
     <tr><td style="padding:6px 12px 6px 0;font-weight:bold;font-size:14px;">Toezicht</td><td style="padding:6px 0;font-size:14px;">${toezichtLabel}</td></tr>
@@ -240,9 +247,8 @@ export async function POST(request: Request) {
 
       // Resultaat-mail naar de bezoeker
       try {
-        await resend.emails.send({
-          from: "Normelo <scan@normelo.com>",
-          to: [email.trim().toLowerCase()],
+        await sendMail({
+          to: email.trim().toLowerCase(),
           subject: `Jouw EU AI Act Quick Scan resultaat: ${risicoLabel}`,
           html: `
 <!DOCTYPE html>
