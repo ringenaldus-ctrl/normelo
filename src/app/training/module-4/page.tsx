@@ -218,9 +218,10 @@ export default function Module4() {
           <p>
             Begin met inventariseren. Vraag je team: welke AI-tools gebruik je? Waarvoor?
             Hoe vaak? Reageer niet veroordelend — je wilt eerlijke antwoorden. Gebruik
-            die informatie om het beleid te maken. En leg uit dat Artikel 4 van de EU AI
-            Act vereist dat iedereen die met AI werkt begrijpt wat de risico&apos;s zijn.
-            Dat is precies wat deze training doet.
+            die informatie om het beleid te maken. Artikel 4 vraagt dat je maatregelen
+            neemt om de AI-geletterdheid van mensen die met AI werken te ondersteunen, zodat
+            zij de risico&apos;s kunnen herkennen. Een vast niveau per persoon eist de wet niet.
+            Deze training is zo&apos;n maatregel.
           </p>
 
           <h2 className="text-xl font-bold mt-10 mb-3">Samenvatting</h2>

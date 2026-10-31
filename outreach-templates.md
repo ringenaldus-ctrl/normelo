@@ -1,59 +1,63 @@
-# Normelo — Outreach templates eerste klant
+# Normelo — Outreach templates
+
+Normelo is gratis. Aanmelden gaat alleen via https://normelo.nl/aanmelden, met bedrijfsnaam, aantal medewerkers en een contactpersoon.
+
+Artikel 4 (sinds 2 februari 2025, versoepeld op 27 juli 2026): aanbieders en gebruikers nemen maatregelen om AI-geletterdheid te ondersteunen. De wet eist geen vast niveau per persoon en geen boete-verhaal in deze berichten. Hoog-risico-verplichtingen uit Bijlage III gelden vanaf 2 december 2027.
+
+Het certificaat van Normelo legt vast dat iemand de training en toets heeft gedaan. Het is geen officiële conformiteitsverklaring.
 
 ---
 
 ## COLD EMAIL — Variant 1 (kort, direct)
 
-**Onderwerp:** Artikel 4 EU AI Act — geldt al voor jullie
+**Onderwerp:** Artikel 4 — maatregelen voor AI-geletterdheid
 
 Hoi [voornaam],
 
-Sinds 2 februari 2025 is Artikel 4 van de EU AI Act van kracht. Elke organisatie die AI-systemen inzet moet zorgen dat medewerkers AI-geletterd zijn.
+Sinds 2 februari 2025 vraagt artikel 4 van de EU AI Act dat organisaties maatregelen nemen om de AI-geletterdheid van medewerkers te ondersteunen. De wet eist geen vast niveau per persoon.
 
-Voor uitzendbureaus is dit extra relevant. ATS-systemen, matchingtools en CV-screening vallen onder de hoog-risico categorie. Recruiters en intercedenten die deze systemen dagelijks gebruiken, moeten aantoonbaar begrijpen hoe ze werken.
+Voor uitzendbureaus is dat praktisch relevant. ATS-systemen, matchingtools en CV-screening kunnen onder hoog-risico vallen. Die verplichtingen gelden vanaf 2 december 2027.
 
-Normelo biedt een compleet compliance-traject: online training specifiek voor de uitzendbranche, toets, certificering en kant-en-klare documentatie voor een audit.
+Normelo is gratis: rolgerichte training, toets, een certificaat van Normelo en een AI-register. Aanmelden doe je met bedrijfsnaam, aantal medewerkers en een contactpersoon.
 
-Kan ik je in 15 minuten laten zien wat het traject inhoudt?
+https://normelo.nl/aanmelden
 
 Gérard
 Normelo
-normelo.com/training
 
 ---
 
-## COLD EMAIL — Variant 2 (met urgentie)
+## COLD EMAIL — Variant 2 (zonder urgentie-druk)
 
-**Onderwerp:** Jullie recruiters gebruiken hoog-risico AI — weten ze dat?
+**Onderwerp:** Weten jullie recruiters waar de grens van hun AI-tool ligt?
 
 Hoi [voornaam],
 
-Even een directe vraag: weten jullie recruiters dat het ATS-systeem waarmee ze dagelijks werken als hoog-risico AI wordt aangemerkt onder de EU AI Act?
+Even een directe vraag: weten jullie recruiters wat het ATS doet als het kandidaten rankt of matcht, en wanneer een mens moet beslissen?
 
-Sinds februari 2025 verplicht Artikel 4 dat iedereen die met AI werkt een basisniveau van AI-geletterdheid heeft. De boetes lopen op tot €35 miljoen.
+Artikel 4 vraagt sinds februari 2025 om maatregelen die die kennis ondersteunen, afgestemd op de rol. Er is geen vast niveau per persoon voorgeschreven.
 
-Ik heb een online traject gebouwd specifiek voor uitzendbureaus. Je team doorloopt de training op eigen tempo, sluit af met een toets, en ontvangt een certificaat waarmee je compliance kunt aantonen.
+Ik heb Normelo daarvoor gebouwd. Het is gratis. Een team doorloopt de training in eigen tempo, maakt een toets en krijgt een certificaat van Normelo als vastlegging. Dat is geen officiële verklaring van een toezichthouder.
 
-Zal ik het programma doorsturen zodat je kunt zien of het past?
+Aanmelden: https://normelo.nl/aanmelden
 
 Gérard
-normelo.com/training
 
 ---
 
 ## COLD EMAIL — Variant 3 (waarde eerst)
 
-**Onderwerp:** Gratis Quick Scan — hoe compliant is [bedrijfsnaam]?
+**Onderwerp:** Gratis Quick Scan — hoe staat [bedrijfsnaam] ervoor?
 
 Hoi [voornaam],
 
-Ik heb een gratis Quick Scan gebouwd waarmee uitzendbureaus in 60 seconden kunnen zien hoe ze ervoor staan met de EU AI Act.
+Ik heb een gratis Quick Scan waarmee een uitzendbureau in een paar minuten ziet welke systemen onder de EU AI Act aandacht vragen.
 
-Je krijgt direct een overzicht van welke AI-systemen als hoog-risico worden aangemerkt en wat de concrete aandachtspunten zijn. Geen verplichtingen, geen verkooppraatje.
+Je krijgt een overzicht van de systemen die als hoog-risico kunnen kwalificeren en van de aandachtspunten. Geen verplichtingen.
 
-Hier is de link: normelo.com/quick-scan
+Hier is de link: https://normelo.nl/quick-scan
 
-Mocht het resultaat vragen oproepen — ik help graag.
+Om het resultaat per e-mail te ontvangen, vink je toestemming aan. Normelo is verder gratis aan te melden via https://normelo.nl/aanmelden.
 
 Gérard
 Normelo
@@ -62,7 +66,7 @@ Normelo
 
 ## LINKEDIN — Connectieverzoek
 
-Hoi [voornaam], ik werk aan Normelo — een kennisplatform over de EU AI Act, specifiek voor de uitzendbranche. Gezien jullie werk met [ATS/recruitment/uitzenden] leek het me relevant om te connecten.
+Hoi [voornaam], ik werk aan Normelo — een gratis platform voor rolgerichte AI-geletterdheid, specifiek bruikbaar in de uitzendbranche. Gezien jullie werk met [ATS/recruitment/uitzenden] leek het me relevant om te connecten.
 
 ---
 
@@ -70,11 +74,11 @@ Hoi [voornaam], ik werk aan Normelo — een kennisplatform over de EU AI Act, sp
 
 Hoi [voornaam],
 
-Bedankt voor de connectie. Even kort: sinds februari 2025 verplicht de EU AI Act dat medewerkers die met AI-systemen werken AI-geletterd zijn (Artikel 4).
+Bedankt voor de connectie. Even kort: sinds februari 2025 vraagt artikel 4 om maatregelen die de AI-geletterdheid van medewerkers ondersteunen. De wet eist geen vast niveau per persoon.
 
-Voor uitzendbureaus raakt dit direct de dagelijkse praktijk — ATS-systemen en matchingtools vallen onder hoog-risico. Ik heb een online traject gebouwd waarmee teams compliant worden inclusief certificering.
+Voor uitzendbureaus raakt dat de dagelijkse praktijk, omdat ATS-systemen en matchingtools onder hoog-risico kunnen vallen. Die regels gelden vanaf 2 december 2027.
 
-Mag ik je het programma sturen?
+Normelo is gratis: training, toets en een certificaat per rol. Aanmelden kan hier: https://normelo.nl/aanmelden
 
 ---
 
@@ -82,21 +86,21 @@ Mag ik je het programma sturen?
 
 Hoi [voornaam],
 
-Ik heb een gratis tool gebouwd waarmee uitzendbureaus in 60 seconden kunnen checken hoe ze ervoor staan met de EU AI Act: normelo.com/quick-scan
+Ik heb een gratis Quick Scan waarmee uitzendbureaus kunnen zien hoe ze ervoor staan met de EU AI Act: https://normelo.nl/quick-scan
 
-Geen registratie nodig. Kan interessant zijn gezien [referentie aan hun bedrijf].
+De scan zelf vraagt geen account. Het resultaat per e-mail alleen met toestemming. Kan relevant zijn gezien [referentie aan hun bedrijf].
 
 ---
 
 ## WARM NETWERK — Belscript
 
-"Hoi [naam], ik bel je even kort. Je weet dat ik bezig ben met Normelo — dat platform over de EU AI Act. Ik heb nu een concreet aanbod klaar en ik zoek een eerste klant.
+"Hoi [naam], ik bel je even kort. Je weet dat ik bezig ben met Normelo, het platform over de EU AI Act. Het is nu gratis.
 
-Het zit zo: sinds februari vorig jaar is Artikel 4 van kracht. Iedereen die met AI werkt moet aantoonbaar AI-geletterd zijn. Voor uitzendbureaus is dat extra relevant omdat ATS-systemen en matchingtools als hoog-risico worden aangemerkt.
+Artikel 4 vraagt sinds februari 2025 om maatregelen die AI-geletterdheid ondersteunen. Er is geen vast niveau per persoon. Voor uitzendbureaus is dat relevant omdat ATS-systemen en matchingtools als hoog-risico kunnen kwalificeren. Die verplichtingen gelden vanaf 2 december 2027.
 
-Ik heb een online traject gebouwd: je team doorloopt de training op eigen tempo, maakt een toets, en krijgt een certificaat. Plus de documentatie die je nodig hebt als er ooit iemand naar vraagt.
+Het platform traint per rol, toetst, en geeft een certificaat van Normelo als vastlegging van wat iemand heeft gedaan. Dat is geen officiële conformiteitsverklaring.
 
-Ken je iemand bij een uitzendbureau die hier mee bezig is — of zou moeten zijn?"
+Ken je iemand bij een uitzendbureau die hier mee bezig is? Aanmelden gaat via normelo.nl/aanmelden, met bedrijfsnaam, aantal medewerkers en een contactpersoon."
 
 ---
 
@@ -106,9 +110,11 @@ Ken je iemand bij een uitzendbureau die hier mee bezig is — of zou moeten zijn
 
 Hoi [voornaam],
 
-Kort follow-up op mijn vorige bericht. Ik snap dat het druk is — daarom even heel concreet:
+Kort follow-up op mijn vorige bericht. Heel concreet:
 
-De EU AI Act verplicht AI-geletterdheid sinds februari 2025. Jullie werken dagelijks met AI-systemen die als hoog-risico worden aangemerkt.
+Artikel 4 vraagt sinds februari 2025 om maatregelen voor AI-geletterdheid, zonder een vast niveau per persoon. Jullie werken met systemen die onder de hoog-risico-regels kunnen vallen. Die gelden vanaf 2 december 2027.
+
+Normelo is gratis als je dat wilt gebruiken: https://normelo.nl/aanmelden
 
 Eén vraag: is dit al opgepakt bij jullie?
 
@@ -118,8 +124,9 @@ Gérard
 
 ## TIPS VOOR GEBRUIK
 
-1. **Start met de Quick Scan route** (variant 3 + LinkedIn DM) — laagste drempel, geen commitment gevraagd, bouwt vertrouwen
-2. **Warm netwerk eerst** — je eerste klant komt waarschijnlijk via iemand die je al kent
-3. **Personaliseer altijd** — noem hun bedrijfsnaam, hun ATS-systeem als je dat weet, of iets van hun LinkedIn
-4. **Eén call-to-action per bericht** — niet "check de site EN boek een gesprek EN doe de scan"
-5. **Follow-up na 3-5 dagen** — de meeste deals komen uit de follow-up, niet uit het eerste bericht
+1. **Start met de Quick Scan route** (variant 3 + LinkedIn DM) — laagste drempel.
+2. **Warm netwerk eerst.**
+3. **Personaliseer altijd** — noem hun bedrijfsnaam, hun ATS-systeem als je dat weet, of iets van hun LinkedIn.
+4. **Eén call-to-action per bericht.**
+5. **Geen boetes noemen** en geen "voldoende niveau" of "je moet aantoonbaar AI-geletterd zijn".
+6. **Follow-up na 3-5 dagen.**

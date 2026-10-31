@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Script from "next/script";
+import AanmeldenCta from "../components/AanmeldenCta";
 
 export const metadata: Metadata = {
   title: "EU AI Act & de Uitzendbranche",
@@ -14,11 +15,11 @@ const articleSchema = {
   headline: "EU AI Act & de Uitzendbranche",
   description:
     "Wat betekent de EU AI Act voor uitzendbureaus? Uitleg over ATS-systemen, CV-screening en matchingtools als hoog-risico AI.",
-  author: { "@type": "Organization", name: "Normelo", url: "https://normelo.com" },
-  publisher: { "@type": "Organization", name: "Normelo", url: "https://normelo.com" },
+  author: { "@type": "Organization", name: "Normelo", url: "https://normelo.nl" },
+  publisher: { "@type": "Organization", name: "Normelo", url: "https://normelo.nl" },
   datePublished: "2026-04-01",
   dateModified: "2026-04-01",
-  mainEntityOfPage: "https://normelo.com/uitzendbranche",
+  mainEntityOfPage: "https://normelo.nl/uitzendbranche",
 };
 
 const faqSchema = {
@@ -46,7 +47,7 @@ const faqSchema = {
       name: "Wanneer moet een uitzendbureau EU AI Act compliant zijn?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "De volledige verplichtingen voor hoog-risico AI-systemen worden van toepassing in augustus 2026. Uitzendbureaus moeten vanaf dat moment aan alle eisen rond menselijk toezicht, transparantie, risicobeheer en data governance voldoen.",
+        text: "De verplichtingen voor hoog-risico AI-systemen uit Bijlage III gelden vanaf 2 december 2027. De Digital Omnibus (Verordening (EU) 2026/1744) heeft de eerdere datum van 2 augustus 2026 verschoven. Uitzendbureaus moeten vanaf 2 december 2027 aan de eisen rond menselijk toezicht, transparantie, risicobeheer en data governance voldoen.",
       },
     },
     {
@@ -219,8 +220,8 @@ export default function Uitzendbranche() {
         <p className="text-foreground leading-relaxed">
           Alleen je officiële systemen compliant maken is daarom niet genoeg. Echte compliance
           vereist dat medewerkers begrijpen welk AI-gebruik wel en niet mag, en waarom. Dat
-          begint bij AI-geletterdheid — een verplichting die overigens nu al geldt onder artikel 4
-          van de EU AI Act.
+          begint bij AI-geletterdheid. Artikel 4 vraagt sinds februari 2025 om maatregelen
+          die die geletterdheid ondersteunen. De wet eist geen vast niveau per persoon.
         </p>
       </section>
 
@@ -307,12 +308,12 @@ export default function Uitzendbranche() {
             </p>
           </div>
           <div className="flex gap-4 items-start">
-            <span className="text-sm font-mono text-accent whitespace-nowrap mt-0.5">aug 2026</span>
-            <p className="text-foreground leading-relaxed font-semibold">
-              De volledige verplichtingen voor hoog-risico AI-systemen worden van toepassing.
-              Dit is de deadline waar uitzendbureaus naartoe moeten werken. Vanaf dit moment
-              moeten alle eisen rond menselijk toezicht, transparantie, risicobeheer en
-              data governance operationeel zijn.
+            <span className="text-sm font-mono text-accent whitespace-nowrap mt-0.5">dec 2027</span>
+            <p className="text-foreground leading-relaxed">
+              De verplichtingen voor hoog-risico AI-systemen uit Bijlage III worden van toepassing.
+              De Digital Omnibus (Verordening (EU) 2026/1744) heeft deze datum verschoven van
+              2 augustus 2026. Vanaf 2 december 2027 moeten de eisen rond menselijk toezicht,
+              transparantie, risicobeheer en data governance operationeel zijn.
             </p>
           </div>
         </div>
@@ -322,8 +323,8 @@ export default function Uitzendbranche() {
       <section className="py-12 border-b border-border">
         <h2 className="text-2xl font-bold mb-4">Wat kun je nu al doen?</h2>
         <p className="text-foreground leading-relaxed mb-4">
-          Augustus 2026 lijkt ver weg, maar de voorbereidingen kosten tijd. Een aantal stappen
-          die je nu al kunt zetten:
+          2 december 2027 is de datum voor de hoog-risico-verplichtingen. De voorbereiding
+          kost tijd. Een aantal stappen die je nu al kunt zetten:
         </p>
         <p className="text-foreground leading-relaxed mb-4">
           Breng in kaart welke AI-systemen je gebruikt. Maak een inventarisatie van alle software
@@ -365,27 +366,18 @@ export default function Uitzendbranche() {
         </div>
       </section>
 
-      {/* Pakket-verwijzing */}
       <section className="py-12 border-b border-border">
         <div className="rounded-lg p-8 border border-border bg-surface">
-          <h2 className="text-2xl font-bold mb-3">Het hele traject in één pakket</h2>
+          <h2 className="text-2xl font-bold mb-3">Het hele traject, gratis</h2>
           <p className="text-foreground leading-relaxed mb-3 max-w-2xl">
-            Normelo biedt een voorbereidingstraject specifiek voor de uitzendbranche:
-            AI-register, AI-beleid op maat, teamtraining en een deelnamebewijs AI-geletterdheid
-            voor recruiters, intercedenten en hiring managers. Zodat zowel je systemen als je
-            mensen aantoonbaar invulling geven aan de verplichtingen uit de EU AI Act.
+            Normelo is gratis: AI-register, teamtraining, toets en een deelnamebewijs
+            AI-geletterdheid voor recruiters, intercedenten en hiring managers.
           </p>
           <p className="text-xs text-muted italic mb-5">
-            Inspanningsverbintenis. Normelo is geen aangemelde instantie (notified body) onder
-            de EU AI Act; de uiteindelijke beoordeling van compliance ligt bij de bevoegde
-            toezichthouder.
+            Normelo is geen aangemelde instantie (notified body) onder de EU AI Act.
+            De uiteindelijke beoordeling van compliance ligt bij de bevoegde toezichthouder.
           </p>
-          <Link
-            href="/aanvragen"
-            className="btn-accent inline-block px-6 py-3 bg-accent hover:bg-accent-hover rounded-lg font-medium no-underline transition-colors"
-          >
-            Plan een kennismaking →
-          </Link>
+          <AanmeldenCta className="btn-accent inline-block px-6 py-3 bg-accent hover:bg-accent-hover rounded-lg font-medium no-underline transition-colors text-white" />
         </div>
       </section>
 

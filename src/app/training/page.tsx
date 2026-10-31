@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import RegistratieForm from "../components/RegistratieForm";
+import AanmeldenCta from "../components/AanmeldenCta";
 
 export const metadata: Metadata = {
   title: "Gratis EU AI Act training voor uitzendbureaus",
@@ -16,19 +16,22 @@ export default function Training() {
         <div className="grid gap-10 md:grid-cols-2 items-start">
           <div>
             <div className="inline-block px-3 py-1 mb-4 text-sm font-medium bg-green-50 text-green-700 rounded-md border border-green-200">
-              Gratis — geen account nodig
+              Gratis
             </div>
             <h1 className="text-4xl font-bold leading-tight mb-4">
               EU AI Act training voor recruiters en intercedenten
             </h1>
             <p className="text-lg text-muted leading-relaxed">
-              Sinds februari 2025 moeten medewerkers die met AI werken AI-geletterd zijn
-              (art. 4 EU AI Act). Deze training legt uit wat dat concreet betekent voor
-              de uitzendbranche — in je eigen tempo, zonder kosten.
+              Sinds februari 2025 vraagt artikel 4 om maatregelen die AI-geletterdheid
+              ondersteunen. De wet eist geen vast niveau per persoon. Deze training laat
+              zien wat dat betekent voor de uitzendbranche — gratis, in je eigen tempo.
             </p>
           </div>
           <div className="md:mt-8">
-            <RegistratieForm />
+            <AanmeldenCta
+              label="Start gratis"
+              className="inline-block px-6 py-3 bg-accent text-white rounded-lg font-semibold hover:bg-accent-hover transition-colors no-underline"
+            />
           </div>
         </div>
       </section>

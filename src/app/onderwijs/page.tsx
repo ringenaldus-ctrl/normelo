@@ -14,11 +14,11 @@ const articleSchema = {
   headline: "EU AI Act & Onderwijs",
   description:
     "Wat betekent de EU AI Act voor scholen, universiteiten en onderwijsinstellingen? AI voor toelating en examenbeoordeling onder de EU AI Act.",
-  author: { "@type": "Organization", name: "Normelo", url: "https://normelo.com" },
-  publisher: { "@type": "Organization", name: "Normelo", url: "https://normelo.com" },
+  author: { "@type": "Organization", name: "Normelo", url: "https://normelo.nl" },
+  publisher: { "@type": "Organization", name: "Normelo", url: "https://normelo.nl" },
   datePublished: "2026-04-01",
   dateModified: "2026-04-01",
-  mainEntityOfPage: "https://normelo.com/onderwijs",
+  mainEntityOfPage: "https://normelo.nl/onderwijs",
 };
 
 const faqItems = [
@@ -50,7 +50,7 @@ const faqItems = [
   {
     question: "Wanneer moet het onderwijs EU AI Act compliant zijn?",
     answer:
-      "De verplichtingen voor hoog-risico AI-systemen uit Bijlage III worden van toepassing in augustus 2026. Onderwijsinstellingen die AI inzetten voor toelating, beoordeling of monitoring moeten vanaf dat moment aan alle eisen voldoen. Het is verstandig om nu al te inventariseren welke AI-tools worden gebruikt en te beoordelen of ze als hoog-risico kwalificeren.",
+      "De verplichtingen voor hoog-risico AI-systemen uit Bijlage III gelden vanaf 2 december 2027. De Digital Omnibus (Verordening (EU) 2026/1744) heeft de eerdere datum van 2 augustus 2026 verschoven. Onderwijsinstellingen die AI inzetten voor toelating, beoordeling of monitoring moeten vanaf 2 december 2027 aan de eisen voldoen. Het is verstandig om nu al te inventariseren welke AI-tools worden gebruikt en te beoordelen of ze als hoog-risico kwalificeren.",
   },
 ];
 

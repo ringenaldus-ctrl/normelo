@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   },
   description:
     "Begrijp de EU AI Act. Duidelijke uitleg over hoog-risico AI-systemen, deadlines en wat dit betekent voor jouw organisatie.",
-  metadataBase: new URL("https://normelo.com"),
+  metadataBase: new URL("https://normelo.nl"),
   openGraph: {
     type: "website",
     locale: "nl_NL",

@@ -14,11 +14,11 @@ const articleSchema = {
   headline: "EU AI Act & Logistiek en Transport",
   description:
     "Wat betekent de EU AI Act voor logistieke bedrijven en transportondernemingen? AI voor routing, planning en workforce monitoring onder de EU AI Act.",
-  author: { "@type": "Organization", name: "Normelo", url: "https://normelo.com" },
-  publisher: { "@type": "Organization", name: "Normelo", url: "https://normelo.com" },
+  author: { "@type": "Organization", name: "Normelo", url: "https://normelo.nl" },
+  publisher: { "@type": "Organization", name: "Normelo", url: "https://normelo.nl" },
   datePublished: "2026-04-01",
   dateModified: "2026-04-01",
-  mainEntityOfPage: "https://normelo.com/logistiek",
+  mainEntityOfPage: "https://normelo.nl/logistiek",
 };
 
 const faqItems = [
@@ -50,7 +50,7 @@ const faqItems = [
   {
     question: "Wanneer moet de logistieke sector EU AI Act compliant zijn?",
     answer:
-      "De deadline hangt af van het type AI-systeem. AI-systemen voor personeelsmonitoring en -beoordeling (Bijlage III) moeten compliant zijn in augustus 2026. AI-systemen die als veiligheidscomponent in voertuigen of machines zitten (Bijlage I) krijgen een langere termijn tot augustus 2027. Het is aan te raden om nu al te beginnen met de inventarisatie, omdat veel logistieke bedrijven nog niet goed in kaart hebben welke systemen AI bevatten.",
+      "De datum hangt af van het type AI-systeem. AI-systemen voor personeelsmonitoring en -beoordeling (Bijlage III) gelden vanaf 2 december 2027. AI-systemen die als veiligheidscomponent in voertuigen of machines zitten (Bijlage I) gelden vanaf 2 augustus 2028. De Digital Omnibus (Verordening (EU) 2026/1744) heeft de eerdere data verschoven. Het is verstandig om nu al te inventariseren, omdat veel logistieke bedrijven nog niet goed in kaart hebben welke systemen AI bevatten.",
   },
 ];
 

@@ -184,8 +184,8 @@ export default function Module2() {
               moet relevant en representatief zijn
             </div>
             <div className="p-3 bg-surface rounded text-sm">
-              <strong>AI-geletterdheid</strong> waarborgen — je medewerkers moeten begrijpen
-              hoe het systeem werkt (Artikel 4)
+              <strong>AI-geletterdheid</strong> ondersteunen — maatregelen zodat medewerkers
+              begrijpen hoe het systeem werkt (artikel 4). De wet eist geen vast niveau per persoon.
             </div>
           </div>
 
@@ -221,8 +221,9 @@ export default function Module2() {
               het juiste gebruik van deze systemen, los van wat de leverancier doet.
             </p>
             <p className="text-sm leading-relaxed">
-              De verplichtingen voor hoog-risico systemen treden volledig in werking op
-              2 augustus 2026. AI-geletterdheid (Artikel 4) geldt al sinds februari 2025.
+              De verplichtingen voor hoog-risico systemen uit Bijlage III gelden vanaf
+              2 december 2027. Artikel 4 vraagt sinds februari 2025 om maatregelen voor
+              AI-geletterdheid, zonder een vast niveau per persoon.
             </p>
           </div>
         </div>

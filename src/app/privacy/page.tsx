@@ -12,32 +12,27 @@ export default function Privacy() {
   return (
     <div className="max-w-3xl mx-auto px-6 py-16">
       <h1 className="text-3xl md:text-4xl font-bold leading-tight mb-3">Privacyverklaring</h1>
-      <p className="text-sm text-muted mb-10">Laatst bijgewerkt: 17 april 2026</p>
+      <p className="text-sm text-muted mb-10">Laatst bijgewerkt: 31 oktober 2026</p>
 
       <div className="space-y-10 text-foreground leading-relaxed">
         <section>
           <p>
             Normelo respecteert je privacy en verwerkt persoonsgegevens in overeenstemming met
             de Algemene verordening gegevensbescherming (AVG). Deze verklaring beschrijft welke
-            gegevens we verzamelen via normelo.com, waarom we dat doen, hoe lang we ze bewaren,
+            gegevens we verzamelen via normelo.nl, waarom we dat doen, hoe lang we ze bewaren,
             met wie we ze delen en welke rechten je hebt.
           </p>
         </section>
 
         <section>
           <h2 className="text-xl font-bold mb-3">1. Wie is verantwoordelijk?</h2>
-          <p className="mb-2">
-            Verwerkingsverantwoordelijke voor de gegevens die via deze website worden verzameld
-            is Normelo, gevestigd in Nederland. Voor privacyvragen, inzageverzoeken of klachten
-            kun je contact opnemen via{" "}
-            <a href="mailto:info@normelo.com" className="text-accent hover:underline">
-              info@normelo.com
+          <p>
+            Verwerkingsverantwoordelijke is Gerard Ringenaldus, handelend onder de naam Normelo.
+            Voor privacyvragen, inzageverzoeken of klachten gebruik je het{" "}
+            <a href="https://normelo.nl/#contact" className="text-accent hover:underline">
+              contactformulier op normelo.nl
             </a>
             .
-          </p>
-          <p className="text-sm text-muted italic">
-            KvK-nummer, vestigingsadres en exacte rechtsvorm volgen zodra de onderneming formeel
-            is ingeschreven. Tot die tijd kun je ons rechtstreeks per e-mail bereiken.
           </p>
         </section>
 
@@ -50,10 +45,11 @@ export default function Privacy() {
           </p>
           <div className="space-y-4">
             <div>
-              <p className="font-semibold mb-1">Via het aanvraagformulier (kennismaking)</p>
+              <p className="font-semibold mb-1">Via het aanmeldformulier op normelo.nl/aanmelden</p>
               <p className="text-sm text-muted">
-                Naam, naam van de organisatie, e-mailadres, telefoonnummer, teamgrootte, welke
-                AI-tools je gebruikt en eventuele opmerkingen die je zelf toevoegt.
+                Bedrijfsnaam, aantal medewerkers, naam van de contactpersoon en het
+                e-mailadres van die contactpersoon. Dat formulier staat op het platform,
+                niet op deze uitlegsite. Dezelfde verwerkingsverantwoordelijke ontvangt die gegevens.
               </p>
             </div>
             <div>
@@ -79,23 +75,23 @@ export default function Privacy() {
           <h2 className="text-xl font-bold mb-3">3. Waarom verwerken we ze?</h2>
           <div className="space-y-3">
             <p>
-              <span className="font-semibold">Contactverzoeken beantwoorden en offertes uitbrengen.</span>{" "}
-              Grondslag: uitvoering van of voorafgaand aan een overeenkomst (art. 6 lid 1 sub b AVG).
+              <span className="font-semibold">Je gratis account aanmaken en de gevraagde dienst leveren.</span>{" "}
+              Grondslag: uitvoering van de dienst die je zelf aanvraagt (art. 6 lid 1 sub b AVG).
+              Dit geldt voor de aanmelding op normelo.nl/aanmelden.
             </p>
             <p>
-              <span className="font-semibold">Je Quick Scan-resultaat toesturen.</span>{" "}
-              Grondslag: jouw toestemming, door bewust je e-mailadres in te voeren (art. 6 lid 1 sub a AVG).
-              Je kunt deze toestemming op elk moment intrekken.
+              <span className="font-semibold">Je Quick Scan-resultaat toesturen en daar zo nodig op volgen.</span>{" "}
+              Grondslag: jouw toestemming, via het verplichte keuzevak bij het formulier (art. 6 lid 1 sub a AVG).
+              Je kunt deze toestemming op elk moment intrekken via het{" "}
+              <a href="https://normelo.nl/#contact" className="text-accent hover:underline">
+                contactformulier op normelo.nl
+              </a>
+              .
             </p>
             <p>
               <span className="font-semibold">Inzicht in websitegebruik en beveiliging.</span>{" "}
               Grondslag: ons gerechtvaardigd belang om de site te laten werken en misbruik
               tegen te gaan (art. 6 lid 1 sub f AVG).
-            </p>
-            <p>
-              <span className="font-semibold">Wettelijke verplichtingen.</span> Zoals een
-              administratie voeren voor de Belastingdienst als er een overeenkomst tot stand
-              komt (art. 6 lid 1 sub c AVG).
             </p>
           </div>
           <p className="mt-4 text-sm text-muted">
@@ -110,11 +106,10 @@ export default function Privacy() {
             We bewaren gegevens niet langer dan nodig voor het doel waarvoor ze zijn verzameld.
           </p>
           <p className="mb-2">
-            Komt er geen overeenkomst tot stand, dan verwijderen we aanvragen en
-            Quick Scan-gegevens uiterlijk 24 maanden na het laatste contactmoment. Komt er wél
-            een overeenkomst tot stand, dan bewaren we de gegevens zolang de relatie loopt en
-            daarna tot 7 jaar na afloop — voor zover de Belastingdienst dat vereist.
-            Technische logs worden doorgaans binnen 30 dagen overschreven.
+            Accountgegevens bewaren we zolang het account bestaat. Vraag je verwijdering of
+            sluit je het account, dan wissen we ze. Quick Scan-gegevens wissen we als je
+            je toestemming intrekt, en in elk geval uiterlijk 24 maanden na het laatste
+            contactmoment. Technische logs worden doorgaans binnen 30 dagen overschreven.
           </p>
           <p>
             Je kunt altijd vragen om eerdere verwijdering; zie verderop &ldquo;Jouw rechten&rdquo;.
@@ -147,8 +142,8 @@ export default function Privacy() {
             <div>
               <p className="font-semibold">Resend Inc.</p>
               <p className="text-sm text-muted">
-                Versturen van transactionele e-mails (bevestiging Quick Scan-resultaat,
-                notificatie van een aanvraag).
+                Versturen van transactionele e-mails, zoals het Quick Scan-resultaat,
+                een melding van een formulier, een magic link of een certificaat.
               </p>
             </div>
             <div>
@@ -193,9 +188,9 @@ export default function Privacy() {
             doet geen afbreuk aan de rechtmatigheid van verwerking vóór de intrekking.
           </p>
           <p className="mb-3">
-            Stuur je verzoek naar{" "}
-            <a href="mailto:info@normelo.com" className="text-accent hover:underline">
-              info@normelo.com
+            Gebruik daarvoor het{" "}
+            <a href="https://normelo.nl/#contact" className="text-accent hover:underline">
+              contactformulier op normelo.nl
             </a>
             . We reageren uiterlijk binnen vier weken. Om je identiteit te verifiëren kunnen we
             om aanvullende gegevens vragen.

@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Analytics } from "@vercel/analytics/next";
 import NavLink from "./components/NavLink";
+import { aanmelden, gerardRegel } from "@/content/aanbod";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -11,8 +12,8 @@ export const metadata: Metadata = {
     template: "%s | Normelo",
   },
   description:
-    "Leer gratis wat de EU AI Act voor jouw uitzendbureau betekent. Gebruik daarna het Normelo AI-register om je compliance te regelen.",
-  metadataBase: new URL("https://normelo.com"),
+    "Normelo is gratis: rolgerichte AI-geletterdheid, toets, certificaat en een AI-register. Meld je organisatie aan en start direct.",
+  metadataBase: new URL("https://normelo.nl"),
   openGraph: {
     type: "website",
     locale: "nl_NL",
@@ -31,7 +32,9 @@ function Header() {
         <nav className="flex gap-6 text-sm items-center">
           <NavLink href="/quick-scan">Quick Scan</NavLink>
           <NavLink href="/ai-register">AI-register</NavLink>
-          <NavLink href="/aanvragen">Gratis training</NavLink>
+          <a href={aanmelden.href} className="text-muted hover:text-primary no-underline">
+            Gratis aanmelden
+          </a>
           <NavLink href="/uitzendbranche">Uitzendbranche</NavLink>
           <NavLink href="/hoog-risico">Hoog-risico AI</NavLink>
           <NavLink href="/faq">FAQ</NavLink>
@@ -48,7 +51,13 @@ function Footer() {
         <p className="mb-6 text-gray-300 italic">
           Normelo helpt uitzendbureaus met de EU AI Act — Quick Scan, gratis training en het AI-register om compliance concreet te regelen. <a href="/quick-scan" className="text-accent hover:underline">Doe de Quick Scan →</a>
         </p>
-        <p className="mb-4 text-gray-400">Vragen of opmerkingen? <a href="mailto:info@normelo.com" className="text-accent hover:underline">info@normelo.com</a></p>
+        <p className="mb-4 text-gray-400">
+          Vragen of opmerkingen?{" "}
+          <a href="https://normelo.nl/#contact" className="text-accent hover:underline">
+            Gebruik het contactformulier
+          </a>
+        </p>
+        <p className="mb-4 text-xs text-gray-500 leading-relaxed max-w-3xl">{gerardRegel}</p>
         <p className="mb-4 text-xs text-gray-500 leading-relaxed max-w-3xl">
           Disclaimer: Normelo is geen aangemelde instantie (notified body) onder de EU AI Act.
           Informatie op deze website is geen juridisch advies.

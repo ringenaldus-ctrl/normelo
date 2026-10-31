@@ -1,7 +1,6 @@
 # LinkedIn posts — Normelo / EU AI Act
 
-Hieronder 5 posts, klaar om te plaatsen. Eén per week. Kort, concreet, geen buzzwords.
-Elke post eindigt met de link naar de Quick Scan.
+Vijf posts. Kort en concreet. Artikel 4 is een plicht om maatregelen te nemen die AI-geletterdheid ondersteunen, sinds 2 februari 2025, zonder een vast niveau per persoon (tekst versoepeld op 27 juli 2026). Hoog-risico-verplichtingen uit Bijlage III gelden vanaf 2 december 2027. Normelo is gratis. Geen boetes in deze posts.
 
 ---
 
@@ -11,34 +10,34 @@ Je ATS-systeem gebruikt AI. Waarschijnlijk al jaren.
 
 CV-screening, kandidaten ranken, automatisch matchen — als jouw uitzendbureau Carerix, Bullhorn, Mysolution of Byner gebruikt, dan zet je AI in bij werving en selectie.
 
-Vanaf augustus 2026 valt dat onder hoog-risico volgens de EU AI Act.
+Dat soort gebruik kan onder hoog-risico vallen. Die verplichtingen gelden vanaf 2 december 2027: documentatie, menselijk toezicht, en transparantie naar kandidaten.
 
-Dat betekent: documentatieplicht, menselijk toezicht, en transparantie naar kandidaten over hoe AI meebesluit.
+Artikel 4 vraagt nu al om maatregelen die medewerkers helpen begrijpen wat zo'n systeem doet. De wet eist geen vast niveau per persoon.
 
-De meeste uitzendbureaus die ik spreek weten dit niet. Niet omdat het ze niet interesseert, maar omdat niemand het ze vertelt.
+Daarom is er een gratis Quick Scan. In een paar minuten zie je waar je staat.
 
-Daarom heb ik een gratis Quick Scan gemaakt. In 60 seconden weet je waar je staat.
-
-→ https://normelo.com/quick-scan
+→ https://normelo.nl/quick-scan
 
 ---
 
-## Post 2 — De deadline
+## Post 2 — De datum
 
-Augustus 2026.
+2 december 2027.
 
-Dat klinkt als ver weg. Maar als je uitzendbureau AI-systemen gebruikt voor CV-screening of matching — en dat doen de meeste — dan moet je tegen die tijd kunnen aantonen:
+Dat is de datum waarop de hoog-risico-verplichtingen voor systemen zoals werving en matching gelden. De eerdere datum van 2 augustus 2026 is verschoven.
+
+Als je uitzendbureau AI gebruikt voor CV-screening of matching, gaat het dan om vragen als:
 
 - Welke AI-systemen je gebruikt
 - Hoe beslissingen tot stand komen
 - Wie er toezicht houdt
 - Of kandidaten geïnformeerd worden
 
-Dat regel je niet in een week.
+Artikel 4 geldt al: maatregelen om AI-geletterdheid te ondersteunen, zonder een vast niveau per persoon.
 
-Het begint met weten of het op jou van toepassing is. Dat kun je in 60 seconden checken.
+Het begint met weten of het op jou van toepassing is.
 
-→ https://normelo.com/quick-scan
+→ https://normelo.nl/quick-scan
 
 ---
 
@@ -50,40 +49,36 @@ Vorige week vroeg ik een intercedent hoe ze cv's beoordelen.
 
 Geen kwade opzet. Geen beleid dat het verbiedt. Gewoon iemand die sneller wil werken.
 
-Maar onder de EU AI Act is dit een probleem. AI die meebesluit over werving en selectie valt onder hoog-risico — ook als het niet in je officiële tooling zit.
+AI die meebeslist over werving kan onder hoog-risico vallen — ook als het niet in de officiële tooling zit.
 
-Het heet shadow AI. En bijna elk uitzendbureau heeft het.
+Het heet shadow AI. Stap één is in kaart brengen wat er daadwerkelijk gebruikt wordt.
 
-Stap één: in kaart brengen wat er daadwerkelijk gebruikt wordt.
-
-→ https://normelo.com/quick-scan
+→ https://normelo.nl/quick-scan
 
 ---
 
 ## Post 4 — Het AI-register
 
-Onder de AVG moest je een verwerkingsregister aanleggen. Weet je nog hoe dat ging? Niemand had het, totdat de eerste boetes vielen.
+Onder de AVG moest je een verwerkingsregister aanleggen.
 
-De EU AI Act vraagt iets vergelijkbaars: een AI-register. Een overzicht van welke AI-systemen je inzet, waarvoor, en hoe het toezicht geregeld is.
+De EU AI Act vraagt iets vergelijkbaars: een overzicht van welke AI-systemen je inzet, waarvoor, en hoe het toezicht geregeld is.
 
 Voor uitzendbureaus die werken met ATS-systemen, matchingtools of AI-screening is dat direct relevant.
 
-Ik heb een gratis template gemaakt waarmee je vandaag kunt beginnen. Vul je systemen in, beoordeel het risico, download het als CSV.
+Normelo is gratis, inclusief dat register, de training en de toets. Je meldt de organisatie aan met bedrijfsnaam, aantal medewerkers en een contactpersoon.
 
-→ https://normelo.com/ai-register
+→ https://normelo.nl/aanmelden
 
 ---
 
 ## Post 5 — Kandidaten informeren
 
-Stel: een kandidaat solliciteert bij jouw uitzendbureau. Zijn cv wordt automatisch gescreend door je ATS. Een algoritme bepaalt of hij bovenaan of onderaan de lijst komt.
+Stel: een kandidaat solliciteert bij jouw uitzendbureau. Het cv wordt automatisch gescreend door het ATS. Een algoritme bepaalt of die persoon bovenaan of onderaan de lijst komt.
 
 Weet die kandidaat dat?
 
-Onder de EU AI Act moet je dat melden. Transparantie is geen optie, het is een verplichting. Kandidaten hebben het recht om te weten dat AI meebesluit over hun kansen.
-
-De meeste uitzendbureaus doen dit nog niet. Niet uit onwil — het staat gewoon nergens op de radar.
+Bij hoog-risico AI moet je dat kunnen uitleggen. Die verplichtingen gelden vanaf 2 december 2027. De meeste uitzendbureaus hebben dit nog niet op de radar.
 
 Wil je weten of dit voor jouw organisatie speelt?
 
-→ https://normelo.com/quick-scan
+→ https://normelo.nl/quick-scan

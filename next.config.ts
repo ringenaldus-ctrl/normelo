@@ -1,7 +1,15 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  async redirects() {
+    return [
+      {
+        source: "/aanvragen",
+        destination: "https://normelo.nl/aanmelden",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

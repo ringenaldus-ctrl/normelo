@@ -24,7 +24,7 @@ const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "De EU AI Act is op 1 augustus 2024 in werking getreden. Artikel 4 (AI-geletterdheid) geldt sinds 2 februari 2025. De hoog-risico verplichtingen gelden vanaf 2 augustus 2026.",
+      "De EU AI Act is op 1 augustus 2024 in werking getreden. Artikel 4 (maatregelen voor AI-geletterdheid, zonder vast niveau per persoon) geldt sinds 2 februari 2025. De hoog-risico verplichtingen uit Bijlage III gelden vanaf 2 december 2027.",
     module: "Module 1",
   },
   {
